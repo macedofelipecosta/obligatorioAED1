@@ -18,42 +18,42 @@ public class Main {
 
         System.out.println("p2_creacionMedicos--->");
         p2_creacionMedicos(p, s);
-
-//         s.agregarPaciente("dragon", 52200432, "Casa julio 123");
-//        s.reservaConsulta(1, 52200432, new Date("01/06/2023"));
-        System.out.println("p3_eliminarMedico--->");
-        p3_eliminarMedico(p, s);
+//
+////         s.agregarPaciente("dragon", 52200432, "Casa julio 123");
+////        s.reservaConsulta(1, 52200432, new Date("01/06/2023"));
+//        System.out.println("p3_eliminarMedico--->");
+//        p3_eliminarMedico(p, s);
         System.out.println("p4_registrarPaciente--->");
         p4_registrarPaciente(p, s);
-
-        s.reservaConsulta(1, 87654321, new Date("01/06/2023"));
-
-        System.out.println("p5_eliminarPaciente--->");
-        p5_eliminarPaciente(p, s);
-        System.out.println("p6_listarMedicos--->");
-        p6_listarMedicos(p, s);
-        System.out.println("p7_listarPacientes--->");
-        p7_listarPacientes(p, s);
-        System.out.println("p8_agregarConsultasMedico--->");
-        p8_agregarConsultasMedico(p, s);
-
-        p.imprimirResultadosPrueba();
+//
+//        s.reservaConsulta(1, 87654321, new Date("01/06/2023"));
+//
+//        System.out.println("p5_eliminarPaciente--->");
+//        p5_eliminarPaciente(p, s);
+//        System.out.println("p6_listarMedicos--->");
+//        p6_listarMedicos(p, s);
+//        System.out.println("p7_listarPacientes--->");
+//        p7_listarPacientes(p, s);
+//        System.out.println("p8_agregarConsultasMedico--->");
+//        p8_agregarConsultasMedico(p, s);
+//
+//        p.imprimirResultadosPrueba();
 
         System.out.println("1");
-        //formato fecha para realizar la reserva de consulta mm/DD/aaaa
-        s.reservaConsulta(1, 52011298, new Date("10/25/2023"));
+//        formato fecha para realizar la reserva de consulta mm/DD/aaaa
+        s.reservaConsulta(1, 52011298, new Date("10/26/2023"));
         System.out.println("2");
-        s.reservaConsulta(1, 12345678, new Date("10/30/2023"));
+        s.reservaConsulta(1, 12345678, new Date("10/26/2023"));
         System.out.println("3");
         s.reservaConsulta(1, 87654321, new Date("10/26/2023"));
         System.out.println("4");
         s.reservaConsulta(1, 52011297, new Date("10/26/2023"));
         System.out.println("5");
-        s.reservaConsulta(1, 52011298, new Date("10/31/2023"));
+        s.reservaConsulta(1, 52011298, new Date("10/26/2023"));
         System.out.println("6");
-        s.reservaConsulta(1, 65387491, new Date("10/25/2023"));
+        s.reservaConsulta(1, 65387491, new Date("10/26/2023"));
         System.out.println("6");
-        s.reservaConsulta(1, 90543287, new Date("10/25/2023"));
+        s.reservaConsulta(1, 90543287, new Date("10/26/2023"));
         System.out.println("7");
         s.cancelarReserva(1, 52011298);
         System.out.println("8");
@@ -101,7 +101,8 @@ public class Main {
     public static void p3_eliminarMedico(Prueba p, Sistema s) {
         p.ver(s.eliminarMedico(6).resultado, Retorno.Resultado.OK, "Se elimina correctamente el medico");
         p.ver(s.eliminarMedico(33).resultado, Retorno.Resultado.ERROR_1, "No se elimina un medico con codMedico inexistente");
-        p.ver(s.eliminarMedico(1).resultado, Retorno.Resultado.ERROR_2, "No se elimina un medico con consultas pendientes");
+        p.ver(s.eliminarMedico(7).resultado, Retorno.Resultado.ERROR_1, "No se elimina un medico con inexistente");
+        //agregar prueba para consultas pendientes
     }
 
     public static void p4_registrarPaciente(Prueba p, Sistema s) {

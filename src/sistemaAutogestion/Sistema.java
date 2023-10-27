@@ -53,10 +53,13 @@ public class Sistema implements IObligatorio {
 
         Medico nuevo = new Medico(nombre, codMedico, tel, especialidad);
 
+        if (listaMedicos.existeElemento(nuevo)) {
+            r.resultado = Retorno.Resultado.ERROR_1;
+            return r;
+        }
         if (especialidad < 1 || especialidad > 20) {
             r.resultado = Retorno.Resultado.ERROR_2;
-        } else if (listaMedicos.existeElemento(nuevo)) {
-            r.resultado = Retorno.Resultado.ERROR_1;
+            return r;
         } else {
             listaMedicos.agregarOrd(nuevo);
 //            listaMedicos.mostrar();
@@ -152,7 +155,7 @@ public class Sistema implements IObligatorio {
         boolean paciente = this.listaPacientes.existeElemento(ciPaciente);
         Nodo<Medico> m = listaMedicos.obtenerElemento(codMedico);
         Nodo<Paciente> p = listaPacientes.obtenerElemento(ciPaciente);
-        
+
         if (!medico) {
             r.resultado = Retorno.Resultado.ERROR_1;
             return r;
@@ -294,10 +297,15 @@ public class Sistema implements IObligatorio {
 
         if (!medico) {
             r.resultado = Retorno.Resultado.ERROR_1;
+            return r;
         }
         if (!m.getDato().consultasEnFecha(fechaConsulta)) {
             System.out.println("El medico no tiene consultas para este dia: " + fechaConsulta);
             r.resultado = Retorno.Resultado.ERROR_2;
+            return r;
+        }
+        if (m.getDato().cerrarPacientesAusentes(fechaConsulta)) {
+            r.resultado = Retorno.Resultado.OK;
         }
 
         return r;
