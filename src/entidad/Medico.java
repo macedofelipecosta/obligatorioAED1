@@ -516,6 +516,7 @@ public final class Medico implements Comparable<Medico> {
         if (aux != null) {
             Consulta auxConsulta = (Consulta) aux.getDato();
             while (aux.getSiguiente() != null) {
+                auxConsulta = (Consulta) aux.getDato();
                 if (sdf.format(f).equals(sdf.format(auxConsulta.getFecha()))) {
                     if (auxConsulta.getEstado().equals("Pendiente")) {
                         auxConsulta.setFalta();
