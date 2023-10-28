@@ -526,9 +526,11 @@ public final class Medico implements Comparable<Medico> {
                 }
                 aux = aux.getSiguiente();
             }
+            auxConsulta = (Consulta) aux.getDato();
             if (sdf.format(f).equals(sdf.format(auxConsulta.getFecha()))) {
                 if (auxConsulta.getEstado().equals("Pendiente")) {
                     auxConsulta.setFalta();
+                    System.out.println(auxConsulta.getEstado());
                     resultado=true;
                 }
             }
@@ -536,11 +538,16 @@ public final class Medico implements Comparable<Medico> {
         return resultado;
     }
     
-    public void listarConsultasDiaRec(){
+    public void listarConsultasDiaRec(Consulta obj){
     
-    
+        if(obj!=null){
+        
+        
+        }
     
     }
+    
+    
 }
 
 /**

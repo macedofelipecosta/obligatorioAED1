@@ -90,16 +90,17 @@ public class ListaNodos<T extends Comparable<T>> implements ILista<T> {
     @Override
     public void mostrar() {
         Nodo aux = inicio;
-        if (this.cantidadElementos > 0) {
-            while (aux.getSiguiente() != null) {
+        if(aux!=null){
+            if (this.cantidadElementos > 0) {
+                while (aux.getSiguiente() != null) {
+                    System.out.println(aux.getDato().toString());
+                    aux = aux.getSiguiente();
+                }
                 System.out.println(aux.getDato().toString());
-                aux = aux.getSiguiente();
+            } else {
+                System.out.println("Lista vacia!");
             }
-            System.out.println(aux.getDato().toString());
-        } else {
-            System.out.println("Lista vacia!");
         }
-
     }
 
     @Override
