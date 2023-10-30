@@ -341,7 +341,16 @@ public class Sistema implements IObligatorio {
      */
     @Override
     public Retorno listarConsultas(int codMédico) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean med = listaMedicos.existeElemento(codMédico);
+        Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        if (med) {
+            Medico m = (Medico) listaMedicos.obtenerElemento(codMédico).getDato();
+            r.resultado = Retorno.Resultado.OK;
+            m.listarConsultasXDia();
+        } else {
+            r.resultado = Retorno.Resultado.ERROR_1;
+        }
+        return r;
     }
 
     /*

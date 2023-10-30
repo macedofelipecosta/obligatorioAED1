@@ -478,11 +478,11 @@ public final class Medico implements Comparable<Medico> {
                 }
             }
             auxConsulta = (Consulta) aux.getDato();
-        if (auxConsulta.getCiPaciente() == ciPaciente) {
-            if (auxConsulta.getEstado().equals("En espera")) {
-                resultado = true;
+            if (auxConsulta.getCiPaciente() == ciPaciente) {
+                if (auxConsulta.getEstado().equals("En espera")) {
+                    resultado = true;
+                }
             }
-        }
         }
         return resultado;
     }
@@ -521,7 +521,7 @@ public final class Medico implements Comparable<Medico> {
                     if (auxConsulta.getEstado().equals("Pendiente")) {
                         auxConsulta.setFalta();
                         System.out.println(auxConsulta.getEstado());
-                        resultado=true;
+                        resultado = true;
                     }
                 }
                 aux = aux.getSiguiente();
@@ -531,23 +531,39 @@ public final class Medico implements Comparable<Medico> {
                 if (auxConsulta.getEstado().equals("Pendiente")) {
                     auxConsulta.setFalta();
                     System.out.println(auxConsulta.getEstado());
-                    resultado=true;
+                    resultado = true;
                 }
             }
         }
         return resultado;
     }
-    
-    public void listarConsultasDiaRec(Consulta obj){
-    
-        if(obj!=null){
-        
-        
+
+    public void listarConsultasXDia() {
+        Nodo aux = this.consultasAgendadas.obtenerInicio();
+        if (aux != null) {
+            listarConsultasDiaRec(aux);
         }
-    
+
     }
-    
-    
+
+    public void listarConsultasDiaRec(Nodo obj) {
+
+        if (obj != null) {
+
+            if (obj.getSiguiente() != null) {
+                Consulta auxConsulta = (Consulta) obj.getDato();
+                System.out.println(auxConsulta.getFecha());
+                listarConsultasDiaRec(obj.getSiguiente());
+
+            } else {
+                Consulta auxConsulta = (Consulta) obj.getDato();
+                System.out.println(auxConsulta.getFecha());
+            }
+
+        }
+
+    }
+
 }
 
 /**

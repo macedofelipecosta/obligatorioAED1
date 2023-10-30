@@ -36,6 +36,8 @@ public class Main {
         juegodeprueba4(s, p);
         juegodeprueba5(s, p);
         p.imprimirResultadosPrueba();
+        
+        s.listarConsultas(111);
  
     }
  
@@ -55,6 +57,7 @@ public class Main {
         prueba.ver(sistema.registrarMedico("Marcelo", 113, 1, 2).resultado, Retorno.Resultado.OK, "Pasa: Médico registrado");
         prueba.ver(sistema.registrarMedico("Tatiana", 120, 1, 0).resultado, Retorno.Resultado.ERROR_2, "Falla:  Especialidad menor a 1");
         prueba.ver(sistema.registrarMedico("Tatiana", 120, 1, 21).resultado, Retorno.Resultado.ERROR_2, "Falla:  Especialidad mayor a 20");
+        prueba.ver(sistema.registrarMedico("Rodolf", 1, 1, 21).resultado, Retorno.Resultado.ERROR_2, "Falla:  Especialidad mayor a 20");
     }
  
     private static void p3_eliminarMedico(Prueba prueba, Sistema sistema) {
