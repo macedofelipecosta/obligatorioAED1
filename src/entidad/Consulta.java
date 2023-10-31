@@ -107,7 +107,7 @@ public class Consulta implements Comparable<Consulta> {
 
     public void anunciarLLegada() {
         this.setEstado("En espera");
-        System.out.println("Numero de consulta: "+this.nroReserva);
+        System.out.println("Numero de consulta: " + this.nroReserva);
     }
 
     public void terminarConsulta(String detalleConsulta) {
@@ -120,18 +120,26 @@ public class Consulta implements Comparable<Consulta> {
         return this.fecha.compareTo(obj.getFecha());
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
-        return this.codMedico + this.ciPaciente == obj.hashCode();
+        if (!(obj instanceof Integer)) {
+            return false;
+        }
+        return this.ciPaciente == obj.hashCode();
     }
 
-    public void setFalta(){
+    public void setFalta() {
         this.setEstado("No asistio");
     }
-    
+
     @Override
     public int hashCode() {
-        return this.codMedico + this.ciPaciente;
+        return this.ciPaciente;
     }
 
 //    public boolean compararFecha(Date fecha) {
@@ -142,5 +150,4 @@ public class Consulta implements Comparable<Consulta> {
 //
 //        return resultado;
 //    }
-
 }

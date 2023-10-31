@@ -9,9 +9,6 @@ public class Sistema implements IObligatorio {
 
     private ListaNodos listaPacientes;
     private ListaNodos listaMedicos;
-    private ListaNodos listaPacientesEnEspera;
-    private ListaNodos listaConsultasPendientes;
-    private ListaNodos listaConsultasCerradas;
     private int maxPacientes;
 
     public Sistema() {
@@ -32,9 +29,6 @@ public class Sistema implements IObligatorio {
         } else {
             listaPacientes = new ListaNodos();
             listaMedicos = new ListaNodos();
-            listaPacientesEnEspera = new ListaNodos();
-            listaConsultasPendientes = new ListaNodos();
-            listaConsultasCerradas = new ListaNodos();
             maxPacientes = maxPacientesporMedico;
             r.resultado = Retorno.Resultado.OK;
         }
@@ -104,9 +98,12 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno agregarPaciente(String nombre, int CI, String direccion) {
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-
         Paciente nuevo = new Paciente(nombre, CI, direccion);
 
+//        if (listaPacientes.esVacia()) {
+//            listaPacientes.agregarFinal(nuevo);
+//            r.resultado = Retorno.Resultado.OK;
+//        }
         if (listaPacientes.existeElemento(nuevo)) {
             r.resultado = Retorno.Resultado.ERROR_1;
         } else {
@@ -149,39 +146,25 @@ public class Sistema implements IObligatorio {
      */
     @Override
     public Retorno reservaConsulta(int codMedico, int ciPaciente, Date fecha) {
-        //HAY QUE VER DE MEJORAR ESTE CODIGO
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-        boolean medico = this.listaMedicos.existeElemento(codMedico);
-        boolean paciente = this.listaPacientes.existeElemento(ciPaciente);
-        Nodo<Medico> m = listaMedicos.obtenerElemento(codMedico);
-        Nodo<Paciente> p = listaPacientes.obtenerElemento(ciPaciente);
-
-        if (!medico) {
+        Medico m = (Medico) listaMedicos.obtenerElemento(codMedico).getDato();
+        boolean p = listaPacientes.existeElemento(ciPaciente);
+        
+        if (!p) {
             r.resultado = Retorno.Resultado.ERROR_1;
             return r;
         }
-        if (!paciente) {
+        if (m == null) {
             r.resultado = Retorno.Resultado.ERROR_2;
             return r;
         }
-        Consulta nueva = new Consulta(codMedico, ciPaciente, fecha);
-
-        if (m.getDato().tieneAlgunaReserva(ciPaciente)) {
-            System.out.println("El paciente: " + ciPaciente + " ya tiene consulta con este medico!");
+        if (m.existeConsulta(ciPaciente, fecha)) {
             r.resultado = Retorno.Resultado.ERROR_3;
-        } else {
-
-            if (m.getDato().consultasFecha(nueva) < this.maxPacientes) {
-                m.getDato().agregarConsulta(nueva);
-                p.getDato().aumentarHistoriaClinica();
-                System.out.println("Numero de consultas totales en lista : " + m.getDato().consult()); //metodo consult para probar y verificar que funcione bien 
-            } else {
-                System.out.println("El medico no tiene mas consultas disponibles para el dia: " + fecha);
-                m.getDato().agregarEspera(nueva);
-                p.getDato().aumentarHistoriaClinica();
-                System.out.println("Cantidad en espera: " + m.getDato().esp());
-            }
+            return r;
+        } else if(m.cantidadConsultas(fecha)<=this.maxPacientes) {
+            m.consultaNueva(ciPaciente, fecha);
             r.resultado = Retorno.Resultado.OK;
+            
         }
         return r;
     }
@@ -203,22 +186,25 @@ public class Sistema implements IObligatorio {
         if (!paciente) {
             r.resultado = Retorno.Resultado.ERROR_2;
         }
-        if (!m.getDato().reservaPendiente(ciPaciente)) {
-            System.out.println("No tiene reserva en estado pendiente");
-            r.resultado = Retorno.Resultado.ERROR_4;
-        }
-        if (m.getDato().estadoCerrado(ciPaciente)) {
-            System.out.println("Consulta cerrada");
-            r.resultado = Retorno.Resultado.ERROR_3;
-        }
-        if (!m.getDato().tieneAlgunaReserva(ciPaciente)) {
-            System.out.println("No tiene reserva");
-            r.resultado = Retorno.Resultado.ERROR_3;
-        } else {
-            m.getDato().cancelarReserva(ciPaciente);
-            System.out.println("cant en espera: " + m.getDato().esp());
-            r.resultado = Retorno.Resultado.OK;
-        }
+//        if (!m.getDato().reservaPendiente(ciPaciente)) {
+//            System.out.println("No tiene reserva en estado pendiente");
+//            r.resultado = Retorno.Resultado.ERROR_4;
+//        }
+//        if (m.getDato().estadoCerrado(ciPaciente)) {
+//            System.out.println("Consulta cerrada");
+//            r.resultado = Retorno.Resultado.ERROR_3;
+//        }
+//        if (!m.getDato().tieneAlgunaReserva(ciPaciente)) {
+//            System.out.println("No tiene reserva");
+//            r.resultado = Retorno.Resultado.ERROR_3;
+//        } else {
+//            m.getDato().cancelarReserva(ciPaciente);
+//            System.out.println("cant en espera: " + m.getDato().esp());
+//            r.resultado = Retorno.Resultado.OK;
+//        }
+        m.getDato().cancelarReserva(ciPaciente);
+        System.out.println("cant en espera: " + m.getDato().esp());
+        r.resultado = Retorno.Resultado.OK;
 
         return r;
     }
@@ -391,3 +377,36 @@ public class Sistema implements IObligatorio {
     }
 
 }
+
+// boolean medico = this.listaMedicos.existeElemento(codMedico);
+//        boolean paciente = this.listaPacientes.existeElemento(ciPaciente);
+//        Nodo<Medico> m = listaMedicos.obtenerElemento(codMedico);
+//        Nodo<Paciente> p = listaPacientes.obtenerElemento(ciPaciente);
+//
+//        if (!medico) {
+//            r.resultado = Retorno.Resultado.ERROR_1;
+//            return r;
+//        }
+//        if (!paciente) {
+//            r.resultado = Retorno.Resultado.ERROR_2;
+//            return r;
+//        }
+//        Consulta nueva = new Consulta(codMedico, ciPaciente, fecha);
+//
+//        if (m.getDato().tieneAlgunaReserva(ciPaciente)) {
+//            System.out.println("El paciente: " + ciPaciente + " ya tiene consulta con este medico!");
+//            r.resultado = Retorno.Resultado.ERROR_3;
+//        } else {
+//
+//            if (m.getDato().consultasFecha(nueva) < this.maxPacientes) {
+//                m.getDato().agregarConsulta(nueva);
+//                p.getDato().aumentarHistoriaClinica();
+//                System.out.println("Numero de consultas totales en lista : " + m.getDato().consult()); //metodo consult para probar y verificar que funcione bien 
+//            } else {
+//                System.out.println("El medico no tiene mas consultas disponibles para el dia: " + fecha);
+//                m.getDato().agregarEspera(nueva);
+//                p.getDato().aumentarHistoriaClinica();
+//                System.out.println("Cantidad en espera: " + m.getDato().esp());
+//            }
+//            r.resultado = Retorno.Resultado.OK;
+//        }
