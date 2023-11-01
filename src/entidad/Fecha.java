@@ -111,14 +111,25 @@ public class Fecha implements Comparable<Fecha> {
         return getCantConsultasAgendadas(); // ver si este metodo es necesario 
     }
 
-    public void agregarConsulta(Consulta obj) {
+    public void agregarAgenda(Consulta obj) {
         if (obj != null) {
             boolean existe = consultasAgendadas.existeElemento(obj);
             if (!existe) {
                 consultasAgendadas.agregarOrd(obj);
                 this.cantConsultasAgendadas++;
             } else {
-                System.out.println("El paciente ya tiene una consulta agendada!");
+                System.out.println("El paciente ya tiene una consulta agendada pendiente!");
+            }
+        }
+    }
+
+    public void agregarEspera(Consulta obj) {
+        if (obj != null) {
+            boolean existe = consultasEnEspera.existeElemento(obj);
+            if (!existe) {
+                consultasEnEspera.agregarOrd(obj);
+            } else {
+                System.out.println("El paciente ya tiene una consulta agendada en espera!");
             }
         }
     }
@@ -127,46 +138,75 @@ public class Fecha implements Comparable<Fecha> {
         return this.cantConsultasAgendadas;
     }
 
-    public boolean pacienteConsulta(int ciPaciente) {
+    public boolean pacienteConsultaPendiente(int ciPaciente) {
         boolean resultado = false;
 
         if (consultasAgendadas.existeElemento(ciPaciente)) {
-            resultado = true;
-            System.out.println("Existe elemento consulta ci dentro de agendadas");
+            Consulta auxC = (Consulta) consultasAgendadas.obtenerElemento(ciPaciente).getDato();
+
+            if (auxC.getEstado().equals("Pendiente")) {
+                resultado = true;
+                System.out.println("Existe elemento consulta ci dentro de agendadas y esta en estado pendiente");
+            }
         }
         if (consultasEnEspera.existeElemento(ciPaciente)) {
-            resultado = true;
-            System.out.println("Existe elemento consulta ci dentro de espera");
+            Consulta auxC = (Consulta) consultasEnEspera.obtenerElemento(ciPaciente).getDato();
+
+            if (auxC.getEstado().equals("Pendiente")) {
+                resultado = true;
+                System.out.println("Existe elemento consulta ci dentro de espera y esta en estado pendiente");
+            }
         }
 
         return resultado;
     }
 
+    public boolean pacienteConsultaCerrada(int ciPaciente) {
+        boolean resultado = false;
+
+        if (consultasAgendadas.existeElemento(ciPaciente)) {
+            Consulta auxC = (Consulta) consultasAgendadas.obtenerElemento(ciPaciente).getDato();
+
+            if (auxC.getEstado().equals("Cerrada")) {
+                resultado = true;
+                System.out.println("Existe elemento consulta ci dentro de agendadas y esta en estado Cerrada");
+            }
+        }
+        return resultado;
+    }
+
     public boolean cancelarReservaFecha(int ciPaciente) {
         boolean existeElemento = false;
-        Nodo aux = consultasAgendadas.obtenerInicio();
+        Nodo agendada = consultasAgendadas.obtenerInicio();
         Nodo espera = consultasEnEspera.obtenerInicio();
-
-        if (aux != null) {
-            while (aux.getSiguiente() != null && !existeElemento) {
-                Consulta auxC = (Consulta) aux.getDato();
+        Consulta c = cambiarAgenda();
+        
+        if (agendada != null) {
+            while (agendada.getSiguiente() != null && !existeElemento) {
+                Consulta auxC = (Consulta) agendada.getDato();
                 if (auxC.equals(ciPaciente)) {
                     existeElemento = true;
-                    Consulta c = (Consulta) aux.getDato();
-                    consultasAgendadas.borrarElemento(c);
+                    System.out.println("Existe elemento el lista de agendas");
+                    if (c!=null) {
+                        auxC.setCiPaciente(c.getCiPaciente());
+                        consultasEnEspera.borrarElemento(c);
+                    }else{
+                        consultasAgendadas.borrarElemento(auxC);
+                    }
                     System.out.println("Elemento eliminado de la lista de agendados");
                 }
-                aux = aux.getSiguiente();
+                agendada = agendada.getSiguiente();
             }
         }
         if (espera != null && !existeElemento) {
 
             while (espera.getSiguiente() != null && !existeElemento) {
-
+                
                 if (espera.getDato().equals(ciPaciente)) {
                     existeElemento = true;
-                    Consulta c = (Consulta) espera.getDato();
-                    consultasEnEspera.borrarElemento(c);
+                    System.out.println("existe elemento en lista de espera");
+                    Consulta auxC = (Consulta) espera.getDato();
+                    consultasEnEspera.borrarElemento(auxC);
                     System.out.println("Elemento eliminado de la lista de espera");
                 }
                 espera = espera.getSiguiente();
@@ -174,6 +214,17 @@ public class Fecha implements Comparable<Fecha> {
 
         }
         return existeElemento;
+    }
+
+    public Consulta cambiarAgenda() {
+        if (!consultasEnEspera.esVacia()) {
+            Consulta auxC = (Consulta) consultasEnEspera.obtenerInicio().getDato();
+            return auxC;
+        } else {
+            System.out.println("No existen consultas en espera");
+            return null;
+        }
+
     }
 
 }

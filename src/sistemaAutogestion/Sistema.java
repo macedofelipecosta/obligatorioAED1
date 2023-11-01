@@ -161,8 +161,8 @@ public class Sistema implements IObligatorio {
         if (m.existeConsulta(ciPaciente, fecha)) {
             r.resultado = Retorno.Resultado.ERROR_3;
             return r;
-        } else if(m.cantidadConsultas(fecha)<=this.maxPacientes) {
-            m.consultaNueva(ciPaciente, fecha);
+        } else {
+            m.consultaNueva(ciPaciente, fecha, maxPacientes);
             r.resultado = Retorno.Resultado.OK;
             
         }
@@ -203,7 +203,7 @@ public class Sistema implements IObligatorio {
 //            r.resultado = Retorno.Resultado.OK;
 //        }
         m.getDato().cancelarReserva(ciPaciente);
-        System.out.println("cant en espera: " + m.getDato().esp());
+     
         r.resultado = Retorno.Resultado.OK;
 
         return r;
@@ -378,35 +378,4 @@ public class Sistema implements IObligatorio {
 
 }
 
-// boolean medico = this.listaMedicos.existeElemento(codMedico);
-//        boolean paciente = this.listaPacientes.existeElemento(ciPaciente);
-//        Nodo<Medico> m = listaMedicos.obtenerElemento(codMedico);
-//        Nodo<Paciente> p = listaPacientes.obtenerElemento(ciPaciente);
-//
-//        if (!medico) {
-//            r.resultado = Retorno.Resultado.ERROR_1;
-//            return r;
-//        }
-//        if (!paciente) {
-//            r.resultado = Retorno.Resultado.ERROR_2;
-//            return r;
-//        }
-//        Consulta nueva = new Consulta(codMedico, ciPaciente, fecha);
-//
-//        if (m.getDato().tieneAlgunaReserva(ciPaciente)) {
-//            System.out.println("El paciente: " + ciPaciente + " ya tiene consulta con este medico!");
-//            r.resultado = Retorno.Resultado.ERROR_3;
-//        } else {
-//
-//            if (m.getDato().consultasFecha(nueva) < this.maxPacientes) {
-//                m.getDato().agregarConsulta(nueva);
-//                p.getDato().aumentarHistoriaClinica();
-//                System.out.println("Numero de consultas totales en lista : " + m.getDato().consult()); //metodo consult para probar y verificar que funcione bien 
-//            } else {
-//                System.out.println("El medico no tiene mas consultas disponibles para el dia: " + fecha);
-//                m.getDato().agregarEspera(nueva);
-//                p.getDato().aumentarHistoriaClinica();
-//                System.out.println("Cantidad en espera: " + m.getDato().esp());
-//            }
-//            r.resultado = Retorno.Resultado.OK;
-//        }
+

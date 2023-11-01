@@ -150,50 +150,29 @@ public final class Medico implements Comparable<Medico> {
         }
     }
 
-    public void consultaNueva(int ciPaciente, Date objFecha) {
+    public void consultaNueva(int ciPaciente, Date objFecha, int maxPacientes) {
 
-        if (this.fechasAgendadas.existeElemento(objFecha)) {
+        if (fechasAgendadas.existeElemento(objFecha)) {
             Fecha auxFecha = (Fecha) fechasAgendadas.obtenerElemento(objFecha).getDato();
             if (auxFecha != null) {
                 Consulta auxConsulta = new Consulta(this.codMedico, ciPaciente, objFecha);
-                auxFecha.agregarConsulta(auxConsulta);
-//                System.out.println("Consulta agregada 1");
-//                System.out.println(auxFecha.cantidadConsultas());
+                if (auxFecha.cantidadConsultas() < maxPacientes) {
+                    auxFecha.agregarAgenda(auxConsulta);
+                    System.out.println("Consulta agendada en agenda");
+                } else {
+                    auxFecha.agregarEspera(auxConsulta);
+                    System.out.println("consulta agendada en espera");
+                }
+
             }
         } else {
             this.crearFecha(objFecha);
             Fecha auxFecha = (Fecha) fechasAgendadas.obtenerElemento(objFecha).getDato();
             Consulta auxConsulta = new Consulta(this.codMedico, ciPaciente, objFecha);
-            auxFecha.agregarConsulta(auxConsulta);
-//            System.out.println("Consulta agregada 2");
-//            System.out.println(auxFecha.cantidadConsultas());
+            auxFecha.agregarAgenda(auxConsulta);
+            System.out.println("Consulta agendada despues de crear la fecha");
         }
 
-    }
-
-    public int cantidadConsultas(Date obj) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Nodo aux = fechasAgendadas.obtenerInicio();
-        String auxObj = sdf.format(obj);
-        boolean response = false;
-        if (aux != null) {
-            if (aux.getSiguiente() != null) {
-                while (aux.getSiguiente() != null && !response) {
-                    Fecha auxF = (Fecha) aux.getDato();
-                    if (auxObj.equals(sdf.format(auxF.getDato()))) {
-                        response = true;
-                        return auxF.cantidadConsultas();
-                    }
-                    aux = aux.getSiguiente();
-                }
-            }
-            Fecha auxF = (Fecha) aux.getDato();
-            if (auxObj.equals(sdf.format(auxF.getDato()))) {
-                response = true;
-                return auxF.cantidadConsultas();
-            }
-        }
-        return 0;
     }
 
     public boolean existeConsulta(int ciPaciente, Date objD) {
@@ -201,109 +180,40 @@ public final class Medico implements Comparable<Medico> {
         if (this.fechasAgendadas.existeElemento(objD)) {
             Fecha fecha = (Fecha) this.fechasAgendadas.obtenerElemento(objD).getDato();
             if (fecha != null) {
-                respuesta = fecha.pacienteConsulta(ciPaciente); // ToDo: verificar creo que pacienteConsulta no funca bien !!
+                respuesta = fecha.pacienteConsultaPendiente(ciPaciente); // ToDo: verificar creo que pacienteConsultaPendiente no funca bien !!
             }
         }
         return respuesta;
     }
 
-    public void cancelarReserva(int ciPaciente) {
-        Nodo aux = fechasAgendadas.obtenerInicio();
+    public boolean cancelarReserva(int ciPaciente) {
         boolean result = false;
-
-        if (aux != null) {
-            Fecha auxF = (Fecha) aux.getDato();
-            if (aux.getSiguiente() == null) {
-                result = auxF.cancelarReservaFecha(ciPaciente);
-            } else {
-                while (aux.getSiguiente() != null && !result) {
-                    result = auxF.cancelarReservaFecha(ciPaciente);
-                    aux = aux.getSiguiente();
+        if (!fechasAgendadas.esVacia()) {
+            Nodo aux = fechasAgendadas.obtenerInicio();
+            if (aux.getSiguiente() != null) {
+                Fecha auxF = (Fecha) aux.getDato();
+                if (!auxF.pacienteConsultaPendiente(ciPaciente) || !auxF.pacienteConsultaCerrada(ciPaciente)) {
+                    while (aux.getSiguiente() != null && !result) {
+                        auxF.cancelarReservaFecha(ciPaciente);
+                        result = true;
+                        System.out.println("Result= true, consuilta eliminada -->sout de Medico");
+                    }
                 }
-// se sale porque getSiguiente ==null
+            }
+            if (aux.getSiguiente() == null) {
+                Fecha auxF = (Fecha) aux.getDato();
+                if (!auxF.pacienteConsultaPendiente(ciPaciente) || !auxF.pacienteConsultaCerrada(ciPaciente)) {
+                    auxF.cancelarReservaFecha(ciPaciente);
+                    result = true;
+                    System.out.println("Result= true, consuilta eliminada sin aux.getSigueinte-->sout de Medico");
+
+                }
             }
         }
-        if (!result) {
-            System.out.println("No se elimino la consulta");
-        }
-        if (result) {
-            System.out.println("Se elimino la consulta");
-        }
+        return result;
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    public int consultasFecha(Consulta obj) {
-        int cantidad = 0;
-        Nodo aux = fechasAgendadas.obtenerInicio();
-
-        if (aux != null) {
-            cantidad++;
-            if (aux.getSiguiente() != null) {
-                while (aux.getSiguiente() != null) {
-                    if (aux.getDato().compareTo(obj) == 0) {
-                        cantidad++;
-//                        System.out.println("consultasFecha cuando al menos hay 2 elementos ,cantidad: " + cantidad);
-                    }
-
-                    aux = aux.getSiguiente();
-                }
-//                System.out.println("consultasFecha cuando al menos hay 2 elementos ,cantidad: " + cantidad);
-            } else {
-                cantidad++;
-//                System.out.println("Cuando hay una consulta sola");
-            }
-        }
-
-        return cantidad;
-    }
-
-    public void agregarEspera(Consulta obj) {
-        if (obj != null && !comprobarEspera(obj)) {
-            consultasEnEspera.agregarFinal(obj);
-            this.consultasEsperando++;
-            System.out.println("Se agrego el paceinte: " + obj.getCiPaciente() + " a la lista de espera del medico: " + obj.getCodMedico());
-        } else {
-            System.out.println("No se ha podido agregar la consulta a la lista de espera, el objeto es null o el paciente ya se encuentra en ella");
-        }
-    }
-
-    public boolean comprobarEspera(Consulta obj) {
-        boolean resultado = false;
-        Nodo aux = consultasEnEspera.obtenerInicio();
-        if (aux != null) {
-            Consulta auxConsulta = (Consulta) aux.getDato();
-            if (auxConsulta.getCiPaciente() == obj.getCiPaciente()) {
-                resultado = true;
-            } else {
-                while (aux.getSiguiente() != null && !resultado) {
-                    auxConsulta = (Consulta) aux.getDato();
-                    if (auxConsulta.getCiPaciente() == obj.getCiPaciente()) {
-                        resultado = true;
-                    }
-                    aux = aux.getSiguiente();
-                }
-            }
-        }
-        return resultado;
-    }
-
-    public int consult() {
-        return fechasAgendadas.cantElementos();
-    }
-
-    public int esp() {
-        return consultasEnEspera.cantElementos();
-    }
-
-    public Nodo sacarEspera() {
-        if (consultasEnEspera.cantElementos() > 0) {
-            Nodo aux = consultasEnEspera.obtenerInicio();
-            consultasEnEspera.borrarInicio();
-            return aux;
-        }
-        return null;
-    }
-
     public boolean estadoCerrado(int ciPaciente) {
         boolean resultado = false;
         Nodo aux = fechasAgendadas.obtenerInicio();
@@ -329,30 +239,6 @@ public final class Medico implements Comparable<Medico> {
         }
 
         return resultado;
-    }
-
-    public boolean tieneAlgunaReserva(int ciPaciente) {
-        boolean resultado = false;
-        Nodo aux = fechasAgendadas.obtenerInicio();
-
-        if (aux != null) {
-            Consulta auxConsulta = (Consulta) aux.getDato();
-            if (auxConsulta.getCiPaciente() == ciPaciente) {
-                resultado = true;
-            } else {
-                while (aux.getSiguiente() != null && !resultado) {
-                    auxConsulta = (Consulta) aux.getDato();
-                    if (auxConsulta.getCiPaciente() == ciPaciente) {
-                        resultado = true;
-                    }
-                    aux = aux.getSiguiente();
-                }
-            }
-
-        }
-
-        return resultado;
-
     }
 
     public boolean tieneReservaEnDia(int ciPaciente) {
@@ -390,67 +276,6 @@ public final class Medico implements Comparable<Medico> {
         return resultado;
     }
 
-    public boolean reservaPendiente(int ciPaciente) {
-        boolean resultado = false;
-        Nodo aux = fechasAgendadas.obtenerInicio();
-
-        if (aux != null) {
-            Consulta auxConsulta = (Consulta) aux.getDato();
-            if (auxConsulta.getCiPaciente() == ciPaciente) {
-                if (auxConsulta.getEstado().equals("Pendiente")) {
-                    resultado = true;
-                }
-            } else {
-                while (aux.getSiguiente() != null && !resultado) {
-                    auxConsulta = (Consulta) aux.getDato();
-                    if (auxConsulta.getCiPaciente() == ciPaciente) {
-                        if (auxConsulta.getEstado().equals("Pendiente")) {
-                            resultado = true;
-                        }
-                    }
-                    aux = aux.getSiguiente();
-                }
-            }
-
-        }
-
-        return resultado;
-    }
-
-//    public void cancelarReserva(int ciPaciente) {
-//        Nodo espera = consultasEnEspera.obtenerInicio();
-//        Nodo aux = fechasAgendadas.obtenerInicio();
-//
-//        boolean consultaEncontrada = false;
-//        boolean nroEsperaAsignado = false;
-//        Consulta consulta = null;
-//        Consulta auxEspera = null;
-//
-//        if (aux != null) {
-//            while (!consultaEncontrada && aux.getSiguiente() != null) {
-//                consulta = (Consulta) aux.getDato();
-//                if (consulta.getCiPaciente() == ciPaciente) {
-//
-//                    consultaEncontrada = true;
-//                    System.out.println("Dato parametro: " + ciPaciente + "Dato lista: " + consulta.getCiPaciente());
-//                }
-//                aux = aux.getSiguiente();
-//            }
-//        }
-//        while (espera != null && !nroEsperaAsignado) {
-//            auxEspera = (Consulta) espera.getDato();
-////            System.out.println("Fecha en espera: " + auxEspera.getFecha());
-////            System.out.println("Fecha consulta: " + consulta.getFecha());
-//            if (auxEspera.getFecha().equals(consulta.getFecha())) { //consulta puede ser null
-//                consulta.setCiPaciente(auxEspera.getCiPaciente());
-//                nroEsperaAsignado = true;
-//                System.out.println("La cedula asignada a esta consulta es : " + auxEspera.getCiPaciente());
-//                consultasEnEspera.borrarElemento(auxEspera);
-//                System.out.println("Se ha borrado la consulta y se le ha asignado a un paciente en espera");
-//            }
-//            espera = espera.getSiguiente();
-//        }
-//    }
     public boolean anunciarLlegadaPaciente(int ciPaciente) {
         boolean resultado = false;
         Nodo aux = fechasAgendadas.obtenerInicio();

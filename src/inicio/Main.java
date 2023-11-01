@@ -47,14 +47,14 @@ public class Main {
         s.agregarPaciente("Fe", 2, "Alguna");
         s.agregarPaciente("Wind", 3, "Alguna");
         s.agregarPaciente("Ho", 4, "Alguna");
-        
-        
+
         s.registrarMedico("Hor", 1, 123, 3);
         s.reservaConsulta(1, 1, new Date());
         s.reservaConsulta(1, 2, new Date());
         s.reservaConsulta(1, 3, new Date());
         s.reservaConsulta(1, 4, new Date());
-        s.cancelarReserva(1, 3);
+        s.reservaConsulta(1, 4, new Date());
+        s.cancelarReserva(1, 4);
 
     }
 
