@@ -175,15 +175,54 @@ public final class Medico implements Comparable<Medico> {
 
     }
 
-    public boolean existeConsulta(int ciPaciente, Date objD) {
+    public boolean existeConsultaPendiente(int ciPaciente) {
         boolean respuesta = false;
-        if (this.fechasAgendadas.existeElemento(objD)) {
-            Fecha fecha = (Fecha) this.fechasAgendadas.obtenerElemento(objD).getDato();
-            if (fecha != null) {
-                respuesta = fecha.pacienteConsultaPendiente(ciPaciente); // ToDo: verificar creo que pacienteConsultaPendiente no funca bien !!
+        if (!fechasAgendadas.esVacia()) {
+            Nodo aux = fechasAgendadas.obtenerInicio();
+            if (aux.getSiguiente() != null) {
+                while (aux.getSiguiente() != null && !respuesta) {
+                    Fecha fecha = (Fecha) aux.getDato();
+                    if (fecha != null) {
+                        respuesta = fecha.pacienteConsultaPendiente(ciPaciente); // ToDo: verificar creo que pacienteConsultaPendiente no funca bien !!
+                    }
+                    aux = aux.getSiguiente();
+                }
+            }
+            if (aux.getSiguiente() == null) {
+                Fecha fecha = (Fecha) aux.getDato();
+                if (fecha != null) {
+                    respuesta = fecha.pacienteConsultaPendiente(ciPaciente); // ToDo: verificar creo que pacienteConsultaPendiente no funca bien !!
+                }
             }
         }
         return respuesta;
+    }
+
+    public boolean existeConsultaCerrada(int ciPaciente) {
+        boolean respuesta = false;
+        if (!fechasAgendadas.esVacia()) {
+            Nodo aux = fechasAgendadas.obtenerInicio();
+            if (aux.getSiguiente() != null) {
+                while (aux.getSiguiente() != null && !respuesta) {
+                    Fecha fecha = (Fecha) aux.getDato();
+                    if (fecha != null) {
+                        respuesta = fecha.pacienteConsultaCerrada(ciPaciente); // ToDo: verificar creo que pacienteConsultaPendiente no funca bien !!
+                    }
+                    aux = aux.getSiguiente();
+                }
+            }
+            if (aux.getSiguiente() == null) {
+                Fecha fecha = (Fecha) aux.getDato();
+                if (fecha != null) {
+                    respuesta = fecha.pacienteConsultaCerrada(ciPaciente); // ToDo: verificar creo que pacienteConsultaPendiente no funca bien !!
+                }
+            }
+        }
+        return respuesta;
+    }
+
+    public boolean existeConsulta(int ciPaciente) {
+        return existeConsultaPendiente(ciPaciente) && existeConsultaCerrada(ciPaciente);
     }
 
     public boolean cancelarReserva(int ciPaciente) {
@@ -211,6 +250,10 @@ public final class Medico implements Comparable<Medico> {
             }
         }
         return result;
+    }
+
+    public void terminarConsulta(int ciPaciente) {
+
     }
 
     ///////////////////////////////////////////////////////////////////////////

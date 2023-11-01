@@ -143,7 +143,6 @@ public class Fecha implements Comparable<Fecha> {
 
         if (consultasAgendadas.existeElemento(ciPaciente)) {
             Consulta auxC = (Consulta) consultasAgendadas.obtenerElemento(ciPaciente).getDato();
-
             if (auxC.getEstado().equals("Pendiente")) {
                 resultado = true;
                 System.out.println("Existe elemento consulta ci dentro de agendadas y esta en estado pendiente");
@@ -151,7 +150,6 @@ public class Fecha implements Comparable<Fecha> {
         }
         if (consultasEnEspera.existeElemento(ciPaciente)) {
             Consulta auxC = (Consulta) consultasEnEspera.obtenerElemento(ciPaciente).getDato();
-
             if (auxC.getEstado().equals("Pendiente")) {
                 resultado = true;
                 System.out.println("Existe elemento consulta ci dentro de espera y esta en estado pendiente");
@@ -180,17 +178,17 @@ public class Fecha implements Comparable<Fecha> {
         Nodo agendada = consultasAgendadas.obtenerInicio();
         Nodo espera = consultasEnEspera.obtenerInicio();
         Consulta c = cambiarAgenda();
-        
+
         if (agendada != null) {
             while (agendada.getSiguiente() != null && !existeElemento) {
                 Consulta auxC = (Consulta) agendada.getDato();
                 if (auxC.equals(ciPaciente)) {
                     existeElemento = true;
                     System.out.println("Existe elemento el lista de agendas");
-                    if (c!=null) {
+                    if (c != null) {
                         auxC.setCiPaciente(c.getCiPaciente());
                         consultasEnEspera.borrarElemento(c);
-                    }else{
+                    } else {
                         consultasAgendadas.borrarElemento(auxC);
                     }
                     System.out.println("Elemento eliminado de la lista de agendados");
@@ -201,7 +199,7 @@ public class Fecha implements Comparable<Fecha> {
         if (espera != null && !existeElemento) {
 
             while (espera.getSiguiente() != null && !existeElemento) {
-                
+
                 if (espera.getDato().equals(ciPaciente)) {
                     existeElemento = true;
                     System.out.println("existe elemento en lista de espera");
@@ -225,6 +223,12 @@ public class Fecha implements Comparable<Fecha> {
             return null;
         }
 
+    }
+
+    public boolean terminarConsultaPendiente(int ciPaciente) {
+        boolean result = false;
+
+        return result;
     }
 
 }

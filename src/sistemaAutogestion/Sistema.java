@@ -149,7 +149,7 @@ public class Sistema implements IObligatorio {
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         Medico m = (Medico) listaMedicos.obtenerElemento(codMedico).getDato();
         boolean p = listaPacientes.existeElemento(ciPaciente);
-        
+
         if (!p) {
             r.resultado = Retorno.Resultado.ERROR_1;
             return r;
@@ -158,13 +158,13 @@ public class Sistema implements IObligatorio {
             r.resultado = Retorno.Resultado.ERROR_2;
             return r;
         }
-        if (m.existeConsulta(ciPaciente, fecha)) {
+        if (m.existeConsultaPendiente(ciPaciente)) {
             r.resultado = Retorno.Resultado.ERROR_3;
             return r;
         } else {
             m.consultaNueva(ciPaciente, fecha, maxPacientes);
             r.resultado = Retorno.Resultado.OK;
-            
+
         }
         return r;
     }
@@ -186,26 +186,18 @@ public class Sistema implements IObligatorio {
         if (!paciente) {
             r.resultado = Retorno.Resultado.ERROR_2;
         }
-//        if (!m.getDato().reservaPendiente(ciPaciente)) {
-//            System.out.println("No tiene reserva en estado pendiente");
-//            r.resultado = Retorno.Resultado.ERROR_4;
-//        }
-//        if (m.getDato().estadoCerrado(ciPaciente)) {
-//            System.out.println("Consulta cerrada");
-//            r.resultado = Retorno.Resultado.ERROR_3;
-//        }
-//        if (!m.getDato().tieneAlgunaReserva(ciPaciente)) {
-//            System.out.println("No tiene reserva");
-//            r.resultado = Retorno.Resultado.ERROR_3;
-//        } else {
-//            m.getDato().cancelarReserva(ciPaciente);
-//            System.out.println("cant en espera: " + m.getDato().esp());
-//            r.resultado = Retorno.Resultado.OK;
-//        }
-        m.getDato().cancelarReserva(ciPaciente);
-     
-        r.resultado = Retorno.Resultado.OK;
-
+        if (m.getDato().existeConsultaCerrada(ciPaciente)) {
+            r.resultado = Retorno.Resultado.ERROR_3;
+        }
+        if (m.getDato().existeConsulta(ciPaciente)) {
+            r.resultado = Retorno.Resultado.ERROR_3;
+        }
+        if (!m.getDato().existeConsultaPendiente(ciPaciente)) {
+            r.resultado = Retorno.Resultado.ERROR_4;
+        } else {
+            m.getDato().cancelarReserva(ciPaciente);
+            r.resultado = Retorno.Resultado.OK;
+        }
         return r;
     }
 
@@ -377,5 +369,3 @@ public class Sistema implements IObligatorio {
     }
 
 }
-
-
