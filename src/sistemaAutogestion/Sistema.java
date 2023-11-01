@@ -1,7 +1,6 @@
 package sistemaAutogestion;
 
 import entidad.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import tads.*;
 
@@ -282,7 +281,7 @@ public class Sistema implements IObligatorio {
             r.resultado = Retorno.Resultado.ERROR_2;
             return r;
         } else {
-            m.getDato().cerrarPacientesAusentes(fechaConsulta);
+            m.getDato().cerrarPacientesAusentes(fechaConsulta,listaPacientes);
             r.resultado = Retorno.Resultado.OK;
         }
 

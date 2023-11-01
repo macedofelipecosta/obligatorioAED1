@@ -108,4 +108,20 @@ public class Paciente implements Comparable<Paciente> {
         }
         return resultado;
     }
+
+    public void noAsistencia(Consulta obj) {
+
+        if (obj != null) {
+            if (obj.getCiPaciente() == this.CI) {
+                this.historialClinico.agregarInicio(obj);
+                this.cantHistoriaClinica++;
+                System.out.println("se agrego la consulta al historial medico del paciente");
+            } else {
+                System.out.println("La cedula de la consulta no coincide con la del paciente");
+            }
+        } else {
+            System.out.println("Hubo un error inesperado!");
+        }
+
+    }
 }

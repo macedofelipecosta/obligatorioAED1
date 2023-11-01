@@ -18,8 +18,7 @@ public final class Medico implements Comparable<Medico> {
     private int codMedico;
     private int Tel;
     private int Especialidad;
-    private ListaNodos fechasAgendadas; // adentro de estas van haber fechas con lista de consultas
-    private ListaNodos consultasEnEspera;// esta se va pa dentro de las fechas
+    private final ListaNodos fechasAgendadas; // adentro de estas van haber fechas con lista de consultas
     private int cantConsultasAgendadas;
     private int consultasEsperando;
 
@@ -29,7 +28,6 @@ public final class Medico implements Comparable<Medico> {
         this.setTel(tel);
         this.setEspecialidad(especialidad);
         this.fechasAgendadas = new ListaNodos();
-        this.consultasEnEspera = new ListaNodos();
         this.cantConsultasAgendadas = 0;
         this.consultasEsperando = 0;
     }
@@ -95,9 +93,14 @@ public final class Medico implements Comparable<Medico> {
         return this.getNombre().compareTo(obj.getNombre());
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
-        return this.getCodMedico() == obj.hashCode();
+            return this.getCodMedico() == obj.hashCode();
     }
 
     @Override
@@ -354,26 +357,23 @@ public final class Medico implements Comparable<Medico> {
     }
 
     public boolean consultasEnFecha(Date f) {
-        boolean respuesta = false;     
+        boolean respuesta = false;
         if (!fechasAgendadas.esVacia()) {
-            Fecha aux = (Fecha)fechasAgendadas.obtenerElemento(f).getDato();
-            if (aux.getCantConsultasAgendadas()>0) {
-                respuesta=true;
+            Fecha aux = (Fecha) fechasAgendadas.obtenerElemento(f).getDato();
+            if (aux.getCantConsultasAgendadas() > 0) {
+                respuesta = true;
             }
         }
         return respuesta;
     }
 
-    public void cerrarPacientesAusentes(Date f) {
+    public void cerrarPacientesAusentes(Date f, ListaNodos listaPacientes) {
         if (!fechasAgendadas.esVacia()) {
-            Fecha auxF= (Fecha) fechasAgendadas.obtenerElemento(f).getDato();
-            auxF.terminarConsultasPendientes();
+            Fecha auxF = (Fecha) fechasAgendadas.obtenerElemento(f).getDato();
+            auxF.terminarConsultasPendientes(listaPacientes);
         }
     }
-    
-    
-    
-    
+
     ///////////////////////////////////////////////////////////////////////////
     public boolean estadoCerrado(int ciPaciente) {
         boolean resultado = false;
@@ -401,8 +401,6 @@ public final class Medico implements Comparable<Medico> {
 
         return resultado;
     }
-
-    
 
     public void listarConsultasXDia() {
         Nodo aux = this.fechasAgendadas.obtenerInicio();

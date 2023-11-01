@@ -239,7 +239,7 @@ public class Fecha implements Comparable<Fecha> {
 
     }
 
-    public void terminarConsultasPendientes() {
+    public void terminarConsultasPendientes(ListaNodos listaPacientes) {
 
         if (!consultasAgendadas.esVacia()) {
             Nodo aux = consultasAgendadas.obtenerInicio();
@@ -248,6 +248,8 @@ public class Fecha implements Comparable<Fecha> {
                 if (auxC.getEstado().equals("Pendiente")) {
                     System.out.println("pendientes del while");
                     auxC.setFalta();
+                    Paciente auxP = (Paciente) listaPacientes.obtenerElemento(auxC.getCiPaciente()).getDato();
+                    auxP.noAsistencia(auxC);
                 }
                 aux = aux.getSiguiente();
             }
@@ -255,6 +257,8 @@ public class Fecha implements Comparable<Fecha> {
             if (auxC.getEstado().equals("Pendiente")) {
                 System.out.println("ultimo pendiente");
                 auxC.setFalta();
+                Paciente auxP = (Paciente) listaPacientes.obtenerElemento(auxC.getCiPaciente()).getDato();
+                auxP.noAsistencia(auxC);
             }
         }
     }
@@ -278,8 +282,7 @@ public class Fecha implements Comparable<Fecha> {
         }
         return null;
     }
-    
-    
+
 }
 
 //SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy"); Date hoy=new

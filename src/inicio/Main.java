@@ -59,7 +59,7 @@ public class Main {
         s.anunciaLlegada(1, 1);
         s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
         s.cerrarConsulta(1, new Date());
-           s.cerrarConsulta(2, new Date());
+//           s.cerrarConsulta(2, new Date());
         
     }
 
