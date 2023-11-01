@@ -159,6 +159,20 @@ public class Fecha implements Comparable<Fecha> {
         return resultado;
     }
 
+    public boolean pacienteConsultaEspera(int ciPaciente) {
+        boolean resultado = false;
+
+        if (consultasAgendadas.existeElemento(ciPaciente)) {
+            Consulta auxC = (Consulta) consultasAgendadas.obtenerElemento(ciPaciente).getDato();
+            if (auxC.getEstado().equals("En espera")) {
+                resultado = true;
+                System.out.println("Existe elemento consulta ci dentro de agendadas y esta en estado en espera");
+            }
+        }
+
+        return resultado;
+    }
+
     public boolean pacienteConsultaCerrada(int ciPaciente) {
         boolean resultado = false;
 
@@ -225,12 +239,47 @@ public class Fecha implements Comparable<Fecha> {
 
     }
 
-    public boolean terminarConsultaPendiente(int ciPaciente) {
-        boolean result = false;
+    public void terminarConsultasPendientes() {
 
-        return result;
+        if (!consultasAgendadas.esVacia()) {
+            Nodo aux = consultasAgendadas.obtenerInicio();
+            while (aux.getSiguiente() != null) {
+                Consulta auxC = (Consulta) aux.getDato();
+                if (auxC.getEstado().equals("Pendiente")) {
+                    System.out.println("pendientes del while");
+                    auxC.setFalta();
+                }
+                aux = aux.getSiguiente();
+            }
+            Consulta auxC = (Consulta) aux.getDato();
+            if (auxC.getEstado().equals("Pendiente")) {
+                System.out.println("ultimo pendiente");
+                auxC.setFalta();
+            }
+        }
     }
 
+    public boolean cambiarEstado(int ciPaciente) {
+        boolean resultado = false;
+        if (consultasAgendadas.existeElemento(ciPaciente)) {
+            Consulta auxC = (Consulta) consultasAgendadas.obtenerElemento(ciPaciente).getDato();
+            if (auxC.getEstado().equals("Pendiente")) {
+                auxC.anunciarLLegada();
+                resultado = true;
+            }
+        }
+        return resultado;
+    }
+
+    public Consulta obtenerConsulta(int ciPaciente) {
+        if (!consultasAgendadas.esVacia()) {
+            Consulta auxC = (Consulta) consultasAgendadas.obtenerElemento(ciPaciente).getDato();
+            return auxC;
+        }
+        return null;
+    }
+    
+    
 }
 
 //SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy"); Date hoy=new

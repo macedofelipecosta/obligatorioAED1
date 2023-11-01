@@ -210,7 +210,7 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno anunciaLlegada(int codMedico, int ciPaciente) {
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-        boolean medico = this.listaMedicos.existeElemento(codMedico);
+//        boolean medico = this.listaMedicos.existeElemento(codMedico);
         boolean paciente = this.listaPacientes.existeElemento(ciPaciente);
         Nodo<Medico> m = listaMedicos.obtenerElemento(codMedico);
 
@@ -225,7 +225,6 @@ public class Sistema implements IObligatorio {
         if (m.getDato().anunciarLlegadaPaciente(ciPaciente)) {
             r.resultado = Retorno.Resultado.OK;
         }
-
         return r;
     }
 
@@ -242,7 +241,7 @@ public class Sistema implements IObligatorio {
          
          */
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-        boolean medico = this.listaMedicos.existeElemento(codMedico);
+//        boolean medico = this.listaMedicos.existeElemento(codMedico);
         boolean paciente = this.listaPacientes.existeElemento(ciPaciente);
         Nodo<Medico> m = listaMedicos.obtenerElemento(codMedico);
         Nodo<Paciente> p = listaPacientes.obtenerElemento(ciPaciente);
@@ -255,6 +254,7 @@ public class Sistema implements IObligatorio {
         } else {
             Consulta nueva = m.getDato().terminarConsultaMedico(ciPaciente, detalleDeConsulta);
             p.getDato().terminarConsultaPaciente(nueva);
+            r.resultado = Retorno.Resultado.OK;
             System.out.println("El numero de consultas terminadas en el paciente: " + ciPaciente + " es de: " + p.getDato().cantHistoria());
 
         }
@@ -281,8 +281,8 @@ public class Sistema implements IObligatorio {
             System.out.println("El medico no tiene consultas para este dia: " + fechaConsulta);
             r.resultado = Retorno.Resultado.ERROR_2;
             return r;
-        }
-        if (m.getDato().cerrarPacientesAusentes(fechaConsulta)) {
+        } else {
+            m.getDato().cerrarPacientesAusentes(fechaConsulta);
             r.resultado = Retorno.Resultado.OK;
         }
 

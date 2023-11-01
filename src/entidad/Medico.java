@@ -252,10 +252,128 @@ public final class Medico implements Comparable<Medico> {
         return result;
     }
 
-    public void terminarConsulta(int ciPaciente) {
+    public boolean anunciarLlegadaPaciente(int ciPaciente) {
+        boolean resultado = false;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaHoy = new Date();
+        String fecha = sdf.format(fechaHoy);
 
+        if (!fechasAgendadas.esVacia()) {
+            Nodo aux = fechasAgendadas.obtenerInicio();
+            if (aux.getSiguiente() != null) {
+                while (aux.getSiguiente() != null && !resultado) {
+                    Fecha auxF = (Fecha) aux.getDato();
+                    if (fecha.equals(sdf.format(auxF.getDato()))) {
+                        if (auxF.pacienteConsultaPendiente(ciPaciente)) {
+                            auxF.cambiarEstado(ciPaciente);
+                            resultado = true;
+                            System.out.println("Nombre medico :" + this.getNombre());
+                        }
+                    }
+                    aux = aux.getSiguiente();
+                }
+            } else {
+                Fecha auxF = (Fecha) aux.getDato();
+                if (fecha.equals(sdf.format(auxF.getDato()))) {
+                    if (auxF.pacienteConsultaPendiente(ciPaciente)) {
+                        auxF.cambiarEstado(ciPaciente);
+                        resultado = true;
+                        System.out.println("Nombre medico :" + this.getNombre());
+                    }
+                }
+            }
+        }
+
+        return resultado;
     }
 
+    public boolean tieneReservaEnDia(int ciPaciente) {
+        boolean resultado = false;
+        Date hoy = new Date();
+
+        if (!fechasAgendadas.esVacia()) {
+            Fecha auxF = (Fecha) fechasAgendadas.obtenerElemento(hoy).getDato();
+            if (auxF.pacienteConsultaPendiente(ciPaciente)) {
+                resultado = true;
+            }
+        }
+        return resultado;
+    }
+
+    public boolean consultaEnEspera(int ciPaciente) {
+        boolean resultado = false;
+
+        if (!fechasAgendadas.esVacia()) {
+            Nodo aux = fechasAgendadas.obtenerInicio();
+            if (aux.getSiguiente() != null) {
+                while (aux.getSiguiente() != null && !resultado) {
+                    Fecha auxF = (Fecha) aux.getDato();
+                    if (auxF.pacienteConsultaEspera(ciPaciente)) {
+                        resultado = true;
+                    }
+                    aux = aux.getSiguiente();
+                }
+            } else {
+                Fecha auxF = (Fecha) aux.getDato();
+                if (auxF.pacienteConsultaEspera(ciPaciente)) {
+                    resultado = true;
+                }
+            }
+        }
+
+        return resultado;
+    }
+
+    public Consulta terminarConsultaMedico(int ciPaciente, String detalle) {
+        Consulta retorno = null;
+        boolean resultado = false;
+
+        if (!fechasAgendadas.esVacia()) {
+            Nodo aux = fechasAgendadas.obtenerInicio();
+            if (aux.getSiguiente() != null) {
+                while (aux.getSiguiente() != null && !resultado) {
+                    Fecha auxF = (Fecha) aux.getDato();
+                    if (auxF.pacienteConsultaEspera(ciPaciente)) {
+                        retorno = auxF.obtenerConsulta(ciPaciente);
+                        retorno.terminarConsulta(detalle);
+//                        System.out.println(retorno.getEstado() + retorno.getDetalleConsulta());
+                        resultado = true;
+                    }
+                    aux = aux.getSiguiente();
+                }
+            } else {
+                Fecha auxF = (Fecha) aux.getDato();
+                if (auxF.pacienteConsultaEspera(ciPaciente)) {
+                    retorno = auxF.obtenerConsulta(ciPaciente);
+                    retorno.terminarConsulta(detalle);
+//                    System.out.println(retorno.getEstado() + retorno.getDetalleConsulta());
+                }
+            }
+        }
+        return retorno;
+    }
+
+    public boolean consultasEnFecha(Date f) {
+        boolean respuesta = false;     
+        if (!fechasAgendadas.esVacia()) {
+            Fecha aux = (Fecha)fechasAgendadas.obtenerElemento(f).getDato();
+            if (aux.getCantConsultasAgendadas()>0) {
+                respuesta=true;
+            }
+        }
+        return respuesta;
+    }
+
+    public void cerrarPacientesAusentes(Date f) {
+        if (!fechasAgendadas.esVacia()) {
+            Fecha auxF= (Fecha) fechasAgendadas.obtenerElemento(f).getDato();
+            auxF.terminarConsultasPendientes();
+        }
+    }
+    
+    
+    
+    
     ///////////////////////////////////////////////////////////////////////////
     public boolean estadoCerrado(int ciPaciente) {
         boolean resultado = false;
@@ -284,205 +402,7 @@ public final class Medico implements Comparable<Medico> {
         return resultado;
     }
 
-    public boolean tieneReservaEnDia(int ciPaciente) {
-        boolean resultado = false;
-        Nodo aux = fechasAgendadas.obtenerInicio();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date hoy = new Date();
-
-        if (aux != null) {
-            Consulta auxConsulta = (Consulta) aux.getDato();
-            if (auxConsulta.getCiPaciente() == ciPaciente) {
-
-                if (sdf.format(hoy).equals(sdf.format(auxConsulta.getFecha()))) {
-                    resultado = true;
-                }
-            } else {
-                while (aux.getSiguiente() != null && !resultado) { //no me llega a la ultima consulta
-                    auxConsulta = (Consulta) aux.getDato();
-                    if (auxConsulta.getCiPaciente() == ciPaciente) {
-                        if (sdf.format(hoy).equals(sdf.format(auxConsulta.getFecha()))) {
-                            resultado = true;
-                        }
-                    }
-                    aux = aux.getSiguiente();
-                }
-            }
-        }
-        Consulta auxConsulta = (Consulta) aux.getDato();
-        if (auxConsulta.getCiPaciente() == ciPaciente) {
-            if (sdf.format(hoy).equals(sdf.format(auxConsulta.getFecha()))) {
-                resultado = true;
-            }
-        }
-        return resultado;
-    }
-
-    public boolean anunciarLlegadaPaciente(int ciPaciente) {
-        boolean resultado = false;
-        Nodo aux = fechasAgendadas.obtenerInicio();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaHoy = new Date();
-
-        if (aux != null) {
-            Consulta auxConsulta = (Consulta) aux.getDato();
-            if (auxConsulta.getCiPaciente() == ciPaciente) {
-                if (sdf.format(auxConsulta.getFecha()).equals(sdf.format(fechaHoy))) {
-                    auxConsulta.anunciarLLegada();
-                    System.out.println("Nombre medico :" + this.getNombre());
-                    resultado = true;
-//                    System.out.println("Consulta: " + auxConsulta.getEstado());
-                }
-            } else {
-                while (aux.getSiguiente() != null && !resultado) {
-                    auxConsulta = (Consulta) aux.getDato();
-                    if (auxConsulta.getCiPaciente() == ciPaciente) {
-                        if (sdf.format(auxConsulta.getFecha()).equals(sdf.format(fechaHoy))) {
-                            auxConsulta.anunciarLLegada();
-                            System.out.println("Nombre medico :" + this.getNombre());
-//                            System.out.println("Consulta: " + auxConsulta.getEstado());
-                            resultado = true;
-                        }
-                    }
-                    aux = aux.getSiguiente();
-                }
-            }
-
-            auxConsulta = (Consulta) aux.getDato();
-            if (auxConsulta.getCiPaciente() == ciPaciente) {
-                if (sdf.format(auxConsulta.getFecha()).equals(sdf.format(fechaHoy))) {
-                    auxConsulta.anunciarLLegada();
-                    System.out.println("Nombre medico :" + this.getNombre());
-//                            System.out.println("Consulta: " + auxConsulta.getEstado());
-                    resultado = true;
-                }
-            }
-        }
-        return resultado;
-    }
-
-    public Consulta terminarConsultaMedico(int ciPaciente, String detalle) {
-        Consulta retorno = null;
-        boolean resultado = false;
-
-        Nodo aux = fechasAgendadas.obtenerInicio();
-
-        if (aux != null) {
-            Consulta auxConsulta = (Consulta) aux.getDato();
-            if (auxConsulta.getCiPaciente() == ciPaciente) {
-                if (auxConsulta.getEstado().equals("En espera")) {
-                    auxConsulta.terminarConsulta(detalle);
-                    retorno = auxConsulta;
-//                    resultado=true;
-                }
-            } else {
-                while (aux.getSiguiente() != null && !resultado) {
-                    auxConsulta = (Consulta) aux.getDato();
-                    if (auxConsulta.getCiPaciente() == ciPaciente) {
-                        if (auxConsulta.getEstado().equals("En espera")) {
-                            auxConsulta.terminarConsulta(detalle);
-                            retorno = auxConsulta;
-                            resultado = true;
-                        }
-                    }
-                    aux = aux.getSiguiente();
-                }
-            }
-        }
-        Consulta auxConsulta = (Consulta) aux.getDato();
-        if (auxConsulta.getCiPaciente() == ciPaciente) {
-            if (auxConsulta.getEstado().equals("En espera")) {
-                auxConsulta.terminarConsulta(detalle);
-                retorno = auxConsulta;
-                resultado = true;
-            }
-        }
-        return retorno;
-    }
-
-    public boolean consultaEnEspera(int ciPaciente) {
-        boolean resultado = false;
-        Nodo aux = fechasAgendadas.obtenerInicio();
-
-        if (aux != null) {
-            Consulta auxConsulta = (Consulta) aux.getDato();
-            if (auxConsulta.getCiPaciente() == ciPaciente) {
-                if (auxConsulta.getEstado().equals("En espera")) {
-                    resultado = true;
-                }
-            } else {
-                while (aux.getSiguiente() != null && !resultado) {
-                    auxConsulta = (Consulta) aux.getDato();
-                    if (auxConsulta.getCiPaciente() == ciPaciente) {
-                        if (auxConsulta.getEstado().equals("En espera")) {
-                            resultado = true;
-                        }
-                    }
-                    aux = aux.getSiguiente();
-                }
-            }
-            auxConsulta = (Consulta) aux.getDato();
-            if (auxConsulta.getCiPaciente() == ciPaciente) {
-                if (auxConsulta.getEstado().equals("En espera")) {
-                    resultado = true;
-                }
-            }
-        }
-        return resultado;
-    }
-
-    public boolean consultasEnFecha(Date f) {
-        boolean respuesta = false;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Nodo aux = fechasAgendadas.obtenerInicio();
-
-        if (aux != null) {
-            Consulta auxConsulta = (Consulta) aux.getDato();
-            while (aux.getSiguiente() != null) {
-                if (sdf.format(f).equals(sdf.format(auxConsulta.getFecha()))) {
-                    respuesta = true;
-                }
-                aux = aux.getSiguiente();
-            }
-            if (sdf.format(f).equals(sdf.format(auxConsulta.getFecha()))) {
-                respuesta = true;
-            }
-        }
-
-        return respuesta;
-    }
-
-    public boolean cerrarPacientesAusentes(Date f) {
-        boolean resultado = false;
-        Nodo aux = fechasAgendadas.obtenerInicio();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        if (aux != null) {
-            Consulta auxConsulta = (Consulta) aux.getDato();
-            while (aux.getSiguiente() != null) {
-                auxConsulta = (Consulta) aux.getDato();
-                if (sdf.format(f).equals(sdf.format(auxConsulta.getFecha()))) {
-                    if (auxConsulta.getEstado().equals("Pendiente")) {
-                        auxConsulta.setFalta();
-                        System.out.println(auxConsulta.getEstado());
-                        resultado = true;
-                    }
-                }
-                aux = aux.getSiguiente();
-            }
-            auxConsulta = (Consulta) aux.getDato();
-            if (sdf.format(f).equals(sdf.format(auxConsulta.getFecha()))) {
-                if (auxConsulta.getEstado().equals("Pendiente")) {
-                    auxConsulta.setFalta();
-                    System.out.println(auxConsulta.getEstado());
-                    resultado = true;
-                }
-            }
-        }
-        return resultado;
-    }
+    
 
     public void listarConsultasXDia() {
         Nodo aux = this.fechasAgendadas.obtenerInicio();

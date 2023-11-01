@@ -49,13 +49,18 @@ public class Main {
         s.agregarPaciente("Ho", 4, "Alguna");
 
         s.registrarMedico("Hor", 1, 123, 3);
+        s.registrarMedico("Hossdr", 2, 123, 3);
         s.reservaConsulta(1, 1, new Date());
         s.reservaConsulta(1, 2, new Date());
         s.reservaConsulta(1, 3, new Date());
         s.reservaConsulta(1, 4, new Date());
         s.reservaConsulta(1, 4, new Date());
         s.cancelarReserva(1, 4);
-
+        s.anunciaLlegada(1, 1);
+        s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
+        s.cerrarConsulta(1, new Date());
+           s.cerrarConsulta(2, new Date());
+        
     }
 
     private static void p1_creacionSistema(Prueba prueba, Sistema sistema) {

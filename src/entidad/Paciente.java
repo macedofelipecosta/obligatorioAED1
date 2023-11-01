@@ -106,7 +106,6 @@ public class Paciente implements Comparable<Paciente> {
         } else {
             System.out.println("Hubo un error inesperado!");
         }
-
         return resultado;
     }
 }
