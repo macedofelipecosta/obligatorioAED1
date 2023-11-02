@@ -76,11 +76,6 @@ public class Fecha implements Comparable<Fecha> {
         return cantConsultasAgendadas;
     }
 
-//    /**
-//     */
-//    public void setCantConsultasAgendadas() {
-//        this.cantConsultasAgendadas++;
-//    }
     @Override
     public int compareTo(Fecha o) {
         return this.dato.compareTo(o.getDato());
@@ -111,6 +106,7 @@ public class Fecha implements Comparable<Fecha> {
         return getCantConsultasAgendadas(); // ver si este metodo es necesario 
     }
 
+    //--------------------------------------------------->
     public void agregarAgenda(Consulta obj) {
         if (obj != null) {
             boolean existe = consultasAgendadas.existeElemento(obj);
@@ -283,6 +279,19 @@ public class Fecha implements Comparable<Fecha> {
         return null;
     }
 
+    public void listarConsultas() {
+        if (!consultasAgendadas.esVacia()) {
+            Nodo aux = consultasAgendadas.obtenerInicio();
+            while (aux.getSiguiente() != null) {
+                Consulta c = (Consulta) aux.getDato();
+                System.out.println(c.getCodMedico() + " " + c.getEstado() + " " + c.getFecha() + " " + c.getCiPaciente());
+                aux = aux.getSiguiente();
+            }
+            Consulta c = (Consulta) aux.getDato();
+            System.out.println(c.getCodMedico() + " " + c.getEstado() + " " + c.getFecha() + " " + c.getCiPaciente());
+        }
+
+    }
 }
 
 //SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy"); Date hoy=new

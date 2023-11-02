@@ -100,7 +100,7 @@ public final class Medico implements Comparable<Medico> {
      */
     @Override
     public boolean equals(Object obj) {
-            return this.getCodMedico() == obj.hashCode();
+        return this.getCodMedico() == obj.hashCode();
     }
 
     @Override
@@ -375,61 +375,46 @@ public final class Medico implements Comparable<Medico> {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    public boolean estadoCerrado(int ciPaciente) {
-        boolean resultado = false;
-        Nodo aux = fechasAgendadas.obtenerInicio();
-
-        if (aux != null) {
-            Consulta auxConsulta = (Consulta) aux.getDato();
-            if (auxConsulta.getCiPaciente() == ciPaciente) {
-                if (auxConsulta.getEstado().equals("Cerrada")) {
-                    resultado = true;
-                }
-            } else {
-                while (aux.getSiguiente() != null && !resultado) {
-                    auxConsulta = (Consulta) aux.getDato();
-                    if (auxConsulta.getCiPaciente() == ciPaciente) {
-                        if (auxConsulta.getEstado().equals("Cerrada")) {
-                            resultado = true;
-                        }
-                    }
-                    aux = aux.getSiguiente();
-                }
-            }
-
-        }
-
-        return resultado;
-    }
-
-    public void listarConsultasXDia() {
-        Nodo aux = this.fechasAgendadas.obtenerInicio();
-        if (aux != null) {
+    public void listarConsultas() {
+        if (!fechasAgendadas.esVacia()) {
+            Nodo aux = this.fechasAgendadas.obtenerInicio();
             listarConsultasDiaRec(aux);
         }
 
     }
 
-    public void listarConsultasDiaRec(Nodo obj) {
+    public void listarConsultasDiaRec(Nodo nodo) {
+//no me esta imprimiendo la el paciente de la primer fecha 
+        Fecha fecha = (Fecha) nodo.getDato();
+        Date fechaNodo = fecha.getDato();
 
-        if (obj != null) {
-
-            if (obj.getSiguiente() != null) {
-                Consulta auxConsulta = (Consulta) obj.getDato();
-                System.out.println(auxConsulta.getFecha());
-                listarConsultasDiaRec(obj.getSiguiente());
-
-            } else {
-                Consulta auxConsulta = (Consulta) obj.getDato();
-                System.out.println(auxConsulta.getFecha());
+        if (nodo.getSiguiente() != null) {
+            Fecha auxF = (Fecha) nodo.getSiguiente().getDato();
+            Date auxD = auxF.getDato();
+            if (fechaNodo.compareTo(auxD) < 0) {
+                System.out.println(fechaNodo + " : ");
+                auxF.listarConsultas();
+                listarConsultasDiaRec(nodo.getSiguiente());
             }
+            if (fechaNodo.compareTo(auxD) > 0) {
+                listarConsultasDiaRec(nodo);
+            }
+            if (fechaNodo.compareTo(auxD) == 0) {
+                System.out.println(fechaNodo + " : ");
+                auxF.listarConsultas();
+                listarConsultasDiaRec(nodo.getSiguiente());
+            }
+        } else {
+
+            System.out.println(fechaNodo + " : ");
+            fecha.listarConsultas();
 
         }
-
     }
 
 }
 
+//
 /**
  * SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy"); Date hoy=new
  * Date(); String dat= "25/10/2023"; System.out.println(sdf.format(hoy));

@@ -322,8 +322,8 @@ public class Sistema implements IObligatorio {
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         if (med) {
             Medico m = (Medico) listaMedicos.obtenerElemento(codMédico).getDato();
+            m.listarConsultas();
             r.resultado = Retorno.Resultado.OK;
-            m.listarConsultasXDia();
         } else {
             r.resultado = Retorno.Resultado.ERROR_1;
         }

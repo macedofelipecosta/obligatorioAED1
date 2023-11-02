@@ -41,24 +41,38 @@ public class Main {
         p.imprimirResultadosPrueba();
 
         System.out.println("Pruebas individuales abajo: ");
-        s.crearSistemaDeAutogestion(2);
+        s.crearSistemaDeAutogestion(10);
 
         s.agregarPaciente("Felipe", 1, "Alguna");
         s.agregarPaciente("Fe", 2, "Alguna");
         s.agregarPaciente("Wind", 3, "Alguna");
         s.agregarPaciente("Ho", 4, "Alguna");
+        s.agregarPaciente("Felipe", 5, "Alguna");
+        s.agregarPaciente("Fe", 6, "Alguna");
+        s.agregarPaciente("Wind", 7, "Alguna");
+        s.agregarPaciente("Ho", 8, "Alguna");
 
         s.registrarMedico("Hor", 1, 123, 3);
         s.registrarMedico("Hossdr", 2, 123, 3);
-        s.reservaConsulta(1, 1, new Date());
-        s.reservaConsulta(1, 2, new Date());
-        s.reservaConsulta(1, 3, new Date());
-        s.reservaConsulta(1, 4, new Date());
-        s.reservaConsulta(1, 4, new Date());
+        
+        s.reservaConsulta(1, 1, new Date("11/01/2023"));
+        s.reservaConsulta(1, 2, new Date("11/05/2023"));
+        s.reservaConsulta(1, 3, new Date("11/01/2023"));
+        s.reservaConsulta(1, 4, new Date("11/03/2023"));
+        s.reservaConsulta(2, 1, new Date("11/07/2023"));
+        s.reservaConsulta(2, 2, new Date("11/23/2023"));
+        s.reservaConsulta(2, 3, new Date("11/05/2023"));
+        s.reservaConsulta(2, 4, new Date("11/14/2023"));
+        s.reservaConsulta(2, 6, new Date("11/23/2023"));
+        s.reservaConsulta(2, 7, new Date("11/05/2023"));
+        s.reservaConsulta(2, 8, new Date("11/14/2023"));
+        s.reservaConsulta(2, 5, new Date("11/03/2023"));
+        
         s.cancelarReserva(1, 4);
         s.anunciaLlegada(1, 1);
         s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
         s.cerrarConsulta(1, new Date());
+        s.listarConsultas(2);
 //           s.cerrarConsulta(2, new Date());
         
     }
