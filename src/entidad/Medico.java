@@ -295,9 +295,12 @@ public final class Medico implements Comparable<Medico> {
         Date hoy = new Date();
 
         if (!fechasAgendadas.esVacia()) {
-            Fecha auxF = (Fecha) fechasAgendadas.obtenerElemento(hoy).getDato();
-            if (auxF.pacienteConsultaPendiente(ciPaciente)) {
-                resultado = true;
+            Nodo aux = fechasAgendadas.obtenerElemento(hoy);
+            if (aux != null) {
+                Fecha auxF = (Fecha) aux.getDato();
+                if (auxF.pacienteConsultaPendiente(ciPaciente)) {
+                    resultado = true;
+                }
             }
         }
         return resultado;
@@ -359,9 +362,12 @@ public final class Medico implements Comparable<Medico> {
     public boolean consultasEnFecha(Date f) {
         boolean respuesta = false;
         if (!fechasAgendadas.esVacia()) {
-            Fecha aux = (Fecha) fechasAgendadas.obtenerElemento(f).getDato();
-            if (aux.getCantConsultasAgendadas() > 0) {
-                respuesta = true;
+            Nodo aux = fechasAgendadas.obtenerElemento(f);
+            if (aux != null) {
+                Fecha auxF = (Fecha) aux.getDato();
+                if (auxF.getCantConsultasAgendadas() > 0) {
+                    respuesta = true;
+                }
             }
         }
         return respuesta;
@@ -372,15 +378,6 @@ public final class Medico implements Comparable<Medico> {
             Fecha auxF = (Fecha) fechasAgendadas.obtenerElemento(f).getDato();
             auxF.terminarConsultasPendientes(listaPacientes);
         }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    public void listarConsultas() {
-        if (!fechasAgendadas.esVacia()) {
-            Nodo aux = this.fechasAgendadas.obtenerInicio();
-            listarConsultasDiaRec(aux);
-        }
-
     }
 
     public void listarConsultasDiaRec(Nodo nodo) {
@@ -408,6 +405,26 @@ public final class Medico implements Comparable<Medico> {
 
             System.out.println(fechaNodo + " : ");
             fecha.listarConsultas();
+
+        }
+    }
+
+    public void listarConsultas() {
+        if (!fechasAgendadas.esVacia()) {
+            Nodo aux = this.fechasAgendadas.obtenerInicio();
+            listarConsultasDiaRec(aux);
+        }
+
+    }
+
+    public void consultasEnEspera(Date fecha) {
+        if (!fechasAgendadas.esVacia()) {
+
+            Nodo aux = this.fechasAgendadas.obtenerElemento(fecha);
+            if (aux != null) {
+                Fecha auxF = (Fecha) aux.getDato();
+                auxF.listarConsultasEnEspera();
+            }
 
         }
     }

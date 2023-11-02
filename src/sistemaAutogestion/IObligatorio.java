@@ -47,7 +47,7 @@ public interface IObligatorio {
     //pre:      post:
     public Retorno listarConsultas(int codMedico); 
     //pre:      post:
-    public Retorno listarPacientesEnEspera (String codMedico, Date fecha);    
+    public Retorno listarPacientesEnEspera (Integer codMedico, Date fecha);    
     //pre:      post:
     public Retorno consultasPendientesPaciente(int CIPaciente);   
     //pre:      post:

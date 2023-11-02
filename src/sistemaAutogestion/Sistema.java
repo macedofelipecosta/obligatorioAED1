@@ -335,8 +335,17 @@ public class Sistema implements IObligatorio {
     post: se espera que se muestren todas los pacientes en espera de ese medico agrupadas por numero de reserva, retorna resultado ok
      */
     @Override
-    public Retorno listarPacientesEnEspera(String codMédico, Date fecha) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Retorno listarPacientesEnEspera(Integer codMédico, Date fecha) {
+        boolean med = listaMedicos.existeElemento(codMédico);
+        Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        if (med) {
+            Medico m = (Medico) listaMedicos.obtenerElemento(codMédico).getDato();
+            m.consultasEnEspera(fecha);
+            r.resultado = Retorno.Resultado.OK;
+        } else {
+            r.resultado = Retorno.Resultado.ERROR_1;
+        }
+        return r;
     }
 
     /*

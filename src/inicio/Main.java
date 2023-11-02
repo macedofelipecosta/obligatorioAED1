@@ -54,11 +54,16 @@ public class Main {
 
         s.registrarMedico("Hor", 1, 123, 3);
         s.registrarMedico("Hossdr", 2, 123, 3);
-        
-        s.reservaConsulta(1, 1, new Date("11/01/2023"));
-        s.reservaConsulta(1, 2, new Date("11/05/2023"));
-        s.reservaConsulta(1, 3, new Date("11/01/2023"));
-        s.reservaConsulta(1, 4, new Date("11/03/2023"));
+
+        s.reservaConsulta(1, 1, new Date("11/02/2023"));
+        s.reservaConsulta(1, 2, new Date("11/02/2023"));
+        s.reservaConsulta(1, 3, new Date("11/02/2023"));
+        s.reservaConsulta(1, 4, new Date("11/02/2023"));
+        s.reservaConsulta(1, 5, new Date("11/02/2023"));
+        s.reservaConsulta(1, 6, new Date("11/02/2023"));
+        s.reservaConsulta(1, 7, new Date("11/02/2023"));
+        s.reservaConsulta(1, 8, new Date("11/02/2023"));
+
         s.reservaConsulta(2, 1, new Date("11/07/2023"));
         s.reservaConsulta(2, 2, new Date("11/23/2023"));
         s.reservaConsulta(2, 3, new Date("11/05/2023"));
@@ -67,14 +72,29 @@ public class Main {
         s.reservaConsulta(2, 7, new Date("11/05/2023"));
         s.reservaConsulta(2, 8, new Date("11/14/2023"));
         s.reservaConsulta(2, 5, new Date("11/03/2023"));
-        
+
+        System.out.println("cancelar reserva ------------->");
         s.cancelarReserva(1, 4);
+        System.out.println("anunciar llegada ------------->");
         s.anunciaLlegada(1, 1);
+        s.anunciaLlegada(1, 2);
+        s.anunciaLlegada(1, 3);
+        s.anunciaLlegada(1, 4);
+        s.anunciaLlegada(1, 5);
+        s.anunciaLlegada(1, 6);
+        s.anunciaLlegada(1, 7);
+        s.anunciaLlegada(1, 8);
+
+        System.out.println("terminar consulta paciente ------------->");
         s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
-        s.cerrarConsulta(1, new Date());
+        System.out.println("cerrar Consultas ------------->");
+//        s.cerrarConsulta(1, new Date());
+        System.out.println("listarConsultas Rec ------------->");
         s.listarConsultas(2);
+        System.out.println("listar Pacientes en espera ------------->");
+        s.listarPacientesEnEspera(1, new Date("11/02/2023"));
 //           s.cerrarConsulta(2, new Date());
-        
+
     }
 
     private static void p1_creacionSistema(Prueba prueba, Sistema sistema) {

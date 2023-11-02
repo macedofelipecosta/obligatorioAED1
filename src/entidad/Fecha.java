@@ -187,8 +187,15 @@ public class Fecha implements Comparable<Fecha> {
         boolean existeElemento = false;
         Nodo agendada = consultasAgendadas.obtenerInicio();
         Nodo espera = consultasEnEspera.obtenerInicio();
-        Consulta c = cambiarAgenda();
+        Consulta c = null;
 
+        if (!consultasEnEspera.esVacia()) {
+            c = (Consulta) consultasEnEspera.obtenerInicio().getDato();
+        } else {
+            System.out.println("No existen consultas en espera");           
+        }
+        
+        
         if (agendada != null) {
             while (agendada.getSiguiente() != null && !existeElemento) {
                 Consulta auxC = (Consulta) agendada.getDato();
@@ -289,6 +296,24 @@ public class Fecha implements Comparable<Fecha> {
             }
             Consulta c = (Consulta) aux.getDato();
             System.out.println(c.getCodMedico() + " " + c.getEstado() + " " + c.getFecha() + " " + c.getCiPaciente());
+        }
+
+    }
+
+    public void listarConsultasEnEspera() {
+        if (!consultasAgendadas.esVacia()) {
+            Nodo aux = consultasAgendadas.obtenerInicio();
+            while (aux.getSiguiente() != null) {
+                Consulta c = (Consulta) aux.getDato();
+                if (c.getEstado().equals("En espera")) {
+                    System.out.println(c.getCodMedico() + "-Estado: " + c.getEstado() + "-Fecha: " + c.getFecha() + "-C.I.: " + c.getCiPaciente() + "-Nro Reserva: " + c.getNroReserva());
+                }
+                aux = aux.getSiguiente();
+            }
+            Consulta c = (Consulta) aux.getDato();
+            if (c.getEstado().equals("En espera")) {
+                System.out.println(c.getCodMedico() + "-Estado: " + c.getEstado() + "-Fecha: " + c.getFecha() + "-C.I.: " + c.getCiPaciente() + "-Nro Reserva: " + c.getNroReserva());
+            }
         }
 
     }
