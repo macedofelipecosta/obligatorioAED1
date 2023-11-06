@@ -127,9 +127,7 @@ public class Consulta implements Comparable<Consulta> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Integer)) {
-            return false;
-        }
+
         return this.ciPaciente == obj.hashCode();
     }
 

@@ -6,6 +6,7 @@ package entidad;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import tads.Cola;
 import tads.ListaNodos;
 import tads.Nodo;
 
@@ -121,7 +122,7 @@ public class Fecha implements Comparable<Fecha> {
 
     public void agregarEspera(Consulta obj) {
         if (obj != null) {
-            boolean existe = consultasEnEspera.existeElemento(obj);
+            boolean existe = consultasEnEspera.existeElemento(obj.getCiPaciente());
             if (!existe) {
                 consultasEnEspera.agregarOrd(obj);
             } else {
@@ -145,13 +146,9 @@ public class Fecha implements Comparable<Fecha> {
             }
         }
         if (consultasEnEspera.existeElemento(ciPaciente)) {
-            Consulta auxC = (Consulta) consultasEnEspera.obtenerElemento(ciPaciente).getDato();
-            if (auxC.getEstado().equals("Pendiente")) {
                 resultado = true;
-                System.out.println("Existe elemento consulta ci dentro de espera y esta en estado pendiente");
-            }
+                System.out.println("Existe elemento consulta ci dentro de espera y esta en estado pendiente");        
         }
-
         return resultado;
     }
 
@@ -197,7 +194,7 @@ public class Fecha implements Comparable<Fecha> {
         
         
         if (agendada != null) {
-            while (agendada.getSiguiente() != null && !existeElemento) {
+            while (agendada!=null && agendada.getSiguiente() != null && !existeElemento) {
                 Consulta auxC = (Consulta) agendada.getDato();
                 if (auxC.equals(ciPaciente)) {
                     existeElemento = true;
@@ -210,7 +207,8 @@ public class Fecha implements Comparable<Fecha> {
                     }
                     System.out.println("Elemento eliminado de la lista de agendados");
                 }
-                agendada = agendada.getSiguiente();
+               
+                   agendada = agendada.getSiguiente(); 
             }
         }
         if (espera != null && !existeElemento) {

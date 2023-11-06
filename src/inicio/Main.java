@@ -55,14 +55,14 @@ public class Main {
         s.registrarMedico("Hor", 1, 123, 3);
         s.registrarMedico("Hossdr", 2, 123, 3);
 
-        s.reservaConsulta(1, 1, new Date("11/02/2023"));
-        s.reservaConsulta(1, 2, new Date("11/02/2023"));
-        s.reservaConsulta(1, 3, new Date("11/02/2023"));
-        s.reservaConsulta(1, 4, new Date("11/02/2023"));
-        s.reservaConsulta(1, 5, new Date("11/02/2023"));
-        s.reservaConsulta(1, 6, new Date("11/02/2023"));
-        s.reservaConsulta(1, 7, new Date("11/02/2023"));
-        s.reservaConsulta(1, 8, new Date("11/02/2023"));
+        s.reservaConsulta(1, 1, new Date("11/05/2023"));
+        s.reservaConsulta(1, 2, new Date("11/05/2023"));
+        s.reservaConsulta(1, 3, new Date("11/05/2023"));
+        s.reservaConsulta(1, 4, new Date("11/05/2023"));
+        s.reservaConsulta(1, 5, new Date("11/05/2023"));
+        s.reservaConsulta(1, 6, new Date("11/05/2023"));
+        s.reservaConsulta(1, 7, new Date("11/05/2023"));
+        s.reservaConsulta(1, 8, new Date("11/05/2023"));
 
         s.reservaConsulta(2, 1, new Date("11/07/2023"));
         s.reservaConsulta(2, 2, new Date("11/23/2023"));
@@ -92,7 +92,7 @@ public class Main {
         System.out.println("listarConsultas Rec ------------->");
         s.listarConsultas(2);
         System.out.println("listar Pacientes en espera ------------->");
-        s.listarPacientesEnEspera(1, new Date("11/02/2023"));
+        s.listarPacientesEnEspera(1, new Date("11/05/2023"));
 //           s.cerrarConsulta(2, new Date());
 
     }

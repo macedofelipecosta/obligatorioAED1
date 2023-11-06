@@ -247,7 +247,7 @@ public final class Medico implements Comparable<Medico> {
                 if (!auxF.pacienteConsultaPendiente(ciPaciente) || !auxF.pacienteConsultaCerrada(ciPaciente)) {
                     auxF.cancelarReservaFecha(ciPaciente);
                     result = true;
-                    System.out.println("Result= true, consuilta eliminada sin aux.getSigueinte-->sout de Medico");
+                    System.out.println("Result= true, consulta eliminada sin aux.getSigueinte-->sout de Medico");
 
                 }
             }
