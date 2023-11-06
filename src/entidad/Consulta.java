@@ -140,12 +140,9 @@ public class Consulta implements Comparable<Consulta> {
         return this.ciPaciente;
     }
 
-//    public boolean compararFecha(Date fecha) {
-//        boolean resultado = false;
-//        if (this.fecha.compareTo(fecha) == 0) {
-//            resultado = true;
-//        }
-//
-//        return resultado;
-//    }
+    @Override
+    public String toString() {
+        String resp = "Paciente: " + this.ciPaciente + " Medico: " + this.codMedico + " NroReserva: " + this.nroReserva + " Estado: " + this.estado + " Fecha: " + this.fecha + " Detalle: " + this.detalleConsulta;
+        return resp;
+    }
 }

@@ -11,7 +11,7 @@ public final class Nodo<T extends Comparable> {
         this.setSiguiente(null);
         this.setAnterior(null);
     }
-    
+
     /**
      * @return the dato
      */
@@ -54,6 +54,8 @@ public final class Nodo<T extends Comparable> {
         this.anterior = anterior;
     }
 
-    
-
+    @Override
+    public String toString() {
+        return this.dato.toString();
+    }
 }

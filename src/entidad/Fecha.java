@@ -107,6 +107,12 @@ public class Fecha implements Comparable<Fecha> {
         return getCantConsultasAgendadas(); // ver si este metodo es necesario 
     }
 
+    @Override
+    public String toString() {
+
+        return dato.toString();
+    }
+
     //--------------------------------------------------->
     public void agregarAgenda(Consulta obj) {
         if (obj != null) {
@@ -146,8 +152,8 @@ public class Fecha implements Comparable<Fecha> {
             }
         }
         if (consultasEnEspera.existeElemento(ciPaciente)) {
-                resultado = true;
-                System.out.println("Existe elemento consulta ci dentro de espera y esta en estado pendiente");        
+            resultado = true;
+            System.out.println("Existe elemento consulta ci dentro de espera y esta en estado pendiente");
         }
         return resultado;
     }
@@ -189,12 +195,11 @@ public class Fecha implements Comparable<Fecha> {
         if (!consultasEnEspera.esVacia()) {
             c = (Consulta) consultasEnEspera.obtenerInicio().getDato();
         } else {
-            System.out.println("No existen consultas en espera");           
+            System.out.println("No existen consultas en espera");
         }
-        
-        
+
         if (agendada != null) {
-            while (agendada!=null && agendada.getSiguiente() != null && !existeElemento) {
+            while (agendada != null && agendada.getSiguiente() != null && !existeElemento) {
                 Consulta auxC = (Consulta) agendada.getDato();
                 if (auxC.equals(ciPaciente)) {
                     existeElemento = true;
@@ -207,8 +212,8 @@ public class Fecha implements Comparable<Fecha> {
                     }
                     System.out.println("Elemento eliminado de la lista de agendados");
                 }
-               
-                   agendada = agendada.getSiguiente(); 
+
+                agendada = agendada.getSiguiente();
             }
         }
         if (espera != null && !existeElemento) {
@@ -285,17 +290,14 @@ public class Fecha implements Comparable<Fecha> {
     }
 
     public void listarConsultas() {
-        if (!consultasAgendadas.esVacia()) {
-            Nodo aux = consultasAgendadas.obtenerInicio();
-            while (aux.getSiguiente() != null) {
-                Consulta c = (Consulta) aux.getDato();
-                System.out.println(c.getCodMedico() + " " + c.getEstado() + " " + c.getFecha() + " " + c.getCiPaciente());
-                aux = aux.getSiguiente();
-            }
-            Consulta c = (Consulta) aux.getDato();
-            System.out.println(c.getCodMedico() + " " + c.getEstado() + " " + c.getFecha() + " " + c.getCiPaciente());
-        }
+        listarConsultas(this.consultasAgendadas.obtenerInicio());
+    }
 
+    public void listarConsultas(Nodo obj) {
+        if (obj != null) {
+            System.out.println(obj.getDato().toString());
+            listarConsultas(obj.getSiguiente());
+        }
     }
 
     public void listarConsultasEnEspera() {
