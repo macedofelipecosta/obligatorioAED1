@@ -159,7 +159,7 @@ public class Fecha implements Comparable<Fecha> {
     }
 
     public boolean pacienteConsultaEspera(int ciPaciente) {
-        boolean resultado = false;
+         boolean resultado = false;
 
         if (consultasAgendadas.existeElemento(ciPaciente)) {
             Consulta auxC = (Consulta) consultasAgendadas.obtenerElemento(ciPaciente).getDato();

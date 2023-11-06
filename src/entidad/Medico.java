@@ -263,21 +263,22 @@ public final class Medico implements Comparable<Medico> {
 
         if (!fechasAgendadas.esVacia()) {
             Nodo aux = fechasAgendadas.obtenerInicio();
-            if (aux.getSiguiente() != null) {
-                while (aux.getSiguiente() != null && !resultado) {
-                    Fecha auxF = (Fecha) aux.getDato();
-                    if (fecha.equals(sdf.format(auxF.getDato()))) {
-                        if (auxF.pacienteConsultaPendiente(ciPaciente)) {
-                            auxF.cambiarEstado(ciPaciente);
-                            resultado = true;
-                            System.out.println("Nombre medico :" + this.getNombre());
-                        }
-                    }
-                    aux = aux.getSiguiente();
-                }
-            } else {
+            while (aux.getSiguiente() != null && !resultado) {
                 Fecha auxF = (Fecha) aux.getDato();
-                if (fecha.equals(sdf.format(auxF.getDato()))) {
+                String fechaConsulta = sdf.format(auxF.getDato());
+                if (fecha.equals(fechaConsulta)) {
+                    if (auxF.pacienteConsultaPendiente(ciPaciente)) {
+                        auxF.cambiarEstado(ciPaciente);
+                        resultado = true;
+                        System.out.println("Nombre medico :" + this.getNombre());
+                    }
+                }
+                aux = aux.getSiguiente();
+            }
+            if (aux.getSiguiente() == null) {
+                Fecha auxF = (Fecha) aux.getDato();
+                String fechaConsulta = sdf.format(auxF.getDato());
+                if (fecha.equals(fechaConsulta)) {
                     if (auxF.pacienteConsultaPendiente(ciPaciente)) {
                         auxF.cambiarEstado(ciPaciente);
                         resultado = true;
@@ -311,7 +312,7 @@ public final class Medico implements Comparable<Medico> {
 
         if (!fechasAgendadas.esVacia()) {
             Nodo aux = fechasAgendadas.obtenerInicio();
-            if (aux.getSiguiente() != null) {
+            
                 while (aux.getSiguiente() != null && !resultado) {
                     Fecha auxF = (Fecha) aux.getDato();
                     if (auxF.pacienteConsultaEspera(ciPaciente)) {
@@ -319,7 +320,7 @@ public final class Medico implements Comparable<Medico> {
                     }
                     aux = aux.getSiguiente();
                 }
-            } else {
+             if (aux.getSiguiente() == null)  {
                 Fecha auxF = (Fecha) aux.getDato();
                 if (auxF.pacienteConsultaEspera(ciPaciente)) {
                     resultado = true;
@@ -336,7 +337,6 @@ public final class Medico implements Comparable<Medico> {
 
         if (!fechasAgendadas.esVacia()) {
             Nodo aux = fechasAgendadas.obtenerInicio();
-            if (aux.getSiguiente() != null) {
                 while (aux.getSiguiente() != null && !resultado) {
                     Fecha auxF = (Fecha) aux.getDato();
                     if (auxF.pacienteConsultaEspera(ciPaciente)) {
@@ -347,7 +347,7 @@ public final class Medico implements Comparable<Medico> {
                     }
                     aux = aux.getSiguiente();
                 }
-            } else {
+             if (aux.getSiguiente() == null) {
                 Fecha auxF = (Fecha) aux.getDato();
                 if (auxF.pacienteConsultaEspera(ciPaciente)) {
                     retorno = auxF.obtenerConsulta(ciPaciente);
@@ -380,15 +380,14 @@ public final class Medico implements Comparable<Medico> {
         }
     }
 
-
-     public void listarConsultas() {
-      listarConsultasDiaRec(this.fechasAgendadas.obtenerInicio());
+    public void listarConsultas() {
+        listarConsultasDiaRec(this.fechasAgendadas.obtenerInicio());
     }
- 
-     public void listarConsultasDiaRec(Nodo obj) {
+
+    public void listarConsultasDiaRec(Nodo obj) {
         if (obj != null) {
             System.out.println(obj.getDato().toString());
-            Fecha f=(Fecha)obj.getDato();
+            Fecha f = (Fecha) obj.getDato(); //lo unico que no se como manejar es esto
             f.listarConsultas();
             listarConsultasDiaRec(obj.getSiguiente());
         }

@@ -124,4 +124,19 @@ public class Paciente implements Comparable<Paciente> {
         }
 
     }
+    
+     public void listarHisotriaClinica() {
+        listarHisotriaClinica(this.historialClinico.obtenerInicio());
+    }
+
+    public void listarHisotriaClinica(Nodo obj) {
+        if (obj != null) {
+            Consulta c=(Consulta) obj.getDato();
+            if (c.getEstado().equals("No asistio")|| c.getEstado().equals("Terminada")) {
+                System.out.println(c.toString());
+            }
+            listarHisotriaClinica(obj.getSiguiente());
+        }
+    }
+    
 }
