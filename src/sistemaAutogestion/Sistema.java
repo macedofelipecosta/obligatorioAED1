@@ -372,7 +372,16 @@ public class Sistema implements IObligatorio {
      */
     @Override
     public Retorno historiaClínicaPaciente(int ci) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         boolean pac = listaPacientes.existeElemento(ci);
+        Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        if (pac) {
+            Paciente p = (Paciente) listaPacientes.obtenerElemento(ci).getDato();
+           p.listarHisotriaClinica();
+            r.resultado = Retorno.Resultado.OK;
+        } else {
+            r.resultado = Retorno.Resultado.ERROR_1;
+        }
+        return r;
     }
 
     /*

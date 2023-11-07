@@ -56,6 +56,7 @@ public class Main {
         s.registrarMedico("Hossdr", 2, 123, 3);
 
         s.reservaConsulta(1, 1, new Date("11/06/2023"));
+          s.reservaConsulta(1, 1, new Date("11/08/2023"));
         s.reservaConsulta(1, 2, new Date("11/05/2023"));
         s.reservaConsulta(1, 3, new Date("11/05/2023"));
         s.reservaConsulta(1, 4, new Date("11/05/2023"));
@@ -74,7 +75,8 @@ public class Main {
         s.reservaConsulta(2, 5, new Date("11/03/2023"));
 
         System.out.println("cancelar reserva ------------->");
-        s.cancelarReserva(1, 1);
+//        s.cancelarReserva(1, 1);
+        
         System.out.println("anunciar llegada ------------->");
         s.anunciaLlegada(1, 1);
         s.anunciaLlegada(2, 1);
@@ -87,14 +89,15 @@ public class Main {
         s.anunciaLlegada(1, 8);
 
         System.out.println("terminar consulta paciente ------------->");
-        s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
-        s.terminarConsultaMedicoPaciente(1, 2, "   Prueba segunda");
+//        s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
+//        s.terminarConsultaMedicoPaciente(1, 2, "   Prueba segunda");
         System.out.println("cerrar Consultas ------------->");
 //        s.cerrarConsulta(1, new Date());
         System.out.println("listarConsultas Rec ------------->");
         s.listarConsultas(2);
         System.out.println("listar Pacientes en espera ------------->");
-        s.listarPacientesEnEspera(1, new Date("11/05/2023"));
+        s.listarPacientesEnEspera(1, new Date("11/06/2023"));
+        s.listarPacientesEnEspera(2, new Date("11/06/2023"));
 //           s.cerrarConsulta(2, new Date());
         System.out.println("listar historia clinica Paciente ------------->");
         s.consultasPendientesPaciente(1);

@@ -236,18 +236,24 @@ public final class Medico implements Comparable<Medico> {
                 Fecha auxF = (Fecha) aux.getDato();
                 if (!auxF.pacienteConsultaPendiente(ciPaciente) || !auxF.pacienteConsultaCerrada(ciPaciente)) {
                     while (aux.getSiguiente() != null && !result) {
-                        auxF.cancelarReservaFecha(ciPaciente);
-                        result = true;
-                        System.out.println("Result= true, consuilta eliminada -->sout de Medico");
+
+                        if (auxF.cancelarReservaFecha(ciPaciente)) {
+                            result = true;
+                            System.out.println("Result= true, consuilta eliminada -->sout de Medico");
+                        }
+                        aux = aux.getSiguiente();
+
                     }
                 }
             }
             if (aux.getSiguiente() == null) {
                 Fecha auxF = (Fecha) aux.getDato();
                 if (!auxF.pacienteConsultaPendiente(ciPaciente) || !auxF.pacienteConsultaCerrada(ciPaciente)) {
-                    auxF.cancelarReservaFecha(ciPaciente);
-                    result = true;
-                    System.out.println("Result= true, consulta eliminada sin aux.getSigueinte-->sout de Medico");
+                    if (auxF.cancelarReservaFecha(ciPaciente)) {
+                        result = true;
+                        System.out.println("Result= true, consuilta eliminada -->sout de Medico");
+                    }
+                    System.out.println("Result= false, consulta no eliminada -->sout de Medico");
 
                 }
             }
@@ -312,15 +318,15 @@ public final class Medico implements Comparable<Medico> {
 
         if (!fechasAgendadas.esVacia()) {
             Nodo aux = fechasAgendadas.obtenerInicio();
-            
-                while (aux.getSiguiente() != null && !resultado) {
-                    Fecha auxF = (Fecha) aux.getDato();
-                    if (auxF.pacienteConsultaEspera(ciPaciente)) {
-                        resultado = true;
-                    }
-                    aux = aux.getSiguiente();
+
+            while (aux.getSiguiente() != null && !resultado) {
+                Fecha auxF = (Fecha) aux.getDato();
+                if (auxF.pacienteConsultaEspera(ciPaciente)) {
+                    resultado = true;
                 }
-             if (aux.getSiguiente() == null)  {
+                aux = aux.getSiguiente();
+            }
+            if (aux.getSiguiente() == null) {
                 Fecha auxF = (Fecha) aux.getDato();
                 if (auxF.pacienteConsultaEspera(ciPaciente)) {
                     resultado = true;
@@ -337,17 +343,17 @@ public final class Medico implements Comparable<Medico> {
 
         if (!fechasAgendadas.esVacia()) {
             Nodo aux = fechasAgendadas.obtenerInicio();
-                while (aux.getSiguiente() != null && !resultado) {
-                    Fecha auxF = (Fecha) aux.getDato();
-                    if (auxF.pacienteConsultaEspera(ciPaciente)) {
-                        retorno = auxF.obtenerConsulta(ciPaciente);
-                        retorno.terminarConsulta(detalle);
+            while (aux.getSiguiente() != null && !resultado) {
+                Fecha auxF = (Fecha) aux.getDato();
+                if (auxF.pacienteConsultaEspera(ciPaciente)) {
+                    retorno = auxF.obtenerConsulta(ciPaciente);
+                    retorno.terminarConsulta(detalle);
 //                        System.out.println(retorno.getEstado() + retorno.getDetalleConsulta());
-                        resultado = true;
-                    }
-                    aux = aux.getSiguiente();
+                    resultado = true;
                 }
-             if (aux.getSiguiente() == null) {
+                aux = aux.getSiguiente();
+            }
+            if (aux.getSiguiente() == null) {
                 Fecha auxF = (Fecha) aux.getDato();
                 if (auxF.pacienteConsultaEspera(ciPaciente)) {
                     retorno = auxF.obtenerConsulta(ciPaciente);

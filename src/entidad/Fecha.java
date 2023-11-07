@@ -159,7 +159,7 @@ public class Fecha implements Comparable<Fecha> {
     }
 
     public boolean pacienteConsultaEspera(int ciPaciente) {
-         boolean resultado = false;
+        boolean resultado = false;
 
         if (consultasAgendadas.existeElemento(ciPaciente)) {
             Consulta auxC = (Consulta) consultasAgendadas.obtenerElemento(ciPaciente).getDato();
@@ -187,51 +187,52 @@ public class Fecha implements Comparable<Fecha> {
     }
 
     public boolean cancelarReservaFecha(int ciPaciente) {
-        boolean existeElemento = false;
-        Nodo agendada = consultasAgendadas.obtenerInicio();
-        Nodo espera = consultasEnEspera.obtenerInicio();
-        Consulta c = null;
+        boolean cancelada = false;
+        Consulta consultaEnEspera = null;
 
-        if (!consultasEnEspera.esVacia()) {
-            c = (Consulta) consultasEnEspera.obtenerInicio().getDato();
+        if (!this.consultasEnEspera.esVacia()) {
+            consultaEnEspera = (Consulta) consultasEnEspera.obtenerInicio().getDato();
         } else {
-            System.out.println("No existen consultas en espera");
+            System.out.println("No existen consultas en espera para asignar");
         }
 
-        if (agendada != null) {
-            while (agendada != null && agendada.getSiguiente() != null && !existeElemento) {
-                Consulta auxC = (Consulta) agendada.getDato();
-                if (auxC.equals(ciPaciente)) {
-                    existeElemento = true;
-                    System.out.println("Existe elemento el lista de agendas");
-                    if (c != null) {
-                        auxC.setCiPaciente(c.getCiPaciente());
-                        consultasEnEspera.borrarElemento(c);
+        if (!this.consultasAgendadas.esVacia()) {
+            Nodo inicio = consultasAgendadas.obtenerInicio();
+            while (inicio.getSiguiente() != null) {
+                Consulta cAgendada = (Consulta) inicio.getDato();
+                if (cAgendada.equals(ciPaciente)) {
+                    if (consultaEnEspera != null) {
+                        cAgendada.setCiPaciente(consultaEnEspera.getCiPaciente());
+                        System.out.println("Se ha cambiado el nro cedula de la consulta por: " + consultaEnEspera.getCiPaciente());
+                        cancelada = true;
                     } else {
-                        consultasAgendadas.borrarElemento(auxC);
+                        consultasAgendadas.borrarElemento(cAgendada);
+                        System.out.println("Unicamente se ha borrado la consulta");
+                        cancelada = true;
                     }
-                    System.out.println("Elemento eliminado de la lista de agendados");
                 }
-
-                agendada = agendada.getSiguiente();
+                inicio = inicio.getSiguiente();
             }
-        }
-        if (espera != null && !existeElemento) {
-
-            while (espera.getSiguiente() != null && !existeElemento) {
-
-                if (espera.getDato().equals(ciPaciente)) {
-                    existeElemento = true;
-                    System.out.println("existe elemento en lista de espera");
-                    Consulta auxC = (Consulta) espera.getDato();
-                    consultasEnEspera.borrarElemento(auxC);
-                    System.out.println("Elemento eliminado de la lista de espera");
+            if (inicio.getSiguiente() == null) {
+                Consulta cAgendada = (Consulta) inicio.getDato();
+                if (cAgendada.equals(ciPaciente)) {
+                    if (consultaEnEspera != null) {
+                        cAgendada.setCiPaciente(consultaEnEspera.getCiPaciente());
+                        System.out.println("inicio.getSigueinte==null  - Se ha cambiado el nro cedula de la consulta por: " + consultaEnEspera.getCiPaciente());
+                        cancelada = true;
+                    } else {
+                        consultasAgendadas.borrarElemento(cAgendada);
+                        System.out.println("inicio.getSigueinte==null  -Unicamente se ha borrado la consulta");
+                        cancelada = true;
+                    }
                 }
-                espera = espera.getSiguiente();
             }
 
+        } else {
+            System.out.println("No se han encontrado consultas en este dia");
         }
-        return existeElemento;
+
+        return cancelada;
     }
 
     public Consulta cambiarAgenda() {
