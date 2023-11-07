@@ -27,7 +27,7 @@ public class Fecha implements Comparable<Fecha> {
         this.consultasAgendadas = new ListaNodos();
         this.consultasEnEspera = new ListaNodos();
         this.cantConsultasAgendadas = 0;
-        this.cantConsultasCerradas=0;
+        this.cantConsultasCerradas = 0;
     }
 
     /**
@@ -296,10 +296,31 @@ public class Fecha implements Comparable<Fecha> {
         listarConsultas(this.consultasAgendadas.obtenerInicio());
     }
 
-    public void listarConsultas(Nodo obj) {
+    private void listarConsultas(Nodo obj) {
         if (obj != null) {
             System.out.println(obj.getDato().toString());
             listarConsultas(obj.getSiguiente());
+        }
+    }
+
+    public void listarConsultasPendientesRec(int ciPaciente) {
+        listarConsultasPendientesRec(this.consultasAgendadas.obtenerInicio(), ciPaciente);
+        listarConsultasPendientesRec(this.consultasEnEspera.obtenerInicio(), ciPaciente);
+    }
+
+    private void listarConsultasPendientesRec(Nodo obj, int ciPaciente) {
+
+        if (obj != null) {
+            Consulta c = (Consulta) obj.getDato();
+            if (ciPaciente==c.getCiPaciente()) {
+                if (c.getEstado().equals("Pendiente")) {
+                    System.out.println(obj.getDato().toString());
+                    listarConsultasPendientesRec(obj.getSiguiente(), ciPaciente);
+                } 
+            }
+             else {
+                listarConsultasPendientesRec(obj.getSiguiente(), ciPaciente);
+            }
         }
     }
 
@@ -328,9 +349,8 @@ public class Fecha implements Comparable<Fecha> {
         return cantConsultasCerradas;
     }
 
-
     public void setCantConsultasCerradas() {
-        this.cantConsultasCerradas =cantConsultasCerradas+1;
+        this.cantConsultasCerradas = cantConsultasCerradas + 1;
     }
 }
 

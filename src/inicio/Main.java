@@ -78,7 +78,7 @@ public class Main {
 //        s.cancelarReserva(1, 1);
         
         System.out.println("anunciar llegada ------------->");
-        s.anunciaLlegada(1, 1);
+//        s.anunciaLlegada(1, 1);
         s.anunciaLlegada(1, 2);
         s.anunciaLlegada(1, 3);
         s.anunciaLlegada(1, 4);
@@ -87,7 +87,7 @@ public class Main {
         s.anunciaLlegada(1, 7);
         s.anunciaLlegada(1, 8);
         
-        s.anunciaLlegada(2, 1);
+//        s.anunciaLlegada(2, 1);
         s.anunciaLlegada(2, 2);
         s.anunciaLlegada(2, 3);
         s.anunciaLlegada(2, 4);
@@ -97,40 +97,44 @@ public class Main {
         s.anunciaLlegada(2, 8);
 
         System.out.println("terminar consulta paciente ------------->");
-        s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
-        s.terminarConsultaMedicoPaciente(2, 1, "   Prueba 123456");
-        s.terminarConsultaMedicoPaciente(3, 1, "   Prueba 123456");
-        s.terminarConsultaMedicoPaciente(4, 1, "   Prueba 123456");
-        s.terminarConsultaMedicoPaciente(5, 1, "   Prueba 123456");
-        s.terminarConsultaMedicoPaciente(6, 1, "   Prueba 123456");
-        s.terminarConsultaMedicoPaciente(7, 1, "   Prueba 123456");
-        s.terminarConsultaMedicoPaciente(8, 1, "   Prueba 123456");
-        
-        s.terminarConsultaMedicoPaciente(1, 2, "   Prueba segunda");
-        s.terminarConsultaMedicoPaciente(2, 2, "   Prueba segunda");
-        s.terminarConsultaMedicoPaciente(3, 2, "   Prueba segunda");
-        s.terminarConsultaMedicoPaciente(4, 2, "   Prueba segunda");
-        s.terminarConsultaMedicoPaciente(5, 2, "   Prueba segunda");
-        s.terminarConsultaMedicoPaciente(6, 2, "   Prueba segunda");
-        s.terminarConsultaMedicoPaciente(7, 2, "   Prueba segunda");
-        s.terminarConsultaMedicoPaciente(8, 2, "   Prueba segunda");
+//        s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
+//        s.terminarConsultaMedicoPaciente(2, 1, "   Prueba 123456");
+//        s.terminarConsultaMedicoPaciente(3, 1, "   Prueba 123456");
+//        s.terminarConsultaMedicoPaciente(4, 1, "   Prueba 123456");
+//        s.terminarConsultaMedicoPaciente(5, 1, "   Prueba 123456");
+//        s.terminarConsultaMedicoPaciente(6, 1, "   Prueba 123456");
+//        s.terminarConsultaMedicoPaciente(7, 1, "   Prueba 123456");
+//        s.terminarConsultaMedicoPaciente(8, 1, "   Prueba 123456");
+//        
+//        s.terminarConsultaMedicoPaciente(1, 2, "   Prueba segunda");
+//        s.terminarConsultaMedicoPaciente(2, 2, "   Prueba segunda");
+//        s.terminarConsultaMedicoPaciente(3, 2, "   Prueba segunda");
+//        s.terminarConsultaMedicoPaciente(4, 2, "   Prueba segunda");
+//        s.terminarConsultaMedicoPaciente(5, 2, "   Prueba segunda");
+//        s.terminarConsultaMedicoPaciente(6, 2, "   Prueba segunda");
+//        s.terminarConsultaMedicoPaciente(7, 2, "   Prueba segunda");
+//        s.terminarConsultaMedicoPaciente(8, 2, "   Prueba segunda");
         
         
         System.out.println("cerrar Consultas ------------->");
 //        s.cerrarConsulta(1, new Date());
 //           s.cerrarConsulta(2, new Date());
-        System.out.println("listarConsultas Rec ------------->");
+        System.out.println("listarConsultas Rec 3.3------------->");
         s.listarConsultas(2);
         s.listarConsultas(1);
         
-        System.out.println("listar Pacientes en espera ------------->");
-        s.listarPacientesEnEspera(1, new Date("11/06/2023"));
-        s.listarPacientesEnEspera(2, new Date("11/06/2023"));
+        System.out.println("listar Pacientes en espera 3.4 ------------->");
+        s.listarPacientesEnEspera(1, new Date("11/07/2023"));
+        s.listarPacientesEnEspera(2, new Date("11/07/2023"));
 
-        System.out.println("listar historia clinica Paciente ------------->");
+        System.out.println("listar consultas pendientes de un paciente 3.5------->");
         s.consultasPendientesPaciente(1);
         
-         System.out.println("matriz ------------->");
+        
+        System.out.println("listar historia clinica Paciente 3.6------------->");
+        s.historiaClínicaPaciente(1);
+        
+         System.out.println("matriz 3.7 ------------->");
         s.reporteDePacientesXFechaYEspecialidad(11,2023);
 
     }

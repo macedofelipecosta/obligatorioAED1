@@ -358,8 +358,16 @@ public class Sistema implements IObligatorio {
         boolean pac = listaPacientes.existeElemento(CIPaciente);
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         if (pac) {
-            Paciente p = (Paciente) listaPacientes.obtenerElemento(CIPaciente).getDato();
-            p.listarHisotriaClinica();
+            Nodo aux=listaMedicos.obtenerInicio();
+            while(aux.getSiguiente()!=null){
+                Medico m = (Medico) aux.getDato();
+                m.listarConsultasPendientesPacRec(CIPaciente);
+                aux=aux.getSiguiente();
+            }
+             if (aux.getSiguiente()==null) {
+                Medico m = (Medico) aux.getDato();
+                m.listarConsultasPendientesPacRec(CIPaciente);
+            }
             r.resultado = Retorno.Resultado.OK;
         } else {
             r.resultado = Retorno.Resultado.ERROR_1;
@@ -395,56 +403,59 @@ public class Sistema implements IObligatorio {
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         //matriz determinada por el maximo de las especialidades, y maximo días mes 
 
-        YearMonth yearMonth = YearMonth.of(año, mes);
-        int daysInMonth = yearMonth.lengthOfMonth();
+        if (mes <= 0 || mes >= 12 || año < 2020 || año > 2023) {
+            r.resultado = Retorno.Resultado.ERROR_1;
+        } else {
 
-        int matriz[][] = new int[daysInMonth + 1][20 + 1];
+            YearMonth yearMonth = YearMonth.of(año, mes);
+            int daysInMonth = yearMonth.lengthOfMonth();
 
-        for (int i = 0; i < daysInMonth + 1; i++) {
-            matriz[i][0] = i;
-        }
-        for (int j = 0; j < 21; j++) {
-            matriz[0][j] = j;
-        }
+            int matriz[][] = new int[daysInMonth + 1][20 + 1];
 
-        if (!listaMedicos.esVacia()) {
-            Nodo med = listaMedicos.obtenerInicio();
-            int cantPacientes = 0;
-            while (med.getSiguiente() != null) {
-                Medico m = (Medico) med.getDato();
+            for (int i = 0; i < daysInMonth + 1; i++) {
+                matriz[i][0] = i;
+            }
+            for (int j = 0; j < 21; j++) {
+                matriz[0][j] = j;
+            }
 
-                for (int j = 0; j < 21; j++) {
-                    if (m.getEspecialidad() == matriz[0][j]) {
+            if (!listaMedicos.esVacia()) {
+                Nodo med = listaMedicos.obtenerInicio();
+                int cantPacientes = 0;
+                while (med.getSiguiente() != null) {
+                    Medico m = (Medico) med.getDato();
 
-                        for (int i = 1; i < daysInMonth + 1; i++) {
+                    for (int j = 0; j < 21; j++) {
+                        if (m.getEspecialidad() == matriz[0][j]) {
 
-                            cantPacientes = cantPacientes + m.cantidadConsultasCerradas(i, mes, año);
+                            for (int i = 1; i < daysInMonth + 1; i++) {
 
-                            matriz[i][j] = cantPacientes;
+                                if (m.cantidadConsultasCerradas(i, mes, año) > 0) {
+                                    cantPacientes = cantPacientes + m.cantidadConsultasCerradas(i, mes, año);
+
+                                    matriz[i][j] = cantPacientes;
+                                }
+                            }
+                        }
+                    }
+                    med = med.getSiguiente();
+                }
+                if (med.getSiguiente() == null) {
+                    Medico m = (Medico) med.getDato();
+                    for (int j = 0; j < 21; j++) {
+                        if (m.getEspecialidad() == matriz[0][j]) {
+                            for (int i = 1; i < daysInMonth + 1; i++) {
+                                if (m.cantidadConsultasCerradas(i, mes, año) > 0) {
+                                    cantPacientes = cantPacientes + m.cantidadConsultasCerradas(i, mes, año);
+                                    matriz[i][j] = cantPacientes;
+                                }
+                            }
                         }
                     }
                 }
-                med = med.getSiguiente();
             }
-            if (med.getSiguiente() == null) {
-                Medico m = (Medico) med.getDato();
-
-                for (int j = 0; j < 21; j++) {
-                    if (m.getEspecialidad() == matriz[0][j]) {
-
-                        for (int i = 1; i < daysInMonth + 1; i++) {
-
-                            cantPacientes = cantPacientes + m.cantidadConsultasCerradas(i, mes, año);
-
-                            matriz[i][j] = cantPacientes;
-                        }
-
-                    }
-                }
-            }
+            mostrarRec(matriz);
         }
-
-        mostrarRec(matriz);
         return r;
     }
 

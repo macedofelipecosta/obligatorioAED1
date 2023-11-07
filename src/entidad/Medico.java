@@ -395,9 +395,16 @@ public final class Medico implements Comparable<Medico> {
     public void listarConsultasDiaRec(Nodo obj) {
         if (obj != null) {
             System.out.println(obj.getDato().toString());
-            Fecha f = (Fecha) obj.getDato(); //lo unico que no se como manejar es esto
+            Fecha f = (Fecha) obj.getDato(); //lo unico no se si esto esta bien asi 
             f.listarConsultas();
             listarConsultasDiaRec(obj.getSiguiente());
+        }
+    }
+
+    public void listarConsultasPendientesPacRec(int ciPaciente) {
+        if (!this.fechasAgendadas.esVacia()) {
+            Fecha f = (Fecha) fechasAgendadas.obtenerInicio().getDato();
+            f.listarConsultasPendientesRec(ciPaciente);
         }
     }
 
