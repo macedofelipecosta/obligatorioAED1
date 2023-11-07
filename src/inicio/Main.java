@@ -55,31 +55,30 @@ public class Main {
         s.registrarMedico("Hor", 1, 123, 3);
         s.registrarMedico("Hossdr", 2, 123, 3);
 
-        s.reservaConsulta(1, 1, new Date("11/06/2023"));
-          s.reservaConsulta(1, 1, new Date("11/08/2023"));
-        s.reservaConsulta(1, 2, new Date("11/05/2023"));
-        s.reservaConsulta(1, 3, new Date("11/05/2023"));
-        s.reservaConsulta(1, 4, new Date("11/05/2023"));
-        s.reservaConsulta(1, 5, new Date("11/05/2023"));
-        s.reservaConsulta(1, 6, new Date("11/05/2023"));
-        s.reservaConsulta(1, 7, new Date("11/05/2023"));
-        s.reservaConsulta(1, 8, new Date("11/05/2023"));
+        s.reservaConsulta(1, 1, new Date("11/07/2023"));
+        s.reservaConsulta(1, 1, new Date("11/07/2023"));
+        s.reservaConsulta(1, 2, new Date("11/07/2023"));
+        s.reservaConsulta(1, 3, new Date("11/07/2023"));
+        s.reservaConsulta(1, 4, new Date("11/07/2023"));
+        s.reservaConsulta(1, 5, new Date("11/07/2023"));
+        s.reservaConsulta(1, 6, new Date("11/07/2023"));
+        s.reservaConsulta(1, 7, new Date("11/07/2023"));
+        s.reservaConsulta(1, 8, new Date("11/07/2023"));
 
-        s.reservaConsulta(2, 1, new Date("11/06/2023"));
-        s.reservaConsulta(2, 2, new Date("11/23/2023"));
-        s.reservaConsulta(2, 3, new Date("11/05/2023"));
-        s.reservaConsulta(2, 4, new Date("11/14/2023"));
-        s.reservaConsulta(2, 6, new Date("11/23/2023"));
-        s.reservaConsulta(2, 7, new Date("11/05/2023"));
-        s.reservaConsulta(2, 8, new Date("11/14/2023"));
-        s.reservaConsulta(2, 5, new Date("11/03/2023"));
+        s.reservaConsulta(2, 1, new Date("11/07/2023"));
+        s.reservaConsulta(2, 2, new Date("11/07/2023"));
+        s.reservaConsulta(2, 3, new Date("11/07/2023"));
+        s.reservaConsulta(2, 4, new Date("11/07/2023"));
+        s.reservaConsulta(2, 6, new Date("11/07/2023"));
+        s.reservaConsulta(2, 7, new Date("11/07/2023"));
+        s.reservaConsulta(2, 8, new Date("11/07/2023"));
+        s.reservaConsulta(2, 5, new Date("11/07/2023"));
 
         System.out.println("cancelar reserva ------------->");
 //        s.cancelarReserva(1, 1);
         
         System.out.println("anunciar llegada ------------->");
         s.anunciaLlegada(1, 1);
-        s.anunciaLlegada(2, 1);
         s.anunciaLlegada(1, 2);
         s.anunciaLlegada(1, 3);
         s.anunciaLlegada(1, 4);
@@ -87,20 +86,52 @@ public class Main {
         s.anunciaLlegada(1, 6);
         s.anunciaLlegada(1, 7);
         s.anunciaLlegada(1, 8);
+        
+        s.anunciaLlegada(2, 1);
+        s.anunciaLlegada(2, 2);
+        s.anunciaLlegada(2, 3);
+        s.anunciaLlegada(2, 4);
+        s.anunciaLlegada(2, 5);
+        s.anunciaLlegada(2, 6);
+        s.anunciaLlegada(2, 7);
+        s.anunciaLlegada(2, 8);
 
         System.out.println("terminar consulta paciente ------------->");
-//        s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
-//        s.terminarConsultaMedicoPaciente(1, 2, "   Prueba segunda");
+        s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
+        s.terminarConsultaMedicoPaciente(2, 1, "   Prueba 123456");
+        s.terminarConsultaMedicoPaciente(3, 1, "   Prueba 123456");
+        s.terminarConsultaMedicoPaciente(4, 1, "   Prueba 123456");
+        s.terminarConsultaMedicoPaciente(5, 1, "   Prueba 123456");
+        s.terminarConsultaMedicoPaciente(6, 1, "   Prueba 123456");
+        s.terminarConsultaMedicoPaciente(7, 1, "   Prueba 123456");
+        s.terminarConsultaMedicoPaciente(8, 1, "   Prueba 123456");
+        
+        s.terminarConsultaMedicoPaciente(1, 2, "   Prueba segunda");
+        s.terminarConsultaMedicoPaciente(2, 2, "   Prueba segunda");
+        s.terminarConsultaMedicoPaciente(3, 2, "   Prueba segunda");
+        s.terminarConsultaMedicoPaciente(4, 2, "   Prueba segunda");
+        s.terminarConsultaMedicoPaciente(5, 2, "   Prueba segunda");
+        s.terminarConsultaMedicoPaciente(6, 2, "   Prueba segunda");
+        s.terminarConsultaMedicoPaciente(7, 2, "   Prueba segunda");
+        s.terminarConsultaMedicoPaciente(8, 2, "   Prueba segunda");
+        
+        
         System.out.println("cerrar Consultas ------------->");
 //        s.cerrarConsulta(1, new Date());
+//           s.cerrarConsulta(2, new Date());
         System.out.println("listarConsultas Rec ------------->");
         s.listarConsultas(2);
+        s.listarConsultas(1);
+        
         System.out.println("listar Pacientes en espera ------------->");
         s.listarPacientesEnEspera(1, new Date("11/06/2023"));
         s.listarPacientesEnEspera(2, new Date("11/06/2023"));
-//           s.cerrarConsulta(2, new Date());
+
         System.out.println("listar historia clinica Paciente ------------->");
         s.consultasPendientesPaciente(1);
+        
+         System.out.println("matriz ------------->");
+        s.reporteDePacientesXFechaYEspecialidad(11,2023);
 
     }
 

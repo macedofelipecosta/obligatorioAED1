@@ -20,12 +20,14 @@ public class Fecha implements Comparable<Fecha> {
     private ListaNodos consultasAgendadas;
     private ListaNodos consultasEnEspera; //puede ser una lista cola?
     private int cantConsultasAgendadas;
+    private int cantConsultasCerradas;
 
     public Fecha(Date d) {
         this.dato = d;
         this.consultasAgendadas = new ListaNodos();
         this.consultasEnEspera = new ListaNodos();
         this.cantConsultasAgendadas = 0;
+        this.cantConsultasCerradas=0;
     }
 
     /**
@@ -317,6 +319,18 @@ public class Fecha implements Comparable<Fecha> {
             }
         }
 
+    }
+
+    /**
+     * @return the cantConsultasCerradas
+     */
+    public int getCantConsultasCerradas() {
+        return cantConsultasCerradas;
+    }
+
+
+    public void setCantConsultasCerradas() {
+        this.cantConsultasCerradas =cantConsultasCerradas+1;
     }
 }
 

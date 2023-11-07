@@ -350,6 +350,7 @@ public final class Medico implements Comparable<Medico> {
                     retorno.terminarConsulta(detalle);
 //                        System.out.println(retorno.getEstado() + retorno.getDetalleConsulta());
                     resultado = true;
+                    auxF.setCantConsultasCerradas();
                 }
                 aux = aux.getSiguiente();
             }
@@ -359,6 +360,7 @@ public final class Medico implements Comparable<Medico> {
                     retorno = auxF.obtenerConsulta(ciPaciente);
                     retorno.terminarConsulta(detalle);
 //                    System.out.println(retorno.getEstado() + retorno.getDetalleConsulta());
+                    auxF.setCantConsultasCerradas();
                 }
             }
         }
@@ -409,6 +411,32 @@ public final class Medico implements Comparable<Medico> {
             }
 
         }
+    }
+
+    ////////////////////////////////////////////////
+    public int cantidadConsultasCerradas(int dia, int mes, int ano) {
+        int cantidad = 0;
+        Date fecha = new Date(ano - 1900, mes - 1, dia);
+        if (!fechasAgendadas.esVacia()) {
+            Nodo aux = fechasAgendadas.obtenerInicio();
+
+            while (aux.getSiguiente() != null) {
+                Fecha f = (Fecha) aux.getDato();
+
+                if (f.equals(fecha)) {
+                    cantidad = cantidad + f.getCantConsultasCerradas();
+                }
+                aux = aux.getSiguiente();
+            }
+            if (aux.getSiguiente() == null) {
+                Fecha f = (Fecha) aux.getDato();
+                if (f.equals(fecha)) {
+                    cantidad = cantidad + f.getCantConsultasCerradas();
+                }
+            }
+        }
+
+        return cantidad;
     }
 
 }

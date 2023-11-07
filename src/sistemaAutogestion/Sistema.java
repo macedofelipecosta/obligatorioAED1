@@ -1,6 +1,7 @@
 package sistemaAutogestion;
 
 import entidad.*;
+import java.time.YearMonth;
 import java.util.Date;
 import tads.*;
 
@@ -281,7 +282,7 @@ public class Sistema implements IObligatorio {
             r.resultado = Retorno.Resultado.ERROR_2;
             return r;
         } else {
-            m.getDato().cerrarPacientesAusentes(fechaConsulta,listaPacientes);
+            m.getDato().cerrarPacientesAusentes(fechaConsulta, listaPacientes);
             r.resultado = Retorno.Resultado.OK;
         }
 
@@ -354,11 +355,11 @@ public class Sistema implements IObligatorio {
      */
     @Override
     public Retorno consultasPendientesPaciente(int CIPaciente) {
-         boolean pac = listaPacientes.existeElemento(CIPaciente);
+        boolean pac = listaPacientes.existeElemento(CIPaciente);
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         if (pac) {
             Paciente p = (Paciente) listaPacientes.obtenerElemento(CIPaciente).getDato();
-           p.listarHisotriaClinica();
+            p.listarHisotriaClinica();
             r.resultado = Retorno.Resultado.OK;
         } else {
             r.resultado = Retorno.Resultado.ERROR_1;
@@ -372,11 +373,11 @@ public class Sistema implements IObligatorio {
      */
     @Override
     public Retorno historiaClínicaPaciente(int ci) {
-         boolean pac = listaPacientes.existeElemento(ci);
+        boolean pac = listaPacientes.existeElemento(ci);
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         if (pac) {
             Paciente p = (Paciente) listaPacientes.obtenerElemento(ci).getDato();
-           p.listarHisotriaClinica();
+            p.listarHisotriaClinica();
             r.resultado = Retorno.Resultado.OK;
         } else {
             r.resultado = Retorno.Resultado.ERROR_1;
@@ -391,7 +392,81 @@ public class Sistema implements IObligatorio {
      */
     @Override
     public Retorno reporteDePacientesXFechaYEspecialidad(int mes, int año) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        //matriz determinada por el maximo de las especialidades, y maximo días mes 
+
+        YearMonth yearMonth = YearMonth.of(año, mes);
+        int daysInMonth = yearMonth.lengthOfMonth();
+
+        int matriz[][] = new int[daysInMonth + 1][20 + 1];
+
+        for (int i = 0; i < daysInMonth + 1; i++) {
+            matriz[i][0] = i;
+        }
+        for (int j = 0; j < 21; j++) {
+            matriz[0][j] = j;
+        }
+
+        if (!listaMedicos.esVacia()) {
+            Nodo med = listaMedicos.obtenerInicio();
+            int cantPacientes = 0;
+            while (med.getSiguiente() != null) {
+                Medico m = (Medico) med.getDato();
+
+                for (int j = 0; j < 21; j++) {
+                    if (m.getEspecialidad() == matriz[0][j]) {
+
+                        for (int i = 1; i < daysInMonth + 1; i++) {
+
+                            cantPacientes = cantPacientes + m.cantidadConsultasCerradas(i, mes, año);
+
+                            matriz[i][j] = cantPacientes;
+                        }
+                    }
+                }
+                med = med.getSiguiente();
+            }
+            if (med.getSiguiente() == null) {
+                Medico m = (Medico) med.getDato();
+
+                for (int j = 0; j < 21; j++) {
+                    if (m.getEspecialidad() == matriz[0][j]) {
+
+                        for (int i = 1; i < daysInMonth + 1; i++) {
+
+                            cantPacientes = cantPacientes + m.cantidadConsultasCerradas(i, mes, año);
+
+                            matriz[i][j] = cantPacientes;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        mostrarRec(matriz);
+        return r;
+    }
+
+    public static void mostrarRec(int[][] mat) {
+
+        mostrarRec(mat, 0, 0);
+
+    }
+
+    private static void mostrarRec(int[][] mat, int columna, int fila) {
+
+        if (fila < mat.length) { //caso base
+
+            if (columna == mat[fila].length - 1) {
+                System.out.println(mat[fila][columna]);
+                System.out.println(" ");
+                mostrarRec(mat, 0, fila + 1);
+            } else {
+                System.out.print(mat[fila][columna] + " ");
+                mostrarRec(mat, columna + 1, fila);
+            }
+        }
     }
 
 }
