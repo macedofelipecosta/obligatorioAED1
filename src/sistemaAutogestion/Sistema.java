@@ -147,24 +147,26 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno reservaConsulta(int codMedico, int ciPaciente, Date fecha) {
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-        Medico m = (Medico) listaMedicos.obtenerElemento(codMedico).getDato();
         boolean p = listaPacientes.existeElemento(ciPaciente);
-
+        boolean m = listaMedicos.existeElemento(codMedico);
         if (!p) {
             r.resultado = Retorno.Resultado.ERROR_1;
             return r;
         }
-        if (m == null) {
+        if (!m) {
             r.resultado = Retorno.Resultado.ERROR_2;
             return r;
         }
-        if (m.existeConsultaPendiente(ciPaciente)) {
+        Medico med = (Medico) listaMedicos.obtenerElemento(codMedico).getDato();
+        if (!med.existeFecha(fecha)) {
+            r.resultado = Retorno.Resultado.ERROR_4;
+        }
+        if (med.existeConsultaPendiente(ciPaciente)) {
             r.resultado = Retorno.Resultado.ERROR_3;
             return r;
         } else {
-            m.consultaNueva(ciPaciente, fecha, maxPacientes);
+            med.consultaNueva(ciPaciente, fecha, maxPacientes);
             r.resultado = Retorno.Resultado.OK;
-
         }
         return r;
     }
@@ -218,7 +220,7 @@ public class Sistema implements IObligatorio {
             System.out.println("Este paciente no existe!");
             r.resultado = Retorno.Resultado.ERROR_1;
         }
-        if (!m.getDato().tieneReservaEnDia(ciPaciente)) {
+        if (!m.getDato().tieneReserva(ciPaciente)) {
             System.out.println("El paciente no tiene reserva pendiente para este dia");
             r.resultado = Retorno.Resultado.ERROR_2;
         }
@@ -358,13 +360,13 @@ public class Sistema implements IObligatorio {
         boolean pac = listaPacientes.existeElemento(CIPaciente);
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         if (pac) {
-            Nodo aux=listaMedicos.obtenerInicio();
-            while(aux.getSiguiente()!=null){
+            Nodo aux = listaMedicos.obtenerInicio();
+            while (aux.getSiguiente() != null) {
                 Medico m = (Medico) aux.getDato();
                 m.listarConsultasPendientesPacRec(CIPaciente);
-                aux=aux.getSiguiente();
+                aux = aux.getSiguiente();
             }
-             if (aux.getSiguiente()==null) {
+            if (aux.getSiguiente() == null) {
                 Medico m = (Medico) aux.getDato();
                 m.listarConsultasPendientesPacRec(CIPaciente);
             }
@@ -455,6 +457,22 @@ public class Sistema implements IObligatorio {
                 }
             }
             mostrarRec(matriz);
+        }
+        return r;
+    }
+
+    public Retorno registrarDiaDeConsulta(int codMedico, Date fecha) {
+        Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
+        boolean m = listaMedicos.existeElemento(codMedico);
+        if (!m) {
+            r.resultado = Retorno.Resultado.ERROR_1;
+        }
+        Medico med = (Medico) listaMedicos.obtenerElemento(codMedico).getDato();
+        if (med.existeFecha(fecha)) {
+            r.resultado = Retorno.Resultado.ERROR_2;
+        } else {
+            med.crearFecha(fecha);
+            r.resultado = Retorno.Resultado.ERROR_1;
         }
         return r;
     }

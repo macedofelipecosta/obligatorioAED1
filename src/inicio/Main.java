@@ -55,6 +55,9 @@ public class Main {
         s.registrarMedico("Hor", 1, 123, 3);
         s.registrarMedico("Hossdr", 2, 123, 3);
 
+        s.registrarDiaDeConsulta(1, new Date("11/07/2023"));
+        
+        
         s.reservaConsulta(1, 1, new Date("11/07/2023"));
         s.reservaConsulta(1, 1, new Date("11/07/2023"));
         s.reservaConsulta(1, 2, new Date("11/07/2023"));

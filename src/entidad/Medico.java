@@ -153,9 +153,18 @@ public final class Medico implements Comparable<Medico> {
         }
     }
 
+    public boolean existeFecha(Date obj) {
+        if (!fechasAgendadas.esVacia()) {
+            if (fechasAgendadas.existeElemento(obj)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void consultaNueva(int ciPaciente, Date objFecha, int maxPacientes) {
 
-        if (fechasAgendadas.existeElemento(objFecha)) {
+        if (existeFecha(objFecha)) {
             Fecha auxFecha = (Fecha) fechasAgendadas.obtenerElemento(objFecha).getDato();
             if (auxFecha != null) {
                 Consulta auxConsulta = new Consulta(this.codMedico, ciPaciente, objFecha);
@@ -166,16 +175,8 @@ public final class Medico implements Comparable<Medico> {
                     auxFecha.agregarEspera(auxConsulta);
                     System.out.println("consulta agendada en espera");
                 }
-
             }
-        } else {
-            this.crearFecha(objFecha);
-            Fecha auxFecha = (Fecha) fechasAgendadas.obtenerElemento(objFecha).getDato();
-            Consulta auxConsulta = new Consulta(this.codMedico, ciPaciente, objFecha);
-            auxFecha.agregarAgenda(auxConsulta);
-            System.out.println("Consulta agendada despues de crear la fecha");
         }
-
     }
 
     public boolean existeConsultaPendiente(int ciPaciente) {
@@ -297,13 +298,19 @@ public final class Medico implements Comparable<Medico> {
         return resultado;
     }
 
-    public boolean tieneReservaEnDia(int ciPaciente) {
+    public boolean tieneReserva(int ciPaciente) {
         boolean resultado = false;
-        Date hoy = new Date();
-
         if (!fechasAgendadas.esVacia()) {
-            Nodo aux = fechasAgendadas.obtenerElemento(hoy);
-            if (aux != null) {
+            Nodo aux = fechasAgendadas.obtenerInicio();
+            while (aux.getSiguiente() != null && !resultado) {
+                Fecha auxF = (Fecha) aux.getDato();
+                if (auxF.pacienteConsultaPendiente(ciPaciente)) {
+                    resultado = true;
+                }
+                aux = aux.getSiguiente();
+            }
+
+            if (aux.getSiguiente() == null) {
                 Fecha auxF = (Fecha) aux.getDato();
                 if (auxF.pacienteConsultaPendiente(ciPaciente)) {
                     resultado = true;
