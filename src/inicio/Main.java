@@ -8,290 +8,127 @@ import sistemaAutogestion.*;
 public class Main {
 
     public static void main(String[] args) {
-//        Sistema sistema = new Sistema();
-//        Prueba prueba = new Prueba();
-//
-//        //2.1 Crear Sistema de Autogestión
-//        p1_creacionSistema(prueba, sistema);
-//        //2.2 Registrar Médico
-//        p2_registroMedico(prueba, sistema);
-//        //2.3 Eliminar Médico
-//        p3_eliminarMedico(prueba, sistema);
-//        //2.4 Registrar Paciente
-//        p4_registroPaciente(prueba, sistema);
-//        //2.5 Eliminar Paciente
-//        p5_eliminarPaciente(prueba, sistema);
-//
-//        prueba.imprimirResultadosPrueba();
-//
-//        sistema.listarMédicos();
-//        sistema.listarPacientes();
-//        
+
         Sistema s = new Sistema();
         Prueba p = new Prueba();
 
         p.inicializarResultadosPrueba();
+        System.out.println("Creacion sistema----------->");
+        p1_1creacionSistema(s, p);
 
-//        
-//        juegodeprueba1(s, p);
-//        juegodeprueba2(s, p);
-//        juegodeprueba3(s, p);
-//        juegodeprueba4(s, p);
-//        juegodeprueba5(s, p);
+        System.out.println("Registro Medico----------->");
+        p1_2registroMedico(s, p);
+
+        System.out.println("eliminar Medico----------->");
+        p1_3eliminarMedico(s, p);
+
+        System.out.println("Registro paciente----------->");
+        p1_4registroPaciente(s, p);
+
+        System.out.println("Eliminar paciente----------->");
+        p1_5eliminarPaciente(s, p);
+
+        System.out.println("Registrar dia de consulta------------->");
+        p1_6registrarDiaDeConsulta(s, p);
+        
+        System.out.println("Agregar consulta----------->");
+        p1_7agregarConsulta(s, p);
+
+        System.out.println("Cancelar consulta----------->");
+        p1_8cancelarConsulta(s, p);
+
         p.imprimirResultadosPrueba();
 
-        System.out.println("Pruebas individuales abajo: ");
-        s.crearSistemaDeAutogestion(10);
+    }
 
-        s.agregarPaciente("Felipe", 1, "Alguna");
-        s.agregarPaciente("Fe", 2, "Alguna");
-        s.agregarPaciente("Wind", 3, "Alguna");
-        s.agregarPaciente("Ho", 4, "Alguna");
-        s.agregarPaciente("Felipe", 5, "Alguna");
-        s.agregarPaciente("Fe", 6, "Alguna");
-        s.agregarPaciente("Wind", 7, "Alguna");
-        s.agregarPaciente("Ho", 8, "Alguna");
-
-        s.registrarMedico("Hor", 1, 123, 3);
-        s.registrarMedico("Hossdr", 2, 123, 3);
-
-        s.registrarDiaDeConsulta(1, new Date("11/07/2023"));
-        
-        
-        s.reservaConsulta(1, 1, new Date("11/07/2023"));
-        s.reservaConsulta(1, 1, new Date("11/07/2023"));
-        s.reservaConsulta(1, 2, new Date("11/07/2023"));
-        s.reservaConsulta(1, 3, new Date("11/07/2023"));
-        s.reservaConsulta(1, 4, new Date("11/07/2023"));
-        s.reservaConsulta(1, 5, new Date("11/07/2023"));
-        s.reservaConsulta(1, 6, new Date("11/07/2023"));
-        s.reservaConsulta(1, 7, new Date("11/07/2023"));
-        s.reservaConsulta(1, 8, new Date("11/07/2023"));
-
-        s.reservaConsulta(2, 1, new Date("11/07/2023"));
-        s.reservaConsulta(2, 2, new Date("11/07/2023"));
-        s.reservaConsulta(2, 3, new Date("11/07/2023"));
-        s.reservaConsulta(2, 4, new Date("11/07/2023"));
-        s.reservaConsulta(2, 6, new Date("11/07/2023"));
-        s.reservaConsulta(2, 7, new Date("11/07/2023"));
-        s.reservaConsulta(2, 8, new Date("11/07/2023"));
-        s.reservaConsulta(2, 5, new Date("11/07/2023"));
-
-        System.out.println("cancelar reserva ------------->");
-//        s.cancelarReserva(1, 1);
-        
-        System.out.println("anunciar llegada ------------->");
-//        s.anunciaLlegada(1, 1);
-        s.anunciaLlegada(1, 2);
-        s.anunciaLlegada(1, 3);
-        s.anunciaLlegada(1, 4);
-        s.anunciaLlegada(1, 5);
-        s.anunciaLlegada(1, 6);
-        s.anunciaLlegada(1, 7);
-        s.anunciaLlegada(1, 8);
-        
-//        s.anunciaLlegada(2, 1);
-        s.anunciaLlegada(2, 2);
-        s.anunciaLlegada(2, 3);
-        s.anunciaLlegada(2, 4);
-        s.anunciaLlegada(2, 5);
-        s.anunciaLlegada(2, 6);
-        s.anunciaLlegada(2, 7);
-        s.anunciaLlegada(2, 8);
-
-        System.out.println("terminar consulta paciente ------------->");
-//        s.terminarConsultaMedicoPaciente(1, 1, "   Prueba 123456");
-//        s.terminarConsultaMedicoPaciente(2, 1, "   Prueba 123456");
-//        s.terminarConsultaMedicoPaciente(3, 1, "   Prueba 123456");
-//        s.terminarConsultaMedicoPaciente(4, 1, "   Prueba 123456");
-//        s.terminarConsultaMedicoPaciente(5, 1, "   Prueba 123456");
-//        s.terminarConsultaMedicoPaciente(6, 1, "   Prueba 123456");
-//        s.terminarConsultaMedicoPaciente(7, 1, "   Prueba 123456");
-//        s.terminarConsultaMedicoPaciente(8, 1, "   Prueba 123456");
-//        
-//        s.terminarConsultaMedicoPaciente(1, 2, "   Prueba segunda");
-//        s.terminarConsultaMedicoPaciente(2, 2, "   Prueba segunda");
-//        s.terminarConsultaMedicoPaciente(3, 2, "   Prueba segunda");
-//        s.terminarConsultaMedicoPaciente(4, 2, "   Prueba segunda");
-//        s.terminarConsultaMedicoPaciente(5, 2, "   Prueba segunda");
-//        s.terminarConsultaMedicoPaciente(6, 2, "   Prueba segunda");
-//        s.terminarConsultaMedicoPaciente(7, 2, "   Prueba segunda");
-//        s.terminarConsultaMedicoPaciente(8, 2, "   Prueba segunda");
-        
-        
-        System.out.println("cerrar Consultas ------------->");
-//        s.cerrarConsulta(1, new Date());
-//           s.cerrarConsulta(2, new Date());
-        System.out.println("listarConsultas Rec 3.3------------->");
-        s.listarConsultas(2);
-        s.listarConsultas(1);
-        
-        System.out.println("listar Pacientes en espera 3.4 ------------->");
-        s.listarPacientesEnEspera(1, new Date("11/07/2023"));
-        s.listarPacientesEnEspera(2, new Date("11/07/2023"));
-
-        System.out.println("listar consultas pendientes de un paciente 3.5------->");
-        s.consultasPendientesPaciente(1);
-        
-        
-        System.out.println("listar historia clinica Paciente 3.6------------->");
-        s.historiaClínicaPaciente(1);
-        
-         System.out.println("matriz 3.7 ------------->");
-        s.reporteDePacientesXFechaYEspecialidad(11,2023);
+    private static void p1_1creacionSistema(Sistema sistema, Prueba prueba) {
+        prueba.ver(sistema.crearSistemaDeAutogestion(10).resultado, Retorno.Resultado.OK, "1 Pasa: Sistema creado");
+        prueba.ver(sistema.crearSistemaDeAutogestion(16).resultado, Retorno.Resultado.ERROR_1, "2 Falla: maxPacientes incorrecto");
+        prueba.ver(sistema.crearSistemaDeAutogestion(0).resultado, Retorno.Resultado.ERROR_1, "3 Falla: maxPacientes incorrecto");
+        prueba.ver(sistema.crearSistemaDeAutogestion(-1).resultado, Retorno.Resultado.ERROR_1, "4 Falla: maxPacientes incorrecto");
 
     }
 
-    private static void p1_creacionSistema(Prueba prueba, Sistema sistema) {
-        prueba.ver(sistema.crearSistemaDeAutogestion(10).resultado, Retorno.Resultado.OK, "Pasa: Sistema creado");
-        prueba.ver(sistema.crearSistemaDeAutogestion(16).resultado, Retorno.Resultado.ERROR_1, "Falla: maxPacientes incorrecto");
-        prueba.ver(sistema.crearSistemaDeAutogestion(0).resultado, Retorno.Resultado.ERROR_1, "Falla: maxPacientes incorrecto");
-        prueba.ver(sistema.crearSistemaDeAutogestion(-1).resultado, Retorno.Resultado.ERROR_1, "Falla: maxPacientes incorrecto");
+    private static void p1_2registroMedico(Sistema sistema, Prueba prueba) {
+        prueba.ver(sistema.registrarMedico("Pedro", 111, 1, 1).resultado, Retorno.Resultado.OK, "1 Pasa: Médico registrado");
+        prueba.ver(sistema.registrarMedico("Sandra", 111, 1, 1).resultado, Retorno.Resultado.ERROR_1, "2 Falla: Código repetido");
+        prueba.ver(sistema.registrarMedico("Tatiana", 120, 1, 1).resultado, Retorno.Resultado.OK, "3 Pasa:  Médico registrado");
+        prueba.ver(sistema.registrarMedico("Federico", 112, 1, 1).resultado, Retorno.Resultado.OK, "4 Pasa: Médico registrado");
+        prueba.ver(sistema.registrarMedico("Marcelo", 113, 1, 2).resultado, Retorno.Resultado.OK, "5 Pasa: Médico registrado");
+        prueba.ver(sistema.registrarMedico("Tatiana", 124, 1, 0).resultado, Retorno.Resultado.ERROR_2, "6 Falla:   Especialidad menor a 1");
+        prueba.ver(sistema.registrarMedico("Tatiana", 333, 1, 21).resultado, Retorno.Resultado.ERROR_2, "7 Falla:  Especialidad mayor a 20");
+        prueba.ver(sistema.registrarMedico("Rodolf", 1, 1, 21).resultado, Retorno.Resultado.ERROR_2, "8 Falla:  Ya existe ese médico");
+        prueba.ver(sistema.registrarMedico("Rodolf", 2, 1, 4).resultado, Retorno.Resultado.OK, "9 Pasa: Médico registrado");
+        prueba.ver(sistema.registrarMedico("Rodolf", 1, 1, 6).resultado, Retorno.Resultado.OK, "10 Pasa: Médico registrado");
+    }
+
+    private static void p1_3eliminarMedico(Sistema sistema, Prueba prueba) {
+        prueba.ver(sistema.eliminarMedico(113).resultado, Retorno.Resultado.OK, "1 Pasa: Marcelo borrado");
+        prueba.ver(sistema.eliminarMedico(111).resultado, Retorno.Resultado.OK, "2 Pasa: Federico borrado");
+        prueba.ver(sistema.eliminarMedico(111).resultado, Retorno.Resultado.ERROR_1, "3 Falla: Ya se eliminó un Médico con ese código");
+        prueba.ver(sistema.eliminarMedico(25).resultado, Retorno.Resultado.ERROR_1, "4 Falla: No existe Médico con ese código");
+    }
+
+    private static void p1_4registroPaciente(Sistema sistema, Prueba prueba) {
+        prueba.ver(sistema.agregarPaciente("Felipe", 1, "Alguna").resultado, Retorno.Resultado.OK, "1 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Fe", 2, "Alguna").resultado, Retorno.Resultado.OK, "2 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Wind", 3, "Alguna").resultado, Retorno.Resultado.OK, "3 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Ho", 4, "Alguna").resultado, Retorno.Resultado.OK, "4 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Wind", 5, "Alguna").resultado, Retorno.Resultado.OK, "5 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Felipe", 6, "Alguna").resultado, Retorno.Resultado.OK, "6 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Ho", 7, "Alguna").resultado, Retorno.Resultado.OK, "7 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Wind", 8, "Alguna").resultado, Retorno.Resultado.OK, "8 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Pedro", 111, "direccion1").resultado, Retorno.Resultado.OK, "9 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Tatiana", 112, "direccion1").resultado, Retorno.Resultado.OK, "10 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Julian", 112, "direccion1").resultado, Retorno.Resultado.ERROR_1, "11 Falla: Paciente ya registrado");
+        prueba.ver(sistema.agregarPaciente("Marcelo", 120, "direccion1").resultado, Retorno.Resultado.OK, "12 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Federico", 125, "direccion1").resultado, Retorno.Resultado.OK, "13 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Gianfranco", 116, "direccion1").resultado, Retorno.Resultado.OK, "14 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Facundo", 117, "direccion1").resultado, Retorno.Resultado.OK, "15 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Santiago", 111, "direccion1").resultado, Retorno.Resultado.ERROR_1, "16 Falla: Paciente ya registrado");
+        prueba.ver(sistema.agregarPaciente("Valentina", 119, "direccion1").resultado, Retorno.Resultado.OK, "17 Pasa: Paciente registrado");
+    }
+
+    private static void p1_5eliminarPaciente(Sistema sistema, Prueba prueba) {
+        prueba.ver(sistema.eliminarPaciente(111).resultado, Retorno.Resultado.OK, "1 Pasa: Paciente borrado");
+        prueba.ver(sistema.eliminarPaciente(119).resultado, Retorno.Resultado.OK, "2 Pasa: Paciente borrado");
+        prueba.ver(sistema.eliminarPaciente(134).resultado, Retorno.Resultado.ERROR_1, "3 Falla: No existe un paciente con esa CI");
+    }
+
+    private static void p1_6registrarDiaDeConsulta(Sistema s, Prueba p) {
+        p.ver(s.registrarDiaDeConsulta(1, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "1 Prueba de crear registrarDiaDeConsulta");
+        p.ver(s.registrarDiaDeConsulta(2, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "2 Prueba de crear registrarDiaDeConsulta");
+        p.ver(s.registrarDiaDeConsulta(120, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "3 Prueba de crear registrarDiaDeConsulta");
+        p.ver(s.registrarDiaDeConsulta(112, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "4 Prueba de crear registrarDiaDeConsulta");
+    }
+
+    private static void p1_7agregarConsulta(Sistema s, Prueba p) {
+        p.ver(s.reservaConsulta(1, 1, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "1 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 2, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "2 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 3, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "3 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 4, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "4 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 5, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "5 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 6, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "6 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 7, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "7 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 8, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "8 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 1, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "9 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 2, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "10 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 3, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "11 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 4, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "12 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 5, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "13 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 6, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "14 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 7, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "15 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 8, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "16 Prueba de crear reservaConsulta");
 
     }
 
-    private static void p2_registroMedico(Prueba prueba, Sistema sistema) {
-        prueba.ver(sistema.registrarMedico("Pedro", 111, 1, 1).resultado, Retorno.Resultado.OK, "Pasa: Médico registrado");
-        prueba.ver(sistema.registrarMedico("Sandra", 111, 1, 1).resultado, Retorno.Resultado.ERROR_1, "Falla: Código repetido");
-        prueba.ver(sistema.registrarMedico("Tatiana", 120, 1, 1).resultado, Retorno.Resultado.OK, "Pasa:  Médico registrado");
-        prueba.ver(sistema.registrarMedico("Federico", 112, 1, 1).resultado, Retorno.Resultado.OK, "Pasa: Médico registrado");
-        prueba.ver(sistema.registrarMedico("Marcelo", 113, 1, 2).resultado, Retorno.Resultado.OK, "Pasa: Médico registrado");
-        prueba.ver(sistema.registrarMedico("Tatiana", 120, 1, 0).resultado, Retorno.Resultado.ERROR_2, "Falla:  Especialidad menor a 1");
-        prueba.ver(sistema.registrarMedico("Tatiana", 120, 1, 21).resultado, Retorno.Resultado.ERROR_2, "Falla:  Especialidad mayor a 20");
-        prueba.ver(sistema.registrarMedico("Rodolf", 1, 1, 21).resultado, Retorno.Resultado.ERROR_2, "Falla:  Especialidad mayor a 20");
-    }
-
-    private static void p3_eliminarMedico(Prueba prueba, Sistema sistema) {
-        prueba.ver(sistema.eliminarMedico(113).resultado, Retorno.Resultado.OK, "Pasa: Marcelo borrado");
-        prueba.ver(sistema.eliminarMedico(111).resultado, Retorno.Resultado.OK, "Pasa: Federico borrado");
-        prueba.ver(sistema.eliminarMedico(111).resultado, Retorno.Resultado.ERROR_1, "Falla: Ya se eliminó un Médico con ese código");
-        prueba.ver(sistema.eliminarMedico(1).resultado, Retorno.Resultado.ERROR_1, "Falla: No existe Médico con ese código");
-    }
-
-    private static void p4_registroPaciente(Prueba prueba, Sistema sistema) {
-        prueba.ver(sistema.agregarPaciente("Pedro", 111, "direccion1").resultado, Retorno.Resultado.OK, "Pasa: Paciente registrado");
-        prueba.ver(sistema.agregarPaciente("Tatiana", 112, "direccion1").resultado, Retorno.Resultado.OK, "Pasa: Paciente registrado");
-        prueba.ver(sistema.agregarPaciente("Julian", 112, "direccion1").resultado, Retorno.Resultado.ERROR_1, "Falla: Paciente ya registrado");
-        prueba.ver(sistema.agregarPaciente("Marcelo", 120, "direccion1").resultado, Retorno.Resultado.OK, "Pasa: Paciente registrado");
-        prueba.ver(sistema.agregarPaciente("Federico", 125, "direccion1").resultado, Retorno.Resultado.OK, "Pasa: Paciente registrado");
-        prueba.ver(sistema.agregarPaciente("Gianfranco", 116, "direccion1").resultado, Retorno.Resultado.OK, "Pasa: Paciente registrado");
-        prueba.ver(sistema.agregarPaciente("Facundo", 117, "direccion1").resultado, Retorno.Resultado.OK, "Pasa: Paciente registrado");
-        prueba.ver(sistema.agregarPaciente("Santiago", 111, "direccion1").resultado, Retorno.Resultado.ERROR_1, "Falla: Paciente ya registrado");
-        prueba.ver(sistema.agregarPaciente("Valentina", 119, "direccion1").resultado, Retorno.Resultado.OK, "Pasa: Paciente registrado");
-    }
-
-    private static void p5_eliminarPaciente(Prueba prueba, Sistema sistema) {
-        prueba.ver(sistema.eliminarPaciente(111).resultado, Retorno.Resultado.OK, "Pasa: Paciente borrado");
-        prueba.ver(sistema.eliminarPaciente(119).resultado, Retorno.Resultado.OK, "Pasa: Paciente borrado");
-        prueba.ver(sistema.eliminarPaciente(134).resultado, Retorno.Resultado.OK, "Falla: No existe un paciente con esa CI");
-    }
-
-    private static void p6_agregarConsulta(Prueba p, Sistema s) {
-        p.ver(s.reservaConsulta(120, 117, new Date()).resultado, Retorno.Resultado.OK, "Prueba de crear reservaConsulta");
-    }
-
-    public static void juegodeprueba1(Sistema s, Prueba p) {
-        System.out.println("juego de prueba 1");
-        /* ----------------- CREAR SISTEMA DE AUTOGESTIÓN --------------------------*/
-        // Se crea correctamente el sistema
-        p.ver(s.crearSistemaDeAutogestion(5).resultado, Retorno.Resultado.OK, "Sistema de autogestión creado correctamente.");
-        /* No se crea el sistema porque el maxPacientesporMedico es < 0 */
-        p.ver(s.crearSistemaDeAutogestion(-1).resultado, Retorno.Resultado.ERROR_1, "El máximo de pacientes por médico es menor a 0.");
-        /* No se crea el sistema porque el maxPacientesporMedico es > 15 */
-        p.ver(s.crearSistemaDeAutogestion(16).resultado, Retorno.Resultado.ERROR_1, "El máximo de pacientes por médico es mayor a 15.");
-        /* No se crea el sistema porque el maxPacientesporMedico es > 15 */
-        p.ver(s.crearSistemaDeAutogestion(20).resultado, Retorno.Resultado.ERROR_1, "El máximo de pacientes por médico es mayor a 15.");
-        /* No se crea el sistema porque el maxPacientesporMedico es > 15 */
-        p.ver(s.crearSistemaDeAutogestion(24).resultado, Retorno.Resultado.ERROR_1, "El máximo de pacientes por médico es mayor a 15.");
-
-        /* ----------------- REGISTRAR MÉDICO --------------------------*/
-        // Se registra correctamente a un médico
-        p.ver(s.registrarMedico("Santiago", 1, 202020, 3).resultado, Retorno.Resultado.OK, "Médico registrado.");
-        // Se registra correctamente a un médico
-        p.ver(s.registrarMedico("Micaela", 2, 888888, 2).resultado, Retorno.Resultado.OK, "Médico registrado.");
-        // Se registra correctamente a un médico
-        p.ver(s.registrarMedico("Romina", 3, 888888, 1).resultado, Retorno.Resultado.OK, "Médico registrado.");
-        /* No se registra al médico porque su código es igual al de uno existente */
-
-        System.out.println("Debe listar a: Santiago, Micaela y Romina");
-        /* ----------------- LISTAR MÉDICOS --------------------------*/
-        // Se listan correctamente los médicos
-        p.ver(s.listarMédicos().resultado, Retorno.Resultado.OK, "Se listan los médicos correctamente");
+    private static void p1_8cancelarConsulta(Sistema s, Prueba p) {
+        p.ver(s.cancelarReserva(222, 1).resultado, Retorno.Resultado.ERROR_1, "1 Medico invalido");
 
     }
 
-    public static void juegodeprueba2(Sistema s, Prueba p) {
-        System.out.println("juego de prueba 2");
-        /* ----------------- ELIMINAR MÉDICOS --------------------------*/
-        p.ver(s.registrarMedico("Santiago", 1, 202020, 3).resultado, Retorno.Resultado.ERROR_1, "Existe un médico con igual código.");
-        /* No se registra al médico porque su especialidad es menor que 1 */
-        p.ver(s.registrarMedico("Otro", 2, 202020, -1).resultado, Retorno.Resultado.ERROR_2, "La especialidad del médico es menor a 1");
-        /* No se registra al médico porque su especialidad es mayor que 20 */
-        p.ver(s.registrarMedico("Otro", 2, 202020, 25).resultado, Retorno.Resultado.ERROR_2, "La especialidad del médico es mayor a 20");
-
-        p.ver(s.registrarMedico("Santiago", 3, 202020, 3).resultado, Retorno.Resultado.OK, "Existe un médico con igual código.");
-
-        p.ver(s.registrarMedico("Santiago", 4, 202020, 3).resultado, Retorno.Resultado.OK, "Existe un médico con igual código.");
-
-        System.out.println("Debe listar a: Santiago, Micaela y Romina");
-        /* ----------------- LISTAR MÉDICOS --------------------------*/
-        // Se listan correctamente los médicos
-        p.ver(s.listarMédicos().resultado, Retorno.Resultado.OK, "Se listan los médicos correctamente");
-
-    }
-
-    public static void juegodeprueba3(Sistema s, Prueba p) {
-        System.out.println("juego de prueba 3");
-        /* No se elimina al médico porque no existe */
-        p.ver(s.eliminarMedico(938322).resultado, Retorno.Resultado.ERROR_1, "El médico no existe.");
-        // Se elimina correctamente a un médico
-        p.ver(s.eliminarMedico(3).resultado, Retorno.Resultado.OK, "Médico eliminado.");
-        // Se elimina correctamente a un médico
-        p.ver(s.eliminarMedico(2).resultado, Retorno.Resultado.OK, "Médico eliminado.");
-        // Se elimina correctamente a un médico
-        p.ver(s.eliminarMedico(1).resultado, Retorno.Resultado.OK, "Médico eliminado.");
-        // Se elimina correctamente a un médico
-        p.ver(s.eliminarMedico(222222).resultado, Retorno.Resultado.ERROR_1, "El médico no existe.");
-        System.out.println("Listado vacio...");
-        // Se listan correctamente los médicos
-        p.ver(s.listarMédicos().resultado, Retorno.Resultado.OK, "Se listan los médicos correctamente");
-
-    }
-
-    public static void juegodeprueba4(Sistema s, Prueba p) {
-        System.out.println("juego de prueba 4");
-        /* ----------------- REGISTRAR PACIENTE --------------------------*/
-        // Se registra correctamente a un paciente
-        p.ver(s.agregarPaciente("Anderson", 10, "Luis de la Torre").resultado, Retorno.Resultado.OK, "Paciente registrado correctamente.");
-        // Se registra correctamente a un paciente
-        p.ver(s.agregarPaciente("Felipe", 11, "Pastoriza").resultado, Retorno.Resultado.OK, "Paciente registrado correctamente.");
-        // Se registra correctamente a un paciente
-        p.ver(s.agregarPaciente("Yania", 12, "Republica del Salvador").resultado, Retorno.Resultado.OK, "Paciente registrado correctamente.");
-        /* No se registra al paciente porque su cédula es igual a la de uno existente */
-        p.ver(s.agregarPaciente("Otro", 12, "Algo").resultado, Retorno.Resultado.ERROR_1, "El paciente ya existe.");
-        /* ----------------- LISTAR PACIENTES --------------------------*/
-        // Se listan correctamente los pacientes
-        System.out.println("Debería mostrar a Anderson, Felipe y Yania");
-        p.ver(s.listarPacientes().resultado, Retorno.Resultado.OK, "Se listan los pacientes correctamente.");
-
-    }
-
-    public static void juegodeprueba5(Sistema s, Prueba p) {
-        System.out.println("juego de prueba 5");
-        /* ----------------- ELIMINAR PACIENTE --------------------------*/
-        // Se elimina correctamente a un paciente
-        p.ver(s.eliminarPaciente(10).resultado, Retorno.Resultado.OK, "Paciente eliminado correctamente.");
-        /* No se elimina al paciente porque no existe */
-        p.ver(s.eliminarPaciente(11111).resultado, Retorno.Resultado.ERROR_1, "El paciente no existe");
-        // Se elimina correctamente a un paciente
-        p.ver(s.eliminarPaciente(12).resultado, Retorno.Resultado.OK, "Paciente eliminado correctamente.");
-        // Se elimina correctamente a un paciente
-        p.ver(s.eliminarPaciente(11).resultado, Retorno.Resultado.OK, "Paciente eliminado correctamente.");
-
-        /* ----------------- LISTAR PACIENTES --------------------------*/
-        // Se listan correctamente los pacientes
-        System.out.println("Debería mostrar la lista vacia");
-        p.ver(s.listarPacientes().resultado, Retorno.Resultado.OK, "Se listan los pacientes correctamente.");
+    private static void p1_9registrarDiaDeConsulta(Sistema s, Prueba p) {
+        p.ver(s.registrarDiaDeConsulta(1, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "1 Prueba de cancelarConsulta");
 
     }
 

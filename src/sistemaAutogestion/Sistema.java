@@ -160,6 +160,7 @@ public class Sistema implements IObligatorio {
         Medico med = (Medico) listaMedicos.obtenerElemento(codMedico).getDato();
         if (!med.existeFecha(fecha)) {
             r.resultado = Retorno.Resultado.ERROR_4;
+            return r;
         }
         if (med.existeConsultaPendiente(ciPaciente)) {
             r.resultado = Retorno.Resultado.ERROR_3;
@@ -180,22 +181,27 @@ public class Sistema implements IObligatorio {
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
         boolean medico = this.listaMedicos.existeElemento(codMedico);
         boolean paciente = this.listaPacientes.existeElemento(ciPaciente);
-        Nodo<Medico> m = listaMedicos.obtenerElemento(codMedico);
 
         if (!medico) {
             r.resultado = Retorno.Resultado.ERROR_1;
+            return r;
         }
         if (!paciente) {
             r.resultado = Retorno.Resultado.ERROR_2;
+            return r;
         }
+        Nodo<Medico> m = listaMedicos.obtenerElemento(codMedico);
         if (m.getDato().existeConsultaCerrada(ciPaciente)) {
             r.resultado = Retorno.Resultado.ERROR_3;
+            return r;
         }
         if (m.getDato().existeConsulta(ciPaciente)) {
             r.resultado = Retorno.Resultado.ERROR_3;
+            return r;
         }
         if (!m.getDato().existeConsultaPendiente(ciPaciente)) {
             r.resultado = Retorno.Resultado.ERROR_4;
+            return r;
         } else {
             m.getDato().cancelarReserva(ciPaciente);
             r.resultado = Retorno.Resultado.OK;
