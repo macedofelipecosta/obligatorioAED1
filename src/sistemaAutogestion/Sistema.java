@@ -218,17 +218,24 @@ public class Sistema implements IObligatorio {
     @Override
     public Retorno anunciaLlegada(int codMedico, int ciPaciente) {
         Retorno r = new Retorno(Retorno.Resultado.NO_IMPLEMENTADA);
-//        boolean medico = this.listaMedicos.existeElemento(codMedico);
+        boolean medico = this.listaMedicos.existeElemento(codMedico);
         boolean paciente = this.listaPacientes.existeElemento(ciPaciente);
-        Nodo<Medico> m = listaMedicos.obtenerElemento(codMedico);
 
         if (!paciente) {
-            System.out.println("Este paciente no existe!");
+//            System.out.println("Este paciente no existe!");
             r.resultado = Retorno.Resultado.ERROR_1;
+            return r;
         }
+        if (!medico) {
+//            System.out.println("No existe el medico");
+            r.resultado = Retorno.Resultado.ERROR_4;
+            return r;
+        }
+        Nodo<Medico> m = listaMedicos.obtenerElemento(codMedico);
         if (!m.getDato().tieneReserva(ciPaciente)) {
-            System.out.println("El paciente no tiene reserva pendiente para este dia");
+//            System.out.println("El paciente no tiene reserva pendiente");
             r.resultado = Retorno.Resultado.ERROR_2;
+            return r;
         }
         if (m.getDato().anunciarLlegadaPaciente(ciPaciente)) {
             r.resultado = Retorno.Resultado.OK;
@@ -256,9 +263,11 @@ public class Sistema implements IObligatorio {
 
         if (!paciente) {
             r.resultado = Retorno.Resultado.ERROR_1;
+            return r;
         }
         if (!m.getDato().consultaEnEspera(ciPaciente)) {
             r.resultado = Retorno.Resultado.ERROR_2;
+            return r;
         } else {
             Consulta nueva = m.getDato().terminarConsultaMedico(ciPaciente, detalleDeConsulta);
             p.getDato().terminarConsultaPaciente(nueva);

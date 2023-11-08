@@ -30,12 +30,18 @@ public class Main {
 
         System.out.println("Registrar dia de consulta------------->");
         p1_6registrarDiaDeConsulta(s, p);
-        
+
         System.out.println("Agregar consulta----------->");
         p1_7agregarConsulta(s, p);
 
         System.out.println("Cancelar consulta----------->");
         p1_8cancelarConsulta(s, p);
+
+        System.out.println("Anuncier llegada paciente------------------>");
+        p1_10anunciarLlegadaPaciente(s, p);
+
+        System.out.println("Termina consulta medico paciente ----------------->");
+        p1_11terminarConsultaMedicoPaciente(s, p);
 
         p.imprimirResultadosPrueba();
 
@@ -96,30 +102,31 @@ public class Main {
     }
 
     private static void p1_6registrarDiaDeConsulta(Sistema s, Prueba p) {
-        p.ver(s.registrarDiaDeConsulta(1, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "1 Prueba de crear registrarDiaDeConsulta");
-        p.ver(s.registrarDiaDeConsulta(2, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "2 Prueba de crear registrarDiaDeConsulta");
-        p.ver(s.registrarDiaDeConsulta(120, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "3 Prueba de crear registrarDiaDeConsulta");
-        p.ver(s.registrarDiaDeConsulta(112, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "4 Prueba de crear registrarDiaDeConsulta");
+        p.ver(s.registrarDiaDeConsulta(1, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "1 Prueba de crear registrarDiaDeConsulta");
+        p.ver(s.registrarDiaDeConsulta(2, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "2 Prueba de crear registrarDiaDeConsulta");
+        p.ver(s.registrarDiaDeConsulta(120, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "3 Prueba de crear registrarDiaDeConsulta");
+        p.ver(s.registrarDiaDeConsulta(112, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "4 Prueba de crear registrarDiaDeConsulta");
     }
 
     private static void p1_7agregarConsulta(Sistema s, Prueba p) {
-        p.ver(s.reservaConsulta(1, 1, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "1 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(1, 2, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "2 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(1, 3, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "3 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(1, 4, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "4 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(1, 5, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "5 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(1, 6, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "6 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(1, 7, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "7 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(1, 8, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "8 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(2, 1, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "9 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(2, 2, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "10 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(2, 3, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "11 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(2, 4, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "12 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(2, 5, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "13 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(2, 6, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "14 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(2, 7, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "15 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(2, 8, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "16 Prueba de crear reservaConsulta");
-
+        p.ver(s.reservaConsulta(1, 1, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "1 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 2, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "2 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 3, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "3 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 4, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "4 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 5, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "5 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 6, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "6 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 7, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "7 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 8, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "8 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 1, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "9 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 2, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "10 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 3, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "11 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 4, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "12 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 5, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "13 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 6, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "14 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 7, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "15 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(2, 8, new Date("11/16/2023")).resultado, Retorno.Resultado.ERROR_4, "16 Prueba de crear reservaConsulta error 4");
+        p.ver(s.reservaConsulta(1, 8, new Date("11/26/2023")).resultado, Retorno.Resultado.ERROR_4, "16 Prueba de crear reservaConsulta error 4");
+        p.ver(s.reservaConsulta(2, 8, new Date("11/29/2023")).resultado, Retorno.Resultado.ERROR_4, "16 Prueba de crear reservaConsulta error 4");
     }
 
     private static void p1_8cancelarConsulta(Sistema s, Prueba p) {
@@ -130,6 +137,24 @@ public class Main {
     private static void p1_9registrarDiaDeConsulta(Sistema s, Prueba p) {
         p.ver(s.registrarDiaDeConsulta(1, new Date("11/07/2023")).resultado, Retorno.Resultado.OK, "1 Prueba de cancelarConsulta");
 
+    }
+
+    private static void p1_10anunciarLlegadaPaciente(Sistema s, Prueba p) {
+        p.ver(s.anunciaLlegada(1, 1).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 1, medico 1 correctamente");
+        p.ver(s.anunciaLlegada(1, 2).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 2, medico 1 correctamente");
+        p.ver(s.anunciaLlegada(2, 3).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 3, medico 2 correctamente");
+        p.ver(s.anunciaLlegada(2, 4).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 4, medico 2 correctamente");
+        p.ver(s.anunciaLlegada(1, 121).resultado, Retorno.Resultado.ERROR_1, "Error, el paciente no existe!");
+        p.ver(s.anunciaLlegada(100, 1).resultado, Retorno.Resultado.ERROR_4, "Error, el medico no existe, error no implementado en letra");
+    }
+
+    private static void p1_11terminarConsultaMedicoPaciente(Sistema s, Prueba p) {
+        p.ver(s.terminarConsultaMedicoPaciente(1, 1, "Detalle de consulta pac 1").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 1, medico 1 correctamente");
+        p.ver(s.terminarConsultaMedicoPaciente(2, 1, "Detalle de consulta pac 2").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 1, medico 1 correctamente");
+        p.ver(s.terminarConsultaMedicoPaciente(3, 2, "Detalle de consulta pac 3").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 1, medico 1 correctamente");
+        p.ver(s.terminarConsultaMedicoPaciente(4, 2, "Detalle de consulta pac 4").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 1, medico 1 correctamente");
+        p.ver(s.terminarConsultaMedicoPaciente(36541, 1, "Detalle de consulta").resultado, Retorno.Resultado.ERROR_1, "Error 1, este numero de cedula no existe");
+        p.ver(s.terminarConsultaMedicoPaciente(8, 2, "Detalle de consulta").resultado, Retorno.Resultado.ERROR_2, "Error este paciente no tiene consulta este dia");
     }
 
 }
