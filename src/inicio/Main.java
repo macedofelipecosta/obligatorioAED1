@@ -91,6 +91,7 @@ public class Main {
         prueba.ver(sistema.registrarMedico("Rodolf", 1, 1, 21).resultado, Retorno.Resultado.ERROR_2, "8 Falla:  Ya existe ese médico");
         prueba.ver(sistema.registrarMedico("Rodolf", 2, 1, 4).resultado, Retorno.Resultado.OK, "9 Pasa: Médico registrado");
         prueba.ver(sistema.registrarMedico("Rodolf", 1, 1, 6).resultado, Retorno.Resultado.OK, "10 Pasa: Médico registrado");
+        prueba.ver(sistema.registrarMedico("Vars", 2020, 1, 6).resultado, Retorno.Resultado.OK, "11 Pasa: Médico registrado");
     }
 
     private static void p1_3eliminarMedico(Sistema sistema, Prueba prueba) {
@@ -118,6 +119,7 @@ public class Main {
         prueba.ver(sistema.agregarPaciente("Facundo", 117, "direccion1").resultado, Retorno.Resultado.OK, "15 Pasa: Paciente registrado");
         prueba.ver(sistema.agregarPaciente("Santiago", 111, "direccion1").resultado, Retorno.Resultado.ERROR_1, "16 Falla: Paciente ya registrado");
         prueba.ver(sistema.agregarPaciente("Valentina", 119, "direccion1").resultado, Retorno.Resultado.OK, "17 Pasa: Paciente registrado");
+        prueba.ver(sistema.agregarPaciente("Adara", 1209, "direccion1").resultado, Retorno.Resultado.OK, "18 Pasa: Paciente registrado");
     }
 
     private static void p1_5eliminarPaciente(Sistema sistema, Prueba prueba) {
@@ -132,10 +134,12 @@ public class Main {
         p.ver(s.registrarDiaDeConsulta(120, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "3 Prueba de crear registrarDiaDeConsulta");
         p.ver(s.registrarDiaDeConsulta(112, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "4 Prueba de crear registrarDiaDeConsulta");
         p.ver(s.registrarDiaDeConsulta(123, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "1 Prueba de cancelarConsulta");
+        p.ver(s.registrarDiaDeConsulta(123, new Date("13/08/2023")).resultado, Retorno.Resultado.OK, "No presenta error, toma el mes 13 como 01/08/2024, posible valido");
     }
 
     private static void p1_7agregarConsulta(Sistema s, Prueba p) {
         p.ver(s.reservaConsulta(1, 1, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "1 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(1, 1, new Date("11/08/2023")).resultado, Retorno.Resultado.ERROR_3, "1 Prueba de crear reservaConsulta, error, paceinte ya con consulta");
         p.ver(s.reservaConsulta(1, 2, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "2 Prueba de crear reservaConsulta");
         p.ver(s.reservaConsulta(1, 3, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "3 Prueba de crear reservaConsulta");
         p.ver(s.reservaConsulta(1, 4, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "4 Prueba de crear reservaConsulta");
@@ -163,7 +167,7 @@ public class Main {
         p.ver(s.cancelarReserva(1, 1).resultado, Retorno.Resultado.OK, "11 Prueba de cancelarReserva");
         p.ver(s.cancelarReserva(222, 1).resultado, Retorno.Resultado.ERROR_1, "1 Medico invalido");
         p.ver(s.cancelarReserva(2, -1).resultado, Retorno.Resultado.ERROR_2, "2 Paciente invalido");
-
+        p.ver(s.cancelarReserva(1, 1).resultado, Retorno.Resultado.ERROR_4, "Consulta del paciente cancelada anteriormente, no tiene consultas");
     }
 
     private static void p1_10anunciarLlegadaPaciente(Sistema s, Prueba p) {
@@ -176,6 +180,8 @@ public class Main {
         p.ver(s.anunciaLlegada(123, 7).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 7, medico 123 correctamente");
         p.ver(s.anunciaLlegada(123, 1).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 1, medico 123 correctamente");
         p.ver(s.anunciaLlegada(123, 2).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 2, medico 123 correctamente");
+        p.ver(s.anunciaLlegada(2020, 2).resultado, Retorno.Resultado.ERROR_2, "Medico sin consultas pendientes");
+        p.ver(s.anunciaLlegada(2020, 1209).resultado, Retorno.Resultado.ERROR_2, "Medico sin consultas pendientes y paciente sin reservas");
     }
 
     private static void p1_11terminarConsultaMedicoPaciente(Sistema s, Prueba p) {
@@ -185,10 +191,13 @@ public class Main {
         p.ver(s.terminarConsultaMedicoPaciente(4, 2, "Detalle de consulta pac 4").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 4, medico 2 correctamente");
         p.ver(s.terminarConsultaMedicoPaciente(36541, 1, "Detalle de consulta").resultado, Retorno.Resultado.ERROR_1, "Error 1, este numero de cedula no existe");
         p.ver(s.terminarConsultaMedicoPaciente(8, 2, "Detalle de consulta").resultado, Retorno.Resultado.ERROR_2, "Error este paciente no tiene consulta este dia");
+        p.ver(s.terminarConsultaMedicoPaciente(1209, 2, "Detalle de consulta").resultado, Retorno.Resultado.ERROR_2, "Error este paciente no tiene consulta con el medico");
+        p.ver(s.terminarConsultaMedicoPaciente(1209, 2020, "Detalle de consulta").resultado, Retorno.Resultado.ERROR_2, "Error este paciente no tiene consulta con el medico y el medico no tiene consultas");
     }
 
     private static void p1_12cerrarConsultaMedico(Sistema s, Prueba p) {
         p.ver(s.cerrarConsulta(1, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "Se cierran las consultas de los pacientes que no asistieron");
+        p.ver(s.cerrarConsulta(2020, new Date("11/08/2023")).resultado, Retorno.Resultado.ERROR_2, "Medico sin consultas para cerrar");
 //        p.ver(s.cerrarConsulta(2, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "Se cierran las consultas de los pacientes que no asistieron");
         //cancelar consulta cerrada REVISAR
         p.ver(s.cancelarReserva(2, 1).resultado, Retorno.Resultado.OK, "2 Consulta cancelada");
@@ -206,23 +215,27 @@ public class Main {
     private static void p1_15listarConsultasMedico(Sistema s, Prueba p) {
         p.ver(s.listarConsultas(1).resultado, Retorno.Resultado.OK, "Se listan todas las consultas pendientes del medico 1 agrupadas por dia RECURSIVA");
         p.ver(s.listarConsultas(35).resultado, Retorno.Resultado.ERROR_1, "Médico no existente");
+        p.ver(s.listarConsultas(2020).resultado, Retorno.Resultado.OK, "Médico sin cosnultas");
+        p.ver(s.listarConsultas(111).resultado, Retorno.Resultado.ERROR_1, "Médico eliminado");
     }
 
     private static void p1_16listarPacientesEnEspera(Sistema s, Prueba p) {
         p.ver(s.listarPacientesEnEspera(123, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "Se listan todos los pacientes de este medico en ese dia que esten en espera");
         p.ver(s.listarPacientesEnEspera(35, new Date("11/08/2023")).resultado, Retorno.Resultado.ERROR_1, "Médico no existente");
-
+        p.ver(s.listarPacientesEnEspera(2020, new Date("11/16/2023")).resultado, Retorno.Resultado.OK, "Medico sin consultas");
     }
 
     private static void p1_17listarConsultasPendientesDePaciente(Sistema s, Prueba p) {
         p.ver(s.consultasPendientesPaciente(5).resultado, Retorno.Resultado.OK, "Se listan todos las consultas pendientes de ese paciente");
         p.ver(s.consultasPendientesPaciente(35).resultado, Retorno.Resultado.ERROR_1, "Paciente no existente");
-
+        p.ver(s.consultasPendientesPaciente(1209).resultado, Retorno.Resultado.OK, "Paciente sin consultas pendientes");
     }
 
     private static void p1_18historiaClinicaPaciente(Sistema s, Prueba p) {
         p.ver(s.historiaClínicaPaciente(5).resultado, Retorno.Resultado.OK, "Se lista el historial medico de ese paciente");
         p.ver(s.historiaClínicaPaciente(35).resultado, Retorno.Resultado.ERROR_1, "Paciente no existente");
+        p.ver(s.historiaClínicaPaciente(-1).resultado, Retorno.Resultado.ERROR_1, "Paciente no existente");
+        p.ver(s.historiaClínicaPaciente(1209).resultado, Retorno.Resultado.OK, "Paciente sin historial medico");
 
     }
 

@@ -295,7 +295,7 @@ public class Sistema implements IObligatorio {
             return r;
         }
         if (!m.getDato().consultasEnFecha(fechaConsulta)) {
-            System.out.println("El medico no tiene consultas para este dia: " + fechaConsulta);
+            System.out.println("El medico no tiene consultas para cerrar");
             r.resultado = Retorno.Resultado.ERROR_2;
             return r;
         } else {
