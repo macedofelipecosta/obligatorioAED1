@@ -154,13 +154,13 @@ public class Main {
         p.ver(s.reservaConsulta(233, 8, new Date("11/08/2023")).resultado, Retorno.Resultado.ERROR_2, "17 Prueba de crear reservaConsulta error 2");
         p.ver(s.reservaConsulta(1, 8, new Date("11/26/2030")).resultado, Retorno.Resultado.ERROR_4, "18 Prueba de crear reservaConsulta error 4");
         p.ver(s.reservaConsulta(2, 7, new Date("11/08/2023")).resultado, Retorno.Resultado.ERROR_3, "19 Prueba de crear reservaConsulta error 3");
-
         p.ver(s.reservaConsulta(123, 7, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "20 Prueba de crear reservaConsulta");
         p.ver(s.reservaConsulta(123, 1, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "21 Prueba de crear reservaConsulta");
         p.ver(s.reservaConsulta(123, 2, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "22 Prueba de crear reservaConsulta");
     }
 
     private static void p1_8cancelarConsulta(Sistema s, Prueba p) {
+        p.ver(s.cancelarReserva(1, 1).resultado, Retorno.Resultado.OK, "11 Prueba de cancelarReserva");
         p.ver(s.cancelarReserva(222, 1).resultado, Retorno.Resultado.ERROR_1, "1 Medico invalido");
         p.ver(s.cancelarReserva(2, -1).resultado, Retorno.Resultado.ERROR_2, "2 Paciente invalido");
 
