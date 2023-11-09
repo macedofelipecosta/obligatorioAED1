@@ -472,6 +472,7 @@ public class Sistema implements IObligatorio {
                 }
             }
             mostrarRec(matriz);
+            r.resultado = Retorno.Resultado.OK;
         }
         return r;
     }
@@ -487,7 +488,7 @@ public class Sistema implements IObligatorio {
             r.resultado = Retorno.Resultado.ERROR_2;
         } else {
             med.crearFecha(fecha);
-            r.resultado = Retorno.Resultado.ERROR_1;
+            r.resultado = Retorno.Resultado.OK;
         }
         return r;
     }

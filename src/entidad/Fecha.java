@@ -150,12 +150,12 @@ public class Fecha implements Comparable<Fecha> {
             Consulta auxC = (Consulta) consultasAgendadas.obtenerElemento(ciPaciente).getDato();
             if (auxC.getEstado().equals("Pendiente")) {
                 resultado = true;
-                System.out.println("Existe elemento consulta ci dentro de agendadas y esta en estado pendiente");
+//                System.out.println("Existe elemento consulta ci dentro de agendadas y esta en estado pendiente");
             }
         }
         if (consultasEnEspera.existeElemento(ciPaciente)) {
             resultado = true;
-            System.out.println("Existe elemento consulta ci dentro de espera y esta en estado pendiente");
+//            System.out.println("Existe elemento consulta ci dentro de espera y esta en estado pendiente");
         }
         return resultado;
     }
