@@ -57,16 +57,16 @@ public class Main {
 
         System.out.println("Se listan pacientes en espera ---------->");
         p1_16listarPacientesEnEspera(s, p);
-        
+
         System.out.println("se listan las consultas pendientes de ese paciente-------->");
-        p1_17listarConsultasPendientesDePaciente( s,  p);
+        p1_17listarConsultasPendientesDePaciente(s, p);
 
         System.out.println("Historia clinica de paciente-------------->");
-        p1_18historiaClinicaPaciente( s,  p);
-        
+        p1_18historiaClinicaPaciente(s, p);
+
         System.out.println("Matriz------------->");
-        p1_19totalReservas( s,  p);
-        
+        p1_19totalReservas(s, p);
+
         p.imprimirResultadosPrueba();
 
     }
@@ -150,17 +150,19 @@ public class Main {
         p.ver(s.reservaConsulta(2, 5, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "13 Prueba de crear reservaConsulta");
         p.ver(s.reservaConsulta(2, 6, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "14 Prueba de crear reservaConsulta");
         p.ver(s.reservaConsulta(2, 7, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "15 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(2, 8, new Date("11/16/2023")).resultado, Retorno.Resultado.ERROR_4, "16 Prueba de crear reservaConsulta error 4");
-        p.ver(s.reservaConsulta(1, 8, new Date("11/26/2023")).resultado, Retorno.Resultado.ERROR_4, "16 Prueba de crear reservaConsulta error 4");
-        p.ver(s.reservaConsulta(2, 8, new Date("11/29/2023")).resultado, Retorno.Resultado.ERROR_4, "16 Prueba de crear reservaConsulta error 4");
+        p.ver(s.reservaConsulta(2, 823, new Date("11/08/2023")).resultado, Retorno.Resultado.ERROR_1, "16 Prueba de crear reservaConsulta error 1");
+        p.ver(s.reservaConsulta(233, 8, new Date("11/08/2023")).resultado, Retorno.Resultado.ERROR_2, "17 Prueba de crear reservaConsulta error 2");
+        p.ver(s.reservaConsulta(1, 8, new Date("11/26/2030")).resultado, Retorno.Resultado.ERROR_4, "18 Prueba de crear reservaConsulta error 4");
+        p.ver(s.reservaConsulta(2, 7, new Date("11/08/2023")).resultado, Retorno.Resultado.ERROR_3, "19 Prueba de crear reservaConsulta error 3");
 
-        p.ver(s.reservaConsulta(123, 7, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "15 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(123, 1, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "15 Prueba de crear reservaConsulta");
-        p.ver(s.reservaConsulta(123, 2, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "15 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(123, 7, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "20 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(123, 1, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "21 Prueba de crear reservaConsulta");
+        p.ver(s.reservaConsulta(123, 2, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "22 Prueba de crear reservaConsulta");
     }
 
     private static void p1_8cancelarConsulta(Sistema s, Prueba p) {
         p.ver(s.cancelarReserva(222, 1).resultado, Retorno.Resultado.ERROR_1, "1 Medico invalido");
+        p.ver(s.cancelarReserva(2, -1).resultado, Retorno.Resultado.ERROR_2, "2 Paciente invalido");
 
     }
 
@@ -187,6 +189,9 @@ public class Main {
 
     private static void p1_12cerrarConsultaMedico(Sistema s, Prueba p) {
         p.ver(s.cerrarConsulta(1, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "Se cierran las consultas de los pacientes que no asistieron");
+        //cancelar consulta cerrada REVISAR
+        p.ver(s.cancelarReserva(2, 1).resultado, Retorno.Resultado.ERROR_3, "2 Consulta ya cerrada");
+
     }
 
     private static void p1_13listarMedicos(Sistema s, Prueba p) {
@@ -199,21 +204,30 @@ public class Main {
 
     private static void p1_15listarConsultasMedico(Sistema s, Prueba p) {
         p.ver(s.listarConsultas(1).resultado, Retorno.Resultado.OK, "Se listan todas las consultas pendientes del medico 1 agrupadas por dia RECURSIVA");
+        p.ver(s.listarConsultas(35).resultado, Retorno.Resultado.ERROR_1, "Médico no existente");
     }
 
     private static void p1_16listarPacientesEnEspera(Sistema s, Prueba p) {
         p.ver(s.listarPacientesEnEspera(123, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "Se listan todos los pacientes de este medico en ese dia que esten en espera");
+        p.ver(s.listarPacientesEnEspera(35, new Date("11/08/2023")).resultado, Retorno.Resultado.ERROR_1, "Médico no existente");
+
     }
-    
-    private static void p1_17listarConsultasPendientesDePaciente(Sistema s, Prueba p){
-     p.ver(s.consultasPendientesPaciente(5).resultado, Retorno.Resultado.OK, "Se listan todos las consultas pendientes de ese paciente");
+
+    private static void p1_17listarConsultasPendientesDePaciente(Sistema s, Prueba p) {
+        p.ver(s.consultasPendientesPaciente(5).resultado, Retorno.Resultado.OK, "Se listan todos las consultas pendientes de ese paciente");
+        p.ver(s.consultasPendientesPaciente(35).resultado, Retorno.Resultado.ERROR_1, "Paciente no existente");
+
     }
-    
-    private static void p1_18historiaClinicaPaciente(Sistema s, Prueba p){
-    p.ver(s.historiaClínicaPaciente(5).resultado, Retorno.Resultado.OK, "Se lista el historial medico de ese paciente");
+
+    private static void p1_18historiaClinicaPaciente(Sistema s, Prueba p) {
+        p.ver(s.historiaClínicaPaciente(5).resultado, Retorno.Resultado.OK, "Se lista el historial medico de ese paciente");
+        p.ver(s.historiaClínicaPaciente(35).resultado, Retorno.Resultado.ERROR_1, "Paciente no existente");
+
     }
-    
-    private static void p1_19totalReservas(Sistema s, Prueba p){
-    p.ver(s.reporteDePacientesXFechaYEspecialidad(11,2023).resultado, Retorno.Resultado.OK, "Se muestra matriz con total de consultas cerradas totales por especialidad y dia");
+
+    private static void p1_19totalReservas(Sistema s, Prueba p) {
+        p.ver(s.reporteDePacientesXFechaYEspecialidad(11, 2023).resultado, Retorno.Resultado.OK, "Se muestra matriz con total de consultas cerradas totales por especialidad y dia");
+        p.ver(s.reporteDePacientesXFechaYEspecialidad(20, 2023).resultado, Retorno.Resultado.ERROR_1, "No se muestra matriz, mes inválido");
+        p.ver(s.reporteDePacientesXFechaYEspecialidad(11, 2030).resultado, Retorno.Resultado.ERROR_1, "No se muestra matriz, año inválido");
     }
 }

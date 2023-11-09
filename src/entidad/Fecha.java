@@ -6,7 +6,6 @@ package entidad;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import tads.Cola;
 import tads.ListaNodos;
 import tads.Nodo;
 
@@ -18,7 +17,7 @@ public class Fecha implements Comparable<Fecha> {
 
     private Date dato;
     private ListaNodos consultasAgendadas;
-    private ListaNodos consultasEnEspera; //puede ser una lista cola?
+    private ListaNodos consultasEnEspera; 
     private int cantConsultasAgendadas;
     private int cantConsultasCerradas;
 

@@ -146,7 +146,6 @@ public final class Medico implements Comparable<Medico> {
     }
 
     public void crearFecha(Date obj) {
-        //
         if (obj != null) {
             Fecha aux = new Fecha(obj);
             this.fechasAgendadas.agregarOrd((Comparable) aux);
@@ -204,6 +203,7 @@ public final class Medico implements Comparable<Medico> {
 
     public boolean existeConsultaCerrada(int ciPaciente) {
         boolean respuesta = false;
+        System.out.println(fechasAgendadas);
         if (!fechasAgendadas.esVacia()) {
             Nodo aux = fechasAgendadas.obtenerInicio();
             if (aux.getSiguiente() != null) {
