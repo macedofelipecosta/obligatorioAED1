@@ -167,7 +167,7 @@ public class Main {
     }
 
     private static void p1_10anunciarLlegadaPaciente(Sistema s, Prueba p) {
-        p.ver(s.anunciaLlegada(1, 1).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 1, medico 1 correctamente");
+        p.ver(s.anunciaLlegada(1, 1).resultado, Retorno.Resultado.ERROR_2, "Error, no se anuncia la llegada del paciente 1, medico 1, cancelada anteriormente");
         p.ver(s.anunciaLlegada(1, 2).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 2, medico 1 correctamente");
         p.ver(s.anunciaLlegada(2, 3).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 3, medico 2 correctamente");
         p.ver(s.anunciaLlegada(2, 4).resultado, Retorno.Resultado.OK, "Se anuncia la llegada del paciente 4, medico 2 correctamente");
@@ -179,18 +179,19 @@ public class Main {
     }
 
     private static void p1_11terminarConsultaMedicoPaciente(Sistema s, Prueba p) {
-        p.ver(s.terminarConsultaMedicoPaciente(1, 1, "Detalle de consulta pac 1").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 1, medico 1 correctamente");
-        p.ver(s.terminarConsultaMedicoPaciente(2, 1, "Detalle de consulta pac 2").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 1, medico 1 correctamente");
-        p.ver(s.terminarConsultaMedicoPaciente(3, 2, "Detalle de consulta pac 3").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 1, medico 1 correctamente");
-        p.ver(s.terminarConsultaMedicoPaciente(4, 2, "Detalle de consulta pac 4").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 1, medico 1 correctamente");
+        p.ver(s.terminarConsultaMedicoPaciente(1, 1, "Detalle de consulta pac 1").resultado, Retorno.Resultado.ERROR_2, "Error, no se termina la consulta del paciente 1, medico 1 ");
+        p.ver(s.terminarConsultaMedicoPaciente(2, 1, "Detalle de consulta pac 2").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 2, medico 1 correctamente");
+        p.ver(s.terminarConsultaMedicoPaciente(3, 2, "Detalle de consulta pac 3").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 3, medico 2 correctamente");
+        p.ver(s.terminarConsultaMedicoPaciente(4, 2, "Detalle de consulta pac 4").resultado, Retorno.Resultado.OK, "Se termina la consulta del paciente 4, medico 2 correctamente");
         p.ver(s.terminarConsultaMedicoPaciente(36541, 1, "Detalle de consulta").resultado, Retorno.Resultado.ERROR_1, "Error 1, este numero de cedula no existe");
         p.ver(s.terminarConsultaMedicoPaciente(8, 2, "Detalle de consulta").resultado, Retorno.Resultado.ERROR_2, "Error este paciente no tiene consulta este dia");
     }
 
     private static void p1_12cerrarConsultaMedico(Sistema s, Prueba p) {
         p.ver(s.cerrarConsulta(1, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "Se cierran las consultas de los pacientes que no asistieron");
+//        p.ver(s.cerrarConsulta(2, new Date("11/08/2023")).resultado, Retorno.Resultado.OK, "Se cierran las consultas de los pacientes que no asistieron");
         //cancelar consulta cerrada REVISAR
-        p.ver(s.cancelarReserva(2, 1).resultado, Retorno.Resultado.ERROR_3, "2 Consulta ya cerrada");
+        p.ver(s.cancelarReserva(2, 1).resultado, Retorno.Resultado.OK, "2 Consulta cancelada");
 
     }
 

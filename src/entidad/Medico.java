@@ -264,16 +264,11 @@ public final class Medico implements Comparable<Medico> {
 
     public boolean anunciarLlegadaPaciente(int ciPaciente) {
         boolean resultado = false;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date fechaHoy = new Date();
-        String fecha = sdf.format(fechaHoy);
-
         if (!fechasAgendadas.esVacia()) {
             Nodo aux = fechasAgendadas.obtenerInicio();
             while (aux.getSiguiente() != null && !resultado) {
                 Fecha auxF = (Fecha) aux.getDato();
-                String fechaConsulta = sdf.format(auxF.getDato());
-                if (fecha.equals(fechaConsulta)) {
+                if (tieneReserva(ciPaciente)) {
                     if (auxF.pacienteConsultaPendiente(ciPaciente)) {
                         auxF.cambiarEstado(ciPaciente);
                         resultado = true;
@@ -284,8 +279,7 @@ public final class Medico implements Comparable<Medico> {
             }
             if (aux.getSiguiente() == null) {
                 Fecha auxF = (Fecha) aux.getDato();
-                String fechaConsulta = sdf.format(auxF.getDato());
-                if (fecha.equals(fechaConsulta)) {
+                if (tieneReserva(ciPaciente)) {
                     if (auxF.pacienteConsultaPendiente(ciPaciente)) {
                         auxF.cambiarEstado(ciPaciente);
                         resultado = true;
